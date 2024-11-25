@@ -1,5 +1,5 @@
 <?php
-$db_host = 'localhost';
+$db_host = 'db239154.dns-servicio.com';
 $db_name = 'ddb239154';
 $db_user = 'ddb239154';
 $db_pass = '4{W{3j}CJRF%RF';
