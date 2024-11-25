@@ -1,6 +1,8 @@
 <?php
 require_once '/model/conexio.php';
 require_once 'mostraranimales.php';
+
+$db = connexio(); // Llamada a la función de conexión
 ?>
 
 <!DOCTYPE html>
