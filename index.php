@@ -1,5 +1,5 @@
 <?php
-require_once 'config.php';
+require_once '/model/conexio.php';
 require_once 'mostraranimales.php';
 ?>
 
