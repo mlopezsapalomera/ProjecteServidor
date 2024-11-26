@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Esborrar Artículo</title>
+    <link rel="stylesheet" href="../styles/styles.css">
+</head>
+<body>
+    <form action="../controllers/esborrar.controller.php" method="POST">
+        <h2>Esborrar Article</h2>
+        <p>Seguro que deseas eliminar este artículo?</p>
+        <input type="hidden" id="id" name="id">
+        <input type="hidden" id="imagen" name="imagen">
+        <button type="submit" class="btn btn-danger">Sí, eliminar</button>
+        <a href="../index.php" class="btn btn-secondary">No, cancelar</a>
+    </form>
+
+    <script>
+        // Obtener los parámetros de la URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const id = urlParams.get('id');
+        const imagen = urlParams.get('imagen');
+
+        // Asignar los valores a los campos ocultos
+        document.getElementById('id').value = id;
+        document.getElementById('imagen').value = imagen;
+    </script>
+</body>
+</html>

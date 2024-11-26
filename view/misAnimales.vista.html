@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <title>Mis Animales</title>
+    <link rel="stylesheet" href="../styles/styles.css">
+</head>
+<body>
+    <div id="mis-animales-container">
+        <!-- El contenido se cargará aquí desde misAnimales.php -->
+    </div>
+    <script>
+        // Cargar el contenido de misAnimales.php
+        fetch('../controllers/misAnimales.controllerphp')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('mis-animales-container').innerHTML = data;
+            });
+    </script>
+</body>
+</html>
