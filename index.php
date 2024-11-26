@@ -35,7 +35,6 @@ $articulos_por_pagina = isset($_GET['articulos_por_pagina']) ? (int)$_GET['artic
             <?php if ($is_logged_in): ?>
                 <a href="controllers/logout.controller.php" class="btn">Tancar Sessió</a>
                 <a href="view/misAnimales.vista.html" class="btn">Mis Animales</a>
-                <a href="view/Inserir.vista.html" class="btn">Inserir Animal</a>
                 <?php if ($is_admin): ?>
                     <a href="view/vistaUsuaris.vista.html" class="btn">Vista Usuaris</a>
                 <?php endif; ?>
@@ -43,6 +42,17 @@ $articulos_por_pagina = isset($_GET['articulos_por_pagina']) ? (int)$_GET['artic
                 <a href="view/login.vista.html" class="btn">Logar-se</a>
                 <a href="view/Register.vista.html" class="btn">Registrar-se</a>
             <?php endif; ?>
+        </div>
+        <div class="insert-animal">
+            <a href="view/Inserir.vista.html" class="btn">Inserir Animal</a>
+        </div>
+        <div class="user-profile">
+            <img src="path/to/default/profile.jpg" alt="User Profile" class="profile-icon" id="profile-icon">
+            <div class="dropdown-menu" id="dropdown-menu">
+                <a href="view/perfil.vista.html">Mi Perfil</a>
+                <a href="view/misAnimales.vista.html">Mis Animales</a>
+                <a href="controllers/logout.controller.php">Tancar Sessió</a>
+            </div>
         </div>
     </header>
 
@@ -73,5 +83,10 @@ $articulos_por_pagina = isset($_GET['articulos_por_pagina']) ? (int)$_GET['artic
             ?>
         </div>
     </main>
+    <script>
+        document.getElementById('profile-icon').addEventListener('click', () => {
+            document.getElementById('dropdown-menu').classList.toggle('show');
+        });
+    </script>
 </body>
 </html>
