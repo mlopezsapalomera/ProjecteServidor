@@ -6,16 +6,47 @@
     <link rel="stylesheet" href="../styles/styles.css">
 </head>
 <body>
+    <a href="../index.php" class="btn back-to-index">Tornar a l'índex</a>
+    <form id="articulos-form">
+        <label for="articulos_por_pagina">Articles per pàgina:</label>
+        <select name="articulos_por_pagina" id="articulos_por_pagina">
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="15">15</option>
+            <option value="20">20</option>
+        </select>
+    </form>
     <div id="mis-animales-container">
         <!-- El contenido se cargará aquí desde misAnimales.php -->
     </div>
     <script>
-        // Cargar el contenido de misAnimales.php
-        fetch('../controllers/misAnimales.controller.php')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('mis-animales-container').innerHTML = data;
-            });
+        function loadMisAnimales(pagina = 1) {
+            const articulosPorPagina = document.getElementById('articulos_por_pagina').value;
+            fetch(`../controllers/misAnimales.controller.php?pagina=${pagina}&articulos_por_pagina=${articulosPorPagina}`)
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('mis-animales-container').innerHTML = data;
+                });
+        }
+
+        // Cargar el contenido de misAnimales.php al cargar la página
+        document.addEventListener('DOMContentLoaded', () => {
+            loadMisAnimales();
+        });
+
+        // Manejar el cambio en el desplegable
+        document.getElementById('articulos_por_pagina').addEventListener('change', () => {
+            loadMisAnimales();
+        });
+
+        // Manejar la paginación
+        document.getElementById('mis-animales-container').addEventListener('click', (event) => {
+            if (event.target.tagName === 'A' && event.target.classList.contains('pagination-link')) {
+                event.preventDefault();
+                const pagina = event.target.getAttribute('data-page');
+                loadMisAnimales(pagina);
+            }
+        });
     </script>
 </body>
 </html>

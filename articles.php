@@ -2,11 +2,8 @@
 //Marcos Lopez Medina
 require_once 'model/db.php'; 
 
-function mostrarAnimales() {
+function mostrarAnimales($articulos_por_pagina = 5) {
     global $conn;
-
-    // Nombre d'articles per pàgina
-    $articulos_por_pagina = 5;
 
     // Obtenir el nombre total d'articles
     $consultaTotal = $conn->query("SELECT COUNT(*) AS total FROM animales");
@@ -47,9 +44,9 @@ function mostrarAnimales() {
             $html .= "<p>Propietario: " . htmlspecialchars($animal['usuario_nom']) . "</p>";
 
             // Botones de acción con verificación de sesión
-            if (isset($_SESSION['usuario_id']) && $_SESSION['usuario_id'] == $animal['usuario_id']) {
+            if (isset($_SESSION['usuario_id']) && ($_SESSION['usuario_id'] == $animal['usuario_id'] || $_SESSION['rol'] === 'admin')) {
                 $html .= "<div class='actions'>";
-                $html .= "<a href='view/Modificar.vista.html?id=" . $animal['id'] . "' class='btn'>Modificar</a>";
+                $html .= "<a href='view/Modificar.vista.html?id=" . $animal['id'] . "&nombre=" . urlencode($animal['nom']) . "&cuerpo=" . urlencode($animal['descripció']) . "&imagen=" . urlencode($animal['imatge']) . "' class='btn'>Modificar</a>";
                 $html .= "<a href='view/Esborrar.vista.html?id=" . $animal['id'] . "&imagen=" . $animal['imatge'] . "' class='btn btn-danger'>Eliminar</a>";
                 $html .= "</div>";
             }
@@ -67,17 +64,17 @@ function mostrarAnimales() {
         // Generar els enllaços de paginació
         $html .= '<div class="pagination">';
         if ($pagina_actual > 1) {
-            $html .= '<a href="?pagina=' . ($pagina_actual - 1) . '">« Anterior</a>';
+            $html .= '<a href="?pagina=' . ($pagina_actual - 1) . '&articulos_por_pagina=' . $articulos_por_pagina . '">« Anterior</a>';
         }
         for ($i = 1; $i <= $total_paginas; $i++) {
             if ($i == $pagina_actual) {
                 $html .= '<span>' . $i . '</span>';
             } else {
-                $html .= '<a href="?pagina=' . $i . '">' . $i . '</a>';
+                $html .= '<a href="?pagina=' . $i . '&articulos_por_pagina=' . $articulos_por_pagina . '">' . $i . '</a>';
             }
         }
         if ($pagina_actual < $total_paginas) {
-            $html .= '<a href="?pagina=' . ($pagina_actual + 1) . '">Següent »</a>';
+            $html .= '<a href="?pagina=' . ($pagina_actual + 1) . '&articulos_por_pagina=' . $articulos_por_pagina . '">Següent »</a>';
         }
         $html .= '</div>';
 
@@ -89,11 +86,8 @@ function mostrarAnimales() {
     }
 }
 
-function mostrarMisAnimales($usuario_id) {
+function mostrarMisAnimales($usuario_id, $articulos_por_pagina = 5) {
     global $conn;
-
-    // Nombre d'articles per pàgina
-    $articulos_por_pagina = 5;
 
     // Obtenir el nombre total d'articles del usuario
     $consultaTotal = $conn->prepare("SELECT COUNT(*) AS total FROM animales WHERE usuario_id = ?");
@@ -132,10 +126,12 @@ function mostrarMisAnimales($usuario_id) {
             $html .= "<p>" . htmlspecialchars($animal['descripció']) . "</p>";
 
             // Botones de acción
-            $html .= "<div class='actions'>";
-            $html .= "<a href='vista/Modificar.html?id=" . $animal['id'] . "' class='btn'>Modificar</a>";
-            $html .= "<a href='/vista/Esborrar.php?id=" . $animal['id'] . "&imagen=" . $animal['imatge'] . "' class='btn btn-danger'>Eliminar</a>";
-            $html .= "</div>";
+            if (isset($_SESSION['usuario_id']) && ($_SESSION['usuario_id'] == $animal['usuario_id'] || $_SESSION['rol'] === 'admin')) {
+                $html .= "<div class='actions'>";
+                $html .= "<a href='../view/Modificar.vista.html?id=" . $animal['id'] . "' class='btn'>Modificar</a>";
+                $html .= "<a href='../view/Esborrar.vista.html?id=" . $animal['id'] . "&imagen=" . $animal['imatge'] . "' class='btn btn-danger'>Eliminar</a>";
+                $html .= "</div>";
+            }
 
             $html .= "</div>";
         }
@@ -150,17 +146,17 @@ function mostrarMisAnimales($usuario_id) {
         // Generar els enllaços de paginació
         $html .= '<div class="pagination">';
         if ($pagina_actual > 1) {
-            $html .= '<a href="?pagina=' . ($pagina_actual - 1) . '">« Anterior</a>';
+            $html .= '<a href="#" class="pagination-link" data-page="' . ($pagina_actual - 1) . '">« Anterior</a>';
         }
         for ($i = 1; $i <= $total_paginas; $i++) {
             if ($i == $pagina_actual) {
                 $html .= '<span>' . $i . '</span>';
             } else {
-                $html .= '<a href="?pagina=' . $i . '">' . $i . '</a>';
+                $html .= '<a href="#" class="pagination-link" data-page="' . $i . '">' . $i . '</a>';
             }
         }
         if ($pagina_actual < $total_paginas) {
-            $html .= '<a href="?pagina=' . ($pagina_actual + 1) . '">Següent »</a>';
+            $html .= '<a href="#" class="pagination-link" data-page="' . ($pagina_actual + 1) . '">Següent »</a>';
         }
         $html .= '</div>';
 
