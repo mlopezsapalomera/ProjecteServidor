@@ -31,28 +31,28 @@ $articulos_por_pagina = isset($_GET['articulos_por_pagina']) ? (int)$_GET['artic
 <body>
     <header>
         <h1>Llista d'Aanimals</h1>
-        <div class="user-actions">
+        <div class="insert-animal">
             <?php if ($is_logged_in): ?>
-                <a href="controllers/logout.controller.php" class="btn">Tancar Sessió</a>
-                <a href="view/misAnimales.vista.html" class="btn">Mis Animales</a>
-                <?php if ($is_admin): ?>
-                    <a href="view/vistaUsuaris.vista.html" class="btn">Vista Usuaris</a>
-                <?php endif; ?>
-            <?php else: ?>
-                <a href="view/login.vista.html" class="btn">Logar-se</a>
-                <a href="view/Register.vista.html" class="btn">Registrar-se</a>
+                <a href="view/Inserir.vista.html" class="btn">Inserir Animal</a>
             <?php endif; ?>
         </div>
-        <div class="insert-animal">
-            <a href="view/Inserir.vista.html" class="btn">Inserir Animal</a>
-        </div>
-        <div class="user-profile">
-            <img src="path/to/default/profile.jpg" alt="User Profile" class="profile-icon" id="profile-icon">
-            <div class="dropdown-menu" id="dropdown-menu">
-                <a href="view/perfil.vista.html">Mi Perfil</a>
-                <a href="view/misAnimales.vista.html">Mis Animales</a>
-                <a href="controllers/logout.controller.php">Tancar Sessió</a>
-            </div>
+        <div class="user-actions">
+            <?php if ($is_logged_in): ?>
+                <div class="user-profile">
+                    <img src="userProfile/img/<?php echo $_SESSION['imagen'] ?? 'default.jpg'; ?>" alt="User Profile" class="profile-icon" id="profile-icon">
+                    <div class="dropdown-menu" id="dropdown-menu">
+                        <a href="view/perfil.vista.php">Mi Perfil</a>
+                        <a href="view/misAnimales.vista.html">Mis Animales</a>
+                        <?php if ($is_admin): ?>
+                            <a href="view/vistaUsuaris.vista.html">Vista Usuaris</a>
+                        <?php endif; ?>
+                        <a href="controllers/logout.controller.php">Tancar Sessió</a>
+                    </div>
+                </div>
+            <?php else: ?>
+                <a href="view/login.vista.php" class="btn">Logar-se</a>
+                <a href="view/Register.vista.php" class="btn">Registrar-se</a>
+            <?php endif; ?>
         </div>
     </header>
 
@@ -65,23 +65,18 @@ $articulos_por_pagina = isset($_GET['articulos_por_pagina']) ? (int)$_GET['artic
                 <div class="error" style="color: red;"><?php echo $error_message; ?></div>
             <?php endif; ?>
         </div>
-
-        <form method="GET" action="index.php">
+        <!-- Formulario para seleccionar el número de artículos por página -->
+        <form id="articulos-form" method="GET" action="index.php">
             <label for="articulos_por_pagina">Articles per pàgina:</label>
-            <select name="articulos_por_pagina" id="articulos_por_pagina" onchange="this.form.submit()">
-                <option value="5" <?php if ($articulos_por_pagina == 5) echo 'selected'; ?>>5</option>
-                <option value="10" <?php if ($articulos_por_pagina == 10) echo 'selected'; ?>>10</option>
-                <option value="15" <?php if ($articulos_por_pagina == 15) echo 'selected'; ?>>15</option>
-                <option value="20" <?php if ($articulos_por_pagina == 20) echo 'selected'; ?>>20</option>
+            <select name="articulos_por_pagina" id="articulos_por_pagina" onchange="document.getElementById('articulos-form').submit();">
+                <option value="5" <?php echo $articulos_por_pagina == 5 ? 'selected' : ''; ?>>5</option>
+                <option value="10" <?php echo $articulos_por_pagina == 10 ? 'selected' : ''; ?>>10</option>
+                <option value="15" <?php echo $articulos_por_pagina == 15 ? 'selected' : ''; ?>>15</option>
+                <option value="20" <?php echo $articulos_por_pagina == 20 ? 'selected' : ''; ?>>20</option>
             </select>
         </form>
-
-        <div class="articulos-list">
-            <?php
-                // Mostra la llista d'articles carregats des de la BD
-                echo mostrarAnimales($articulos_por_pagina);
-            ?>
-        </div>
+        <!-- Contenido principal -->
+        <?php mostrarAnimales($articulos_por_pagina); ?>
     </main>
     <script>
         document.getElementById('profile-icon').addEventListener('click', () => {

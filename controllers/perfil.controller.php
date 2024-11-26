@@ -16,9 +16,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $query = "UPDATE usuarios SET nom = ?, imagen = ? WHERE id = ?";
             $stmt = $conn->prepare($query);
             $stmt->bind_param("ssi", $nombre, $imagen_nombre, $usuario_id);
+            $_SESSION['imagen'] = $imagen_nombre; // Actualizar la imagen en la sesión
         } else {
             $_SESSION['error_message'] = "Error en subir la imagen.";
-            header("Location: ../view/perfil.vista.html");
+            header("Location: ../view/perfil.vista.php");
             exit();
         }
     } else {
@@ -29,12 +30,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($stmt->execute()) {
         $_SESSION['success_message'] = "Perfil actualizado correctamente.";
+        $_SESSION['nombre'] = $nombre; // Actualizar el nombre en la sesión
     } else {
         $_SESSION['error_message'] = "Error en actualizar el perfil: " . $conn->error;
     }
 
     $stmt->close();
-    header("Location: ../view/perfil.vista.html");
+    header("Location: ../view/perfil.vista.php");
     exit();
 }
 ?>

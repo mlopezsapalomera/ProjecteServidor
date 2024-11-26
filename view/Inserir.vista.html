@@ -8,11 +8,11 @@
 <body>
     <form action="../controllers/insertar.controller.php" method="POST" enctype="multipart/form-data">
         <h2>Inserir Article</h2>
-        <label for="nombre">Nom de l'Article:</label>
+        <label for="nombre">Nom de l'animal:</label>
         <input type="text" id="nombre" name="nombre" required>
-        <label for="cuerpo">Cos de l'Article:</label>
+        <label for="cuerpo">Descripció de l'animal:</label>
         <textarea id="cuerpo" name="cuerpo" required></textarea>
-        <label for="imagen">Imatge:</label>
+        <label for="imagen">Imatge de l'animal:</label>
         <input type="file" id="imagen" name="imagen" accept="image/*" required>
         <button type="submit">Inserir</button>
     </form>

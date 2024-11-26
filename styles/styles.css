@@ -315,6 +315,19 @@ table tr:hover {
     margin-top: 20px;
 }
 
+.insert-animal .btn {
+    background-color: #28a745;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.insert-animal .btn:hover {
+    background-color: #218838;
+}
+
 /* Estilo para el icono de usuario y el menú desplegable */
 .user-profile {
     position: absolute;
@@ -355,4 +368,16 @@ table tr:hover {
 
 .dropdown-menu.show {
     display: block;
+}
+
+/* Estilo para la previsualización de la foto de perfil */
+.profile-preview {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.profile-preview .profile-icon {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
 }

@@ -9,10 +9,17 @@
     <a href="../index.php" class="btn back-to-index">Tornar a l'índex</a>
     <form action="../controllers/register.controller.php" method="POST">
         <h2>Registrar-se</h2>
+        <div class="messages">
+            <?php
+            session_start();
+            if (isset($_SESSION['error_message'])): ?>
+                <div class="error" style="color: red;"><?php echo $_SESSION['error_message']; unset($_SESSION['error_message']); ?></div>
+            <?php endif; ?>
+        </div>
         <label for="nombre">Nom:</label>
-        <input type="text" id="nombre" name="nombre" required>
+        <input type="text" id="nombre" name="nombre" value="<?php echo isset($_SESSION['nombre']) ? $_SESSION['nombre'] : ''; ?>" required>
         <label for="email">Email:</label>
-        <input type="text" id="email" name="email" required>
+        <input type="text" id="email" name="email" value="<?php echo isset($_SESSION['email']) ? $_SESSION['email'] : ''; ?>" required>
         <label for="contraseña">Contrasenya:</label>
         <input type="password" id="contraseña" name="contraseña" required>
         <label for="confirmar_contraseña">Confirmar Contrasenya:</label>
