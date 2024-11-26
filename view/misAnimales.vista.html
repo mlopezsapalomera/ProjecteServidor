@@ -11,7 +11,7 @@
     </div>
     <script>
         // Cargar el contenido de misAnimales.php
-        fetch('../controllers/misAnimales.controllerphp')
+        fetch('../controllers/misAnimales.controller.php')
             .then(response => response.text())
             .then(data => {
                 document.getElementById('mis-animales-container').innerHTML = data;
