@@ -15,7 +15,7 @@
     </div>
     <script>
         function loadUsuaris() {
-            fetch('../controllers/vistaUsuaris.controller.php')
+            fetch('../controllers/vistausuaris.controller.php')
                 .then(response => response.text())
                 .then(data => {
                     document.getElementById('usuaris-container').innerHTML = data;
