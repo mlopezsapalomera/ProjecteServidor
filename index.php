@@ -29,12 +29,12 @@ unset($_SESSION['error_message']);
         <h1>Llista d'Articles</h1>
         <div class="user-actions">
             <?php if ($is_logged_in): ?>
-                <a href="controladores/logout.php" class="btn">Tancar Sessió</a>
-                <a href="vista/misAnimales.html" class="btn">Mis Animales</a>
-                <a href="vista/Inserir.html" class="btn">Inserir Animal</a>
+                <a href="controllers/logout.controller.php" class="btn">Tancar Sessió</a>
+                <a href="view/misAnimales.vista.html" class="btn">Mis Animales</a>
+                <a href="view/Inserir.vista.html" class="btn">Inserir Animal</a>
             <?php else: ?>
-                <a href="vista/Login.html" class="btn">Logar-se</a>
-                <a href="vista/Register.html" class="btn">Registrar-se</a>
+                <a href="view/login.vista.html" class="btn">Logar-se</a>
+                <a href="view/Register.vista.html" class="btn">Registrar-se</a>
             <?php endif; ?>
         </div>
     </header>
