@@ -128,8 +128,8 @@ function mostrarMisAnimales($usuario_id, $articulos_por_pagina = 5) {
             // Botones de acción
             if (isset($_SESSION['usuario_id']) && ($_SESSION['usuario_id'] == $animal['usuario_id'] || $_SESSION['rol'] === 'admin')) {
                 $html .= "<div class='actions'>";
-                $html .= "<a href='../view/Modificar.vista.html?id=" . $animal['id'] . "&nombre=" . urlencode($animal['nom']) . "&cuerpo=" . urlencode($animal['descripció']) . "&imagen=" . urlencode($animal['imatge']) . "' class='btn'>Modificar</a>";
-                $html .= "<a href='../view/Esborrar.vista.html?id=" . $animal['id'] . "&imagen=" . $animal['imatge'] . "' class='btn btn-danger'>Eliminar</a>";
+                $html .= "<a href='view/Modificar.vista.html?id=" . $animal['id'] . "&nombre=" . urlencode($animal['nom']) . "&cuerpo=" . urlencode($animal['descripció']) . "&imagen=" . urlencode($animal['imatge']) . "' class='btn'>Modificar</a>";
+                $html .= "<a href='view/Esborrar.vista.html?id=" . $animal['id'] . "&imagen=" . $animal['imatge'] . "' class='btn btn-danger'>Eliminar</a>";
                 $html .= "</div>";
             }
 
