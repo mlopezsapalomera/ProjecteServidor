@@ -26,7 +26,7 @@ unset($_SESSION['error_message']);
 </head>
 <body>
     <header>
-        <h1>Llista d'Articles</h1>
+        <h1>Llista d'Aanimals</h1>
         <div class="user-actions">
             <?php if ($is_logged_in): ?>
                 <a href="controllers/logout.controller.php" class="btn">Tancar Sessió</a>
