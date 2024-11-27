@@ -20,6 +20,8 @@
         <input type="text" id="email" name="email" value="<?php echo isset($_SESSION['login_email']) ? $_SESSION['login_email'] : ''; unset($_SESSION['login_email']); ?>" required>
         <label for="contraseña">Contrasenya:</label>
         <input type="password" id="contraseña" name="contraseña" required>
+        <label for="remember_me">Remember me</label>
+        <input type="checkbox" id="remember_me" name="remember_me">
         <button type="submit">Iniciar Sessió</button>
     </form>
 </body>
