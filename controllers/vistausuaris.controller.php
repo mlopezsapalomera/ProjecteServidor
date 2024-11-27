@@ -14,7 +14,7 @@ $query = "SELECT id, nom, email, rol FROM usuarios WHERE rol != 'admin'";
 $result = $conn->query($query);
 
 $html = '<table>';
-$html .= '<tr><th>ID</th><th>Nom</th><th>Email</th><th>Accions</th></tr>';
+$html .= '<tr><th>ID</th><th>NickName</th><th>Email</th><th>Accions</th></tr>';
 while ($row = $result->fetch_assoc()) {
     $html .= '<tr>';
     $html .= '<td>' . htmlspecialchars($row['id']) . '</td>';

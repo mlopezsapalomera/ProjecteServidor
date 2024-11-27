@@ -17,8 +17,8 @@ require_once '../model/db.php';
 
 $id = $_GET['id'];
 
-// Obtener las rutas de las imágenes de los animales asociados
-$query = "SELECT imatge FROM animales WHERE usuario_id = ?";
+// Obtener las rutas de las imágenes de los pokemons asociados
+$query = "SELECT imatge FROM pokemons WHERE usuario_id = ?";
 $stmt = $conn->prepare($query);
 $stmt->bind_param("i", $id);
 $stmt->execute();
@@ -38,8 +38,8 @@ foreach ($imagenes as $imagen) {
     }
 }
 
-// Eliminar los animales asociados al usuario
-$query = "DELETE FROM animales WHERE usuario_id = ?";
+// Eliminar los pokemons asociados al usuario
+$query = "DELETE FROM pokemons WHERE usuario_id = ?";
 $stmt = $conn->prepare($query);
 $stmt->bind_param("i", $id);
 $stmt->execute();

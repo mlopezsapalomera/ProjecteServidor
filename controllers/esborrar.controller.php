@@ -17,7 +17,7 @@ if (isset($_POST['id']) && isset($_POST['imagen'])) {
     $imagen = $_POST['imagen'];
 
     // Preparar la consulta per verificar si l'article existeix
-    $consultaVerificar = $conn->prepare("SELECT id FROM animales WHERE id = ?");
+    $consultaVerificar = $conn->prepare("SELECT id FROM pokemons WHERE id = ?");
     $consultaVerificar->bind_param("i", $id);
     $consultaVerificar->execute();
     $consultaVerificar->store_result();
@@ -25,7 +25,7 @@ if (isset($_POST['id']) && isset($_POST['imagen'])) {
     // Comprovar si l'article existeix
     if ($consultaVerificar->num_rows > 0) {
         // L'article existeix, procedim a eliminar
-        $consultaEliminar = $conn->prepare("DELETE FROM animales WHERE id = ?");
+        $consultaEliminar = $conn->prepare("DELETE FROM pokemons WHERE id = ?");
         $consultaEliminar->bind_param("i", $id);
 
         if ($consultaEliminar->execute()) {

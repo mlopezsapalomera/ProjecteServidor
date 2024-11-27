@@ -6,10 +6,19 @@ session_start(); // Inicia la sessió
 require_once '../model/db.php'; // Connexió a la base de dades
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $nombre = $_POST['nombre'];
+    $nombre = trim($_POST['nombre']);
     $email = $_POST['email'];
     $contraseña = $_POST['contraseña'];
     $confirmar_contraseña = $_POST['confirmar_contraseña'];
+
+    // Validar que el nombre no esté vacío después de eliminar los espacios en blanco
+    if (empty($nombre)) {
+        $_SESSION['error_message'] = "El nombre no puede estar vacío.";
+        $_SESSION['nombre'] = $nombre; // Mantener los datos del formulario
+        $_SESSION['email'] = $email; // Mantener los datos del formulario
+        header("Location: ../view/Register.vista.php");
+        exit();
+    }
 
     // Comprovar si les contrasenyes coincideixen
     if ($contraseña !== $confirmar_contraseña) {
@@ -29,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
     }
 
-    // Comprovar si l'usuari ja existeix
+    // Comprovar si el correu electrònic ja existeix
     $query = "SELECT * FROM usuarios WHERE email = ?";
     $stmt = $conn->prepare($query);
     $stmt->bind_param("s", $email);
@@ -37,8 +46,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
-        // L'usuari ja existeix
-        $_SESSION['error_message'] = "L'usuari ja existeix.";
+        // El correu electrònic ja existeix
+        $_SESSION['error_message'] = "Usuari ja existent.";
+        $_SESSION['nombre'] = $nombre; // Mantener los datos del formulario
+        $_SESSION['email'] = $email; // Mantener los datos del formulario
+        $stmt->close();
+        header("Location: ../view/Register.vista.php");
+        exit();
+    }
+
+    // Comprovar si el nom d'usuari ja existeix
+    $query = "SELECT * FROM usuarios WHERE nom = ?";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("s", $nombre);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        // El nom d'usuari ja existeix
+        $_SESSION['error_message'] = "Nom de usuari ja en ús.";
         $_SESSION['nombre'] = $nombre; // Mantener los datos del formulario
         $_SESSION['email'] = $email; // Mantener los datos del formulario
         $stmt->close();

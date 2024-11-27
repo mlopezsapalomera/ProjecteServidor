@@ -17,6 +17,6 @@ require_once '../model/db.php';
 require_once '../articles.php';
 
 $usuario_id = $_SESSION['usuario_id']; // Asegúrate de que el ID del usuario esté almacenado en la sesión
-$articulos_por_pagina = isset($_GET['articulos_por_pagina']) ? (int)$_GET['articulos_por_pagina'] : 5;
-echo mostrarMisAnimales($usuario_id, $articulos_por_pagina);
+$pokemons_por_pagina = isset($_GET['pokemons_por_pagina']) ? (int)$_GET['pokemons_por_pagina'] : 5;
+echo mostrarMisPokemons($usuario_id, $pokemons_por_pagina);
 ?>

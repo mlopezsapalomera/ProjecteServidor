@@ -10,6 +10,21 @@ body {
     line-height: 1.6;
     background-color: #f4f4f4;
     padding: 20px;
+    color: #333;
+}
+
+/* Header */
+header {
+    background-color: #333;
+    color: white;
+    padding: 1rem 0;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5rem;
+    color: #ff0000;
 }
 
 /* Navigation */
@@ -22,6 +37,48 @@ nav {
 nav a {
     color: white;
     text-decoration: none;
+}
+
+/* Container */
+.container {
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+}
+
+/* pokemons container and cards */
+.pokemons-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 1rem;
+}
+
+.pokemon-card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 1rem;
+    padding: 1rem;
+    text-align: center;
+}
+
+.pokemon-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+}
+
+.pokemon-card h3 {
+    margin-bottom: 0.5rem;
+    padding: 1rem;
+    color: #333;
+}
+
+.pokemon-card p {
+    padding: 0 1rem 1rem;
+    color: #666;
 }
 
 /* Animals container and cards */
@@ -75,6 +132,24 @@ nav a {
     opacity: 0.9;
 }
 
+.btn-danger {
+    background-color: #dc3545;
+    color: white;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
 /* Estilo para los botones de Logar-se y Registrar-se */
 .actions button {
     background-color: #007bff;
@@ -115,6 +190,15 @@ nav a {
     background-color: #0056b3;
 }
 
+/* Form container */
+.form-container {
+    background: white;
+    padding: 2rem;
+    margin: 2rem 0;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
 /* Form styles */
 form {
     max-width: 600px;
@@ -135,6 +219,12 @@ label {
     color: #333;
 }
 
+form label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
 input[type="text"],
 input[type="password"],
 textarea {
@@ -142,6 +232,18 @@ textarea {
     padding: 0.5rem;
     border: 1px solid #ddd;
     border-radius: 4px;
+}
+
+form input[type="text"],
+form input[type="password"],
+form input[type="file"],
+form select,
+form textarea {
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }
 
 input[type="file"] {
@@ -154,6 +256,53 @@ input[type="file"] {
 
 input[type="file"]:hover {
     background-color: #f1f1f1;
+}
+
+form select {
+    appearance: none;
+    background-color: #fff;
+    background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 5"><path fill="#333" d="M2 0L0 2h4zm0 5L0 3h4z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 0.5rem center;
+    background-size: 8px 10px;
+    padding-right: 1.5rem;
+}
+
+form button {
+    width: 100%;
+    padding: 0.7rem;
+    border: none;
+    border-radius: 5px;
+    background-color: #28a745; /* Cambiar el color de fondo */
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+form button:hover {
+    background-color: #218838; /* Cambiar el color de fondo al pasar el ratón */
+}
+
+/* Messages */
+.messages {
+    margin-bottom: 1rem;
+}
+
+.messages .error {
+    color: #dc3545;
+    background: #f8d7da;
+    padding: 0.5rem;
+    border: 1px solid #f5c6cb;
+    border-radius: 5px;
+}
+
+.messages .success {
+    color: #28a745;
+    background: #d4edda;
+    padding: 0.5rem;
+    border: 1px solid #c3e6cb;
+    border-radius: 5px;
 }
 
 /* Button variations */
@@ -174,6 +323,16 @@ input[type="file"]:hover {
 
 /* Responsive design */
 @media (max-width: 768px) {
+    .pokemons-container {
+        grid-template-columns: 1fr;
+    }
+    
+    form {
+        margin: 1rem;
+    }
+}
+
+@media (max-width: 768px) {
     .animals-container {
         grid-template-columns: 1fr;
     }
@@ -184,6 +343,35 @@ input[type="file"]:hover {
 }
 
 /* Pagination styles */
+.pagination {
+    text-align: center;
+    margin: 1rem 0;
+}
+
+.pagination a {
+    color: #ff0000;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border: 1px solid #ddd;
+    margin: 0 0.2rem;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.pagination a:hover {
+    background-color: #ffcccc;
+    color: #ff0000;
+}
+
+.pagination span {
+    padding: 0.5rem 1rem;
+    border: 1px solid #ddd;
+    margin: 0 0.2rem;
+    border-radius: 5px;
+    background-color: #ff0000;
+    color: white;
+}
+
 .pagination {
     display: flex;
     justify-content: center;
@@ -222,16 +410,16 @@ form button[type="submit"] {
     padding: 0.75rem;
     border: none;
     border-radius: 4px;
-    background-color: #007bff;
+    background-color: #ff0000;
     color: white;
     font-size: 1rem;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s ease;
 }
 
 form input[type="submit"]:hover,
 form button[type="submit"]:hover {
-    background-color: #0056b3;
+    background-color: #cc0000;
 }
 
 /* Back to index button */
@@ -239,7 +427,7 @@ form button[type="submit"]:hover {
     position: absolute;
     top: 20px;
     left: 20px;
-    background-color: #007bff;
+    background-color: #ff0000;
     color: white;
     padding: 0.5rem 1rem;
     border-radius: 4px;
@@ -248,7 +436,7 @@ form button[type="submit"]:hover {
 }
 
 .back-to-index:hover {
-    background-color: #0056b3;
+    background-color: #cc0000;
 }
 
 /* Estilos para la tabla de usuarios */
@@ -259,6 +447,10 @@ form button[type="submit"]:hover {
     background: white;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.table-container {
+    margin: 2rem 0;
 }
 
 table {
@@ -276,6 +468,22 @@ table th, table td {
 table th {
     background-color: #f4f4f4;
     color: #333;
+}
+
+table th,
+table td {
+    padding: 1rem;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+table th {
+    background-color: #333;
+    color: white;
+}
+
+table tr:nth-child(even) {
+    background-color: #f9f9f9;
 }
 
 table tr:hover {
@@ -328,6 +536,25 @@ table tr:hover {
     background-color: #218838;
 }
 
+/* Estilo para el botón "Inserir Pokemon" */
+.insert-pokemon {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.insert-pokemon .btn {
+    background-color: #28a745; /* Cambiar el color de fondo */
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.insert-pokemon .btn:hover {
+    background-color: #218838; /* Cambiar el color de fondo al pasar el ratón */
+}
+
 /* Estilo para el icono de usuario y el menú desplegable */
 .user-profile {
     position: absolute;
@@ -338,8 +565,8 @@ table tr:hover {
 }
 
 .profile-icon {
-    width: 40px;
-    height: 40px;
+    width: 60px; /* Aumentar el tamaño del icono de perfil */
+    height: 60px; /* Aumentar el tamaño del icono de perfil */
     border-radius: 50%;
     cursor: pointer;
 }
@@ -347,7 +574,7 @@ table tr:hover {
 .dropdown-menu {
     display: none;
     position: absolute;
-    top: 60px;
+    top: 70px;
     right: 0;
     background-color: white;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
@@ -374,6 +601,18 @@ table tr:hover {
 .profile-preview {
     text-align: center;
     margin-bottom: 20px;
+}
+
+.profile-preview .profile-icon {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 2px solid #ccc;
+}
+
+.profile-preview {
+    text-align: center;
+    margin-bottom: 1rem;
 }
 
 .profile-preview .profile-icon {

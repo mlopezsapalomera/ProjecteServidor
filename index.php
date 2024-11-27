@@ -2,7 +2,7 @@
 // Marcos Lopez Medina
 session_start(); // Inicia la sessió
 require 'model/db.php'; // Connexió a la base de dades
-require 'articles.php'; // Inclou la lògica per mostrar articles
+require 'articles.php'; // Inclou la lògica per mostrar pokemons
 
 // Comprova si l'usuari està connectat
 $is_logged_in = isset($_SESSION['usuario']);
@@ -16,8 +16,8 @@ $error_message = isset($_SESSION['error_message']) ? $_SESSION['error_message'] 
 unset($_SESSION['success_message']);
 unset($_SESSION['error_message']);
 
-// Obtenir el nombre d'articles per pàgina des del desplegable o establir un valor per defecte
-$articulos_por_pagina = isset($_GET['articulos_por_pagina']) ? (int)$_GET['articulos_por_pagina'] : 5;
+// Obtenir el nombre de pokemons per pàgina des del desplegable o establir un valor per defecte
+$pokemons_por_pagina = isset($_GET['pokemons_por_pagina']) ? (int)$_GET['pokemons_por_pagina'] : 5;
 ?>
 
 <!DOCTYPE html>
@@ -25,15 +25,15 @@ $articulos_por_pagina = isset($_GET['articulos_por_pagina']) ? (int)$_GET['artic
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestió d'Articles</title>
+    <title>Pokedex Global</title>
     <link rel="stylesheet" href="styles/styles.css">
 </head>
 <body>
     <header>
-        <h1>Llista d'Aanimals</h1>
+        <h1>Pokedex Global</h1>
         <div class="insert-animal">
             <?php if ($is_logged_in): ?>
-                <a href="view/Inserir.vista.php" class="btn">Inserir Animal</a>
+                <a href="view/Inserir.vista.php" class="btn">Inserir Pokemon</a>
             <?php endif; ?>
         </div>
         <div class="user-actions">
@@ -42,7 +42,7 @@ $articulos_por_pagina = isset($_GET['articulos_por_pagina']) ? (int)$_GET['artic
                     <img src="userProfile/img/<?php echo $_SESSION['imagen'] ?? 'default.jpg'; ?>" alt="User Profile" class="profile-icon" id="profile-icon">
                     <div class="dropdown-menu" id="dropdown-menu">
                         <a href="view/perfil.vista.php">Mi Perfil</a>
-                        <a href="view/misAnimales.vista.html">Mis Animales</a>
+                        <a href="view/miPokedex.vista.html">Mis Pokemons</a>
                         <?php if ($is_admin): ?>
                             <a href="view/vistaUsuaris.vista.html">Vista Usuaris</a>
                         <?php endif; ?>
@@ -65,18 +65,18 @@ $articulos_por_pagina = isset($_GET['articulos_por_pagina']) ? (int)$_GET['artic
                 <div class="error" style="color: red;"><?php echo $error_message; ?></div>
             <?php endif; ?>
         </div>
-        <!-- Formulario para seleccionar el número de artículos por página -->
-        <form id="articulos-form" method="GET" action="index.php">
-            <label for="articulos_por_pagina">Articles per pàgina:</label>
-            <select name="articulos_por_pagina" id="articulos_por_pagina" onchange="document.getElementById('articulos-form').submit();">
-                <option value="5" <?php echo $articulos_por_pagina == 5 ? 'selected' : ''; ?>>5</option>
-                <option value="10" <?php echo $articulos_por_pagina == 10 ? 'selected' : ''; ?>>10</option>
-                <option value="15" <?php echo $articulos_por_pagina == 15 ? 'selected' : ''; ?>>15</option>
-                <option value="20" <?php echo $articulos_por_pagina == 20 ? 'selected' : ''; ?>>20</option>
+        <!-- Formulario para seleccionar el número de pokemons por página -->
+        <form id="pokemons-form" method="GET" action="index.php">
+            <label for="pokemons_por_pagina">Pokemons per pàgina:</label>
+            <select name="pokemons_por_pagina" id="pokemons_por_pagina" onchange="document.getElementById('pokemons-form').submit();">
+                <option value="5" <?php echo $pokemons_por_pagina == 5 ? 'selected' : ''; ?>>5</option>
+                <option value="10" <?php echo $pokemons_por_pagina == 10 ? 'selected' : ''; ?>>10</option>
+                <option value="15" <?php echo $pokemons_por_pagina == 15 ? 'selected' : ''; ?>>15</option>
+                <option value="20" <?php echo $pokemons_por_pagina == 20 ? 'selected' : ''; ?>>20</option>
             </select>
         </form>
         <!-- Contenido principal -->
-        <?php mostrarAnimales($articulos_por_pagina); ?>
+        <?php mostrarPokemons($pokemons_por_pagina); ?>
     </main>
     <script>
         document.getElementById('profile-icon').addEventListener('click', () => {

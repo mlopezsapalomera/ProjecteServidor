@@ -24,14 +24,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Mover la imagen subida a la carpeta de destino
     if (move_uploaded_file($imagen['tmp_name'], $imagen_ruta)) {
         // Preparar i executar la consulta d'inserció
-        $query = "INSERT INTO animales (nom, descripció, imatge, usuario_id) VALUES (?, ?, ?, ?)";
+        $query = "INSERT INTO pokemons (nom, descripció, imatge, usuario_id) VALUES (?, ?, ?, ?)";
         $stmt = $conn->prepare($query);
         $stmt->bind_param("sssi", $nombre, $cuerpo, $imagen_nombre, $usuario_id);
         
         if ($stmt->execute()) {
-            $_SESSION['success_message'] = "Animal insertat correctament.";
+            $_SESSION['success_message'] = "Pokemon insertat correctament.";
         } else {
-            $_SESSION['error_message'] = "Error en insertar l'animal: " . $conn->error;
+            $_SESSION['error_message'] = "Error en insertar el Pokemon: " . $conn->error;
         }
         
         $stmt->close();
