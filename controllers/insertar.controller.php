@@ -5,9 +5,16 @@ session_start(); // Inicia la sessió
 require_once '../model/db.php'; // Connexió a la base de dades
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $nombre = $_POST['nombre'];
-    $cuerpo = $_POST['cuerpo'];
+    $nombre = trim($_POST['nombre']);
+    $cuerpo = trim($_POST['cuerpo']);
     $usuario_id = $_SESSION['usuario_id']; // Asegúrate de que el ID del usuario esté almacenado en la sesión
+
+    // Validar que los campos no estén vacíos después de eliminar los espacios en blanco
+    if (empty($nombre) || empty($cuerpo)) {
+        $_SESSION['error_message'] = "El nombre y la descripción no pueden estar vacíos.";
+        header("Location: ../view/Inserir.vista.php");
+        exit();
+    }
 
     // Manejar la subida de la imagen
     $imagen = $_FILES['imagen'];

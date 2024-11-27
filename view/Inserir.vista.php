@@ -6,6 +6,11 @@
     <link rel="stylesheet" href="../styles/styles.css">
 </head>
 <body>
+    <?php
+    session_start();
+    if (isset($_SESSION['error_message'])): ?>
+        <div class="error" style="color: red;"><?php echo $_SESSION['error_message']; unset($_SESSION['error_message']); ?></div>
+    <?php endif; ?>
     <form action="../controllers/insertar.controller.php" method="POST" enctype="multipart/form-data">
         <h2>Inserir Article</h2>
         <label for="nombre">Nom de l'animal:</label>

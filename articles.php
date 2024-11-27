@@ -5,8 +5,10 @@ require_once 'model/db.php';
 function mostrarAnimales($articulos_por_pagina = 5) {
     global $conn;
 
-    // Obtenir el nombre total d'articles
-    $consultaTotal = $conn->query("SELECT COUNT(*) AS total FROM animales");
+    // Obtenir el nombre total d'articles que pertanyen a usuaris existents
+    $consultaTotal = $conn->query("SELECT COUNT(*) AS total 
+                                   FROM animales a 
+                                   JOIN usuarios u ON a.usuario_id = u.id");
     $total_articulos = $consultaTotal->fetch_assoc()['total'];
 
     // Calcular el nombre total de pàgines
@@ -20,7 +22,7 @@ function mostrarAnimales($articulos_por_pagina = 5) {
     $inicio = ($pagina_actual - 1) * $articulos_por_pagina;
 
     try {
-        // Preparar la consulta per obtenir tots els articles de la pàgina actual
+        // Preparar la consulta per obtenir els articles de la pàgina actual que pertanyen a usuaris existents
         $consultaArticulos = $conn->prepare("SELECT a.*, u.nom as usuario_nom 
                                              FROM animales a 
                                              JOIN usuarios u ON a.usuario_id = u.id 

@@ -33,7 +33,7 @@ $articulos_por_pagina = isset($_GET['articulos_por_pagina']) ? (int)$_GET['artic
         <h1>Llista d'Aanimals</h1>
         <div class="insert-animal">
             <?php if ($is_logged_in): ?>
-                <a href="view/Inserir.vista.html" class="btn">Inserir Animal</a>
+                <a href="view/Inserir.vista.php" class="btn">Inserir Animal</a>
             <?php endif; ?>
         </div>
         <div class="user-actions">
