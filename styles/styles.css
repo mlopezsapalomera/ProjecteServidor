@@ -65,7 +65,8 @@ nav a {
 
 .pokemon-card img {
     width: 100%;
-    height: auto;
+    height: 200px; /* Establecer una altura fija */
+    object-fit: cover; /* Asegurarse de que la imagen se ajuste correctamente */
     border-radius: 10px;
     margin-bottom: 1rem;
 }
