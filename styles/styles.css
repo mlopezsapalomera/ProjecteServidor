@@ -1,30 +1,38 @@
-/* Reset and general styles */
+/* Core reset */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', system-ui, sans-serif;
 }
 
+/* Base styles */
 body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-    background-color: #f4f4f4;
-    padding: 20px;
-    color: #333;
+  background: #f0f2f5;
+  color: #1a1a1a;
+  line-height: 1.5;
 }
 
-/* Header */
+.container {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* Header styling */
 header {
-    background-color: #333;
-    color: white;
-    padding: 1rem 0;
-    text-align: center;
+  background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+  padding: 1.5rem 0;
+  position: relative;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
 header h1 {
-    margin: 0;
-    font-size: 2.5rem;
-    color: #ff0000;
+  color: #fff;
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-align: justify;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
 }
 
 /* Navigation */
@@ -39,135 +47,83 @@ nav a {
     text-decoration: none;
 }
 
-/* Container */
-.container {
-    width: 80%;
-    margin: auto;
-    overflow: hidden;
-}
-
-/* pokemons container and cards */
+/* Card grid */
 .pokemons-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 2rem;
-    padding: 1rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+  padding: 1.5rem 0;
 }
 
 .pokemon-card {
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin: 1rem;
-    padding: 1rem;
-    text-align: center;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  transition: transform 0.2s;
+  overflow: hidden;
+}
+
+.pokemon-card:hover {
+  transform: translateY(-5px);
 }
 
 .pokemon-card img {
-    width: 100%;
-    height: 200px; /* Establecer una altura fija */
-    object-fit: cover; /* Asegurarse de que la imagen se ajuste correctamente */
-    border-radius: 10px;
-    margin-bottom: 1rem;
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
 }
 
 .pokemon-card h3 {
-    margin-bottom: 0.5rem;
-    padding: 1rem;
-    color: #333;
+  font-size: 1.25rem;
+  padding: 1rem;
+  color: #1a1a1a;
 }
 
 .pokemon-card p {
-    padding: 0 1rem 1rem;
-    color: #666;
+  padding: 0 1rem 1rem;
+  color: #666;
 }
 
-/* Animals container and cards */
-.animals-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 2rem;
-    padding: 1rem;
-}
-
-.animal-card {
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    overflow: hidden;
-}
-
-.animal-card img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-}
-
-.animal-card h3 {
-    padding: 1rem;
-    color: #333;
-}
-
-.animal-card p {
-    padding: 0 1rem 1rem;
-    color: #666;
-}
-
-/* Buttons and actions */
-.actions {
-    padding: 1rem;
-    display: flex;
-    gap: 1rem;
-}
-
+/* Button styles */
 .btn {
-    padding: 0.5rem 1rem;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    text-decoration: none;
-    transition: background-color 0.3s;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.2s;
+  border: none;
+  cursor: pointer;
 }
 
-.btn:hover {
-    opacity: 0.9;
+.btn-primary {
+  background: #2563eb;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: #1d4ed8;
 }
 
 .btn-danger {
-    background-color: #dc3545;
-    color: white;
+  background: #dc2626;
+  color: #fff;
 }
 
 .btn-danger:hover {
-    background-color: #c82333;
+  background: #b91c1c;
 }
 
 .btn-secondary {
-    background-color: #6c757d;
-    color: white;
+  background: #4b5563;
+  color: #fff;
 }
 
 .btn-secondary:hover {
-    background-color: #5a6268;
+  background: #374151;
 }
 
-/* Estilo para los botones de Logar-se y Registrar-se */
-.actions button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    cursor: pointer;
-    margin: 0.5rem;
-    font-size: 1rem;
-}
-
-.actions button:hover {
-    background-color: #0056b3;
-}
-
-/* Estilo para el contenedor de acciones de usuario en el encabezado */
+/* User actions in header */
 .user-actions {
     position: absolute;
     top: 20px;
@@ -176,19 +132,159 @@ nav a {
     gap: 10px;
 }
 
-/* Estilo para los botones de Logar-se y Registrar-se */
-.user-actions .btn {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 1rem;
+/* Form styling */
+form {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  max-width: 100%;
+  margin: 2rem auto;
 }
 
-.user-actions .btn:hover {
-    background-color: #0056b3;
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #374151;
+}
+
+.form-control {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+}
+
+.form-control:focus {
+  border-color: #2563eb;
+  outline: none;
+}
+
+/* User profile dropdown */
+.profile-icon {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.profile-icon:hover {
+  transform: scale(1.1);
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 105px;
+    left: auto; 
+    right: 0;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    overflow: hidden;
+    min-width: 200px;
+    display: none;
+  }
+
+.dropdown-menu.show {
+  display: block;
+  animation: slideDown 0.2s ease;
+}
+
+.dropdown-menu a {
+  padding: 0.75rem 1.5rem;
+  display: block;
+  color: #374151;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.dropdown-menu a:hover {
+  background: #f3f4f6;
+}
+
+/* Alert messages */
+.alert {
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.alert-success {
+  background: #dcfce7;
+  color: #166534;
+  border: 1px solid #bbf7d0;
+}
+
+.alert-danger {
+  background: #fee2e2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+  
+  .pokemons-container {
+    grid-template-columns: 1fr;
+  }
+  
+  form {
+    margin: 1rem;
+    padding: 1.5rem;
+  }
+  
+  header h1 {
+    font-size: 2rem;
+  }
+}
+
+/* Pagination */
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: 2rem 0;
+}
+
+.pagination a, .pagination span {
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  color: #374151;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.pagination a:hover {
+  background: #e5e7eb;
+}
+
+.pagination span {
+  background: #2563eb;
+  color: #fff;
+}
+
+/* Animations */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Form container */
@@ -201,15 +297,6 @@ nav a {
 }
 
 /* Form styles */
-form {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 2rem;
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
 form div {
     margin-bottom: 1rem;
 }
@@ -220,12 +307,6 @@ label {
     color: #333;
 }
 
-form label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-weight: bold;
-}
-
 input[type="text"],
 input[type="password"],
 textarea {
@@ -233,18 +314,6 @@ textarea {
     padding: 0.5rem;
     border: 1px solid #ddd;
     border-radius: 4px;
-}
-
-form input[type="text"],
-form input[type="password"],
-form input[type="file"],
-form select,
-form textarea {
-    width: 100%;
-    padding: 0.5rem;
-    margin-bottom: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 5px;
 }
 
 input[type="file"] {
@@ -274,7 +343,7 @@ form button {
     padding: 0.7rem;
     border: none;
     border-radius: 5px;
-    background-color: #28a745; /* Cambiar el color de fondo */
+    background-color: #28a745;
     color: white;
     font-size: 1rem;
     cursor: pointer;
@@ -282,7 +351,7 @@ form button {
 }
 
 form button:hover {
-    background-color: #218838; /* Cambiar el color de fondo al pasar el ratón */
+    background-color: #218838;
 }
 
 /* Messages */
@@ -306,123 +375,6 @@ form button:hover {
     border-radius: 5px;
 }
 
-/* Button variations */
-.btn-primary {
-    background-color: #007bff;
-    color: white;
-}
-
-.btn-danger {
-    background-color: #dc3545;
-    color: white;
-}
-
-.btn-secondary {
-    background-color: #6c757d;
-    color: white;
-}
-
-/* Responsive design */
-@media (max-width: 768px) {
-    .pokemons-container {
-        grid-template-columns: 1fr;
-    }
-    
-    form {
-        margin: 1rem;
-    }
-}
-
-@media (max-width: 768px) {
-    .animals-container {
-        grid-template-columns: 1fr;
-    }
-    
-    form {
-        margin: 1rem;
-    }
-}
-
-/* Pagination styles */
-.pagination {
-    text-align: center;
-    margin: 1rem 0;
-}
-
-.pagination a {
-    color: #ff0000;
-    text-decoration: none;
-    padding: 0.5rem 1rem;
-    border: 1px solid #ddd;
-    margin: 0 0.2rem;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-}
-
-.pagination a:hover {
-    background-color: #ffcccc;
-    color: #ff0000;
-}
-
-.pagination span {
-    padding: 0.5rem 1rem;
-    border: 1px solid #ddd;
-    margin: 0 0.2rem;
-    border-radius: 5px;
-    background-color: #ff0000;
-    color: white;
-}
-
-.pagination {
-    display: flex;
-    justify-content: center;
-    margin: 1rem 0;
-}
-
-.pagination a, .pagination span {
-    margin: 0 0.25rem;
-    padding: 0.5rem 0.75rem;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    text-decoration: none;
-    color: #007bff;
-}
-
-.pagination a:hover {
-    background-color: #f1f1f1;
-}
-
-.pagination span {
-    background-color: #007bff;
-    color: white;
-    border-color: #007bff;
-}
-
-/* Additional styles for forms */
-form h2 {
-    text-align: center;
-    margin-bottom: 1rem;
-    color: #333;
-}
-
-form input[type="submit"],
-form button[type="submit"] {
-    width: 100%;
-    padding: 0.75rem;
-    border: none;
-    border-radius: 4px;
-    background-color: #ff0000;
-    color: white;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-form input[type="submit"]:hover,
-form button[type="submit"]:hover {
-    background-color: #cc0000;
-}
-
 /* Back to index button */
 .back-to-index {
     position: absolute;
@@ -440,7 +392,20 @@ form button[type="submit"]:hover {
     background-color: #cc0000;
 }
 
-/* Estilos para la tabla de usuarios */
+/* Profile preview */
+.profile-preview {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.profile-preview .profile-icon {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 2px solid #ccc;
+}
+
+/* Table styles */
 .table-container {
     max-width: 1000px;
     margin: 0 auto;
@@ -448,10 +413,6 @@ form button[type="submit"]:hover {
     background: white;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-.table-container {
-    margin: 2rem 0;
 }
 
 table {
@@ -464,18 +425,6 @@ table th, table td {
     padding: 1rem;
     text-align: left;
     border-bottom: 1px solid #ddd;
-}
-
-table th {
-    background-color: #f4f4f4;
-    color: #333;
-}
-
-table th,
-table td {
-    padding: 1rem;
-    border: 1px solid #ddd;
-    text-align: left;
 }
 
 table th {
@@ -518,13 +467,13 @@ table tr:hover {
     background-color: #c82333;
 }
 
-/* Estilo para el botón "Inserir Animal" */
-.insert-animal {
+/* Insert buttons */
+.insert-animal, .insert-pokemon {
     text-align: center;
     margin-top: 20px;
 }
 
-.insert-animal .btn {
+.insert-animal .btn, .insert-pokemon .btn {
     background-color: #28a745;
     color: white;
     padding: 0.5rem 1rem;
@@ -533,91 +482,6 @@ table tr:hover {
     transition: background-color 0.3s;
 }
 
-.insert-animal .btn:hover {
+.insert-animal .btn:hover, .insert-pokemon .btn:hover {
     background-color: #218838;
-}
-
-/* Estilo para el botón "Inserir Pokemon" */
-.insert-pokemon {
-    text-align: center;
-    margin-top: 20px;
-}
-
-.insert-pokemon .btn {
-    background-color: #28a745; /* Cambiar el color de fondo */
-    color: white;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    text-decoration: none;
-    transition: background-color 0.3s;
-}
-
-.insert-pokemon .btn:hover {
-    background-color: #218838; /* Cambiar el color de fondo al pasar el ratón */
-}
-
-/* Estilo para el icono de usuario y el menú desplegable */
-.user-profile {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    display: flex;
-    align-items: center;
-}
-
-.profile-icon {
-    width: 60px; /* Aumentar el tamaño del icono de perfil */
-    height: 60px; /* Aumentar el tamaño del icono de perfil */
-    border-radius: 50%;
-    cursor: pointer;
-}
-
-.dropdown-menu {
-    display: none;
-    position: absolute;
-    top: 70px;
-    right: 0;
-    background-color: white;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    border-radius: 4px;
-    overflow: hidden;
-}
-
-.dropdown-menu a {
-    display: block;
-    padding: 10px 20px;
-    text-decoration: none;
-    color: black;
-}
-
-.dropdown-menu a:hover {
-    background-color: #f0f0f0;
-}
-
-.dropdown-menu.show {
-    display: block;
-}
-
-/* Estilo para la previsualización de la foto de perfil */
-.profile-preview {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.profile-preview .profile-icon {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    border: 2px solid #ccc;
-}
-
-.profile-preview {
-    text-align: center;
-    margin-bottom: 1rem;
-}
-
-.profile-preview .profile-icon {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
 }

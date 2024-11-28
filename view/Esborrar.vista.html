@@ -2,19 +2,22 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Esborrar Artículo</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="../styles/styles.css">
 </head>
 <body>
-    <form action="../controllers/esborrar.controller.php" method="POST">
-        <h2>Esborrar Article</h2>
-        <p>Seguro que deseas eliminar este artículo?</p>
-        <input type="hidden" id="id" name="id">
-        <input type="hidden" id="imagen" name="imagen">
-        <button type="submit" class="btn btn-danger">Sí, eliminar</button>
-        <a href="../index.php" class="btn btn-secondary">No, cancelar</a>
-    </form>
-
+    <div class="container">
+        <form action="../controllers/esborrar.controller.php" method="POST">
+            <h2>Esborrar Article</h2>
+            <p>Seguro que deseas eliminar este artículo?</p>
+            <input type="hidden" id="id" name="id">
+            <input type="hidden" id="imagen" name="imagen">
+            <button type="submit" class="btn btn-danger">Sí, eliminar</button>
+            <a href="../index.php" class="btn btn-secondary">No, cancelar</a>
+        </form>
+    </div>
     <script>
         // Obtener los parámetros de la URL
         const urlParams = new URLSearchParams(window.location.search);

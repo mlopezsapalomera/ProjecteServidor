@@ -2,15 +2,19 @@
 <html lang="ca">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Vista Usuaris</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="../styles/styles.css">
 </head>
 <body>
-    <a href="../index.php" class="btn back-to-index">Tornar a l'índex</a>
-    <div class="table-container">
-        <h2>Llista d'Usuaris</h2>
-        <div id="usuaris-container">
-            <!-- El contenido se cargará aquí desde vistaUsuaris.controller.php -->
+    <div class="container">
+        <a href="../index.php" class="btn btn-secondary my-3">Tornar a l'índex</a>
+        <div class="table-container">
+            <h2>Llista d'Usuaris</h2>
+            <div id="usuaris-container">
+                <!-- El contenido se cargará aquí desde vistaUsuaris.controller.php -->
+            </div>
         </div>
     </div>
     <script>
@@ -22,12 +26,10 @@
                 });
         }
 
-        // Cargar el contenido de vistaUsuaris.controller.php al cargar la página
         document.addEventListener('DOMContentLoaded', () => {
             loadUsuaris();
         });
 
-        // Manejar la eliminación de usuarios
         document.getElementById('usuaris-container').addEventListener('click', (event) => {
             if (event.target.tagName === 'BUTTON' && event.target.classList.contains('delete-user')) {
                 const userId = event.target.getAttribute('data-user-id');
