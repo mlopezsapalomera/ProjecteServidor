@@ -60,15 +60,14 @@ $pokemons_per_pagina = isset($_GET['pokemons_per_pagina']) ? (int)$_GET['pokemon
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pokedex Global</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="styles/styles.css">
 </head>
 <body>
-    <header class="container">
+    <header>
         <h1>Pokedex Global</h1>
         <div class="insert-animal">
             <?php if ($is_logged_in): ?>
-                <a href="view/Inserir.vista.php" class="btn btn-primary">Inserir Pokemon</a>
+                <a href="view/Inserir.vista.php" class="btn">Inserir Pokemon</a>
             <?php endif; ?>
         </div>
         <div class="user-actions">
@@ -85,25 +84,25 @@ $pokemons_per_pagina = isset($_GET['pokemons_per_pagina']) ? (int)$_GET['pokemon
                     </div>
                 </div>
             <?php else: ?>
-                <a href="view/login.vista.php" class="btn btn-primary">Logar-se</a>
-                <a href="view/Register.vista.php" class="btn btn-secondary">Registrar-se</a>
+                <a href="view/login.vista.php" class="btn">Logar-se</a>
+                <a href="view/Register.vista.php" class="btn">Registrar-se</a>
             <?php endif; ?>
         </div>
     </header>
 
-    <main class="container">
+    <main>
         <div class="messages">
             <?php if ($success_message): ?>
-                <div class="alert alert-success"><?php echo $success_message; ?></div>
+                <div class="success" style="color: green;"><?php echo $success_message; ?></div>
             <?php endif; ?>
             <?php if ($error_message): ?>
-                <div class="alert alert-danger"><?php echo $error_message; ?></div>
+                <div class="error" style="color: red;"><?php echo $error_message; ?></div>
             <?php endif; ?>
         </div>
         <!-- Formulario para seleccionar el número de pokemons por página -->
-        <form id="pokemons-form" method="GET" action="index.php" class="form-inline my-3">
-            <label for="pokemons_por_pagina" class="mr-2">Pokemons per pàgina:</label>
-            <select name="pokemons_por_pagina" id="pokemons_por_pagina" class="form-control" onchange="document.getElementById('pokemons-form').submit();">
+        <form id="pokemons-form" method="GET" action="index.php">
+            <label for="pokemons_por_pagina">Pokemons per pàgina:</label>
+            <select name="pokemons_por_pagina" id="pokemons_por_pagina" onchange="document.getElementById('pokemons-form').submit();">
                 <option value="5" <?php echo $pokemons_per_pagina == 5 ? 'selected' : ''; ?>>5</option>
                 <option value="10" <?php echo $pokemons_per_pagina == 10 ? 'selected' : ''; ?>>10</option>
                 <option value="15" <?php echo $pokemons_per_pagina == 15 ? 'selected' : ''; ?>>15</option>
