@@ -86,23 +86,31 @@ nav a {
 
 /* Button styles */
 .btn {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.75rem 1.5rem;
-  border-radius: 8px;
-  font-weight: 500;
-  transition: all 0.2s;
+  display: inline-block;
+  padding: 0.5rem 1rem;
   border: none;
+  border-radius: 4px;
   cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.3s;
 }
 
 .btn-primary {
-  background: #2563eb;
-  color: #fff;
+  background-color: #007bff;
+  color: white;
 }
 
 .btn-primary:hover {
-  background: #1d4ed8;
+  background-color: #0056b3;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  color: white;
+}
+
+.btn-secondary:hover {
+  background-color: #5a6268;
 }
 
 .btn-danger {
@@ -112,15 +120,6 @@ nav a {
 
 .btn-danger:hover {
   background: #b91c1c;
-}
-
-.btn-secondary {
-  background: #4b5563;
-  color: #fff;
-}
-
-.btn-secondary:hover {
-  background: #374151;
 }
 
 /* User actions in header */
@@ -484,4 +483,35 @@ table tr:hover {
 
 .insert-animal .btn:hover, .insert-pokemon .btn:hover {
     background-color: #218838;
+}
+
+/* Estilo para el desplegable de "Pokemons per pàgina" */
+#pokemons-form {
+    margin: 1rem 0;
+    text-align: center;
+}
+
+#pokemons-form label {
+    font-weight: bold;
+    margin-right: 0.5rem;
+    color: #333;
+}
+
+#pokemons-form select {
+    padding: 0.5rem 1rem;
+    border: 2px solid #ddd;
+    border-radius: 4px;
+    background-color: #fff;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+    cursor: pointer;
+}
+
+#pokemons-form select:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+#pokemons-form select:hover {
+    border-color: #0056b3;
 }

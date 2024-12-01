@@ -5,6 +5,9 @@ require_once 'model/db.php';
 function mostrarPokemons($pokemons_por_pagina = 5) {
     global $conn;
 
+    // Verificar que el número de pokemons por página no sea inferior a 5
+    $pokemons_por_pagina = max(5, $pokemons_por_pagina);
+
     // Obtenir el nombre total de pokemons que pertanyen a usuaris existents
     $consultaTotal = $conn->query("SELECT COUNT(*) AS total 
                                    FROM pokemons p 

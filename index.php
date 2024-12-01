@@ -51,7 +51,7 @@ unset($_SESSION['success_message']);
 unset($_SESSION['error_message']);
 
 // Obtenir el nombre de pokemons per pàgina des del desplegable o establir un valor per defecte
-$pokemons_per_pagina = isset($_GET['pokemons_per_pagina']) ? (int)$_GET['pokemons_per_pagina'] : 5;
+$pokemons_per_pagina = isset($_GET['pokemons_por_pagina']) ? (int)$_GET['pokemons_por_pagina'] : 5;
 
 ?>
 <!DOCTYPE html>
@@ -67,7 +67,7 @@ $pokemons_per_pagina = isset($_GET['pokemons_per_pagina']) ? (int)$_GET['pokemon
         <h1>Pokedex Global</h1>
         <div class="insert-animal">
             <?php if ($is_logged_in): ?>
-                <a href="view/Inserir.vista.php" class="btn">Inserir Pokemon</a>
+                <a href="view/Inserir.vista.php" class="btn btn-primary">Inserir Pokemon</a>
             <?php endif; ?>
         </div>
         <div class="user-actions">
@@ -84,8 +84,8 @@ $pokemons_per_pagina = isset($_GET['pokemons_per_pagina']) ? (int)$_GET['pokemon
                     </div>
                 </div>
             <?php else: ?>
-                <a href="view/login.vista.php" class="btn">Logar-se</a>
-                <a href="view/Register.vista.php" class="btn">Registrar-se</a>
+                <a href="view/login.vista.php" class="btn btn-primary">Logar-se</a>
+                <a href="view/Register.vista.php" class="btn btn-secondary">Registrar-se</a>
             <?php endif; ?>
         </div>
     </header>
