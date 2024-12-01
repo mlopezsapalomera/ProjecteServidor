@@ -2,11 +2,14 @@
 //Marcos Lopez Medina
 require_once 'model/db.php'; 
 
-function mostrarPokemons($pokemons_por_pagina = 5) {
+function mostrarPokemons($pokemons_por_pagina = 5, $orden = 'asc') {
     global $conn;
 
     // Verificar que el número de pokemons por página no sea inferior a 5
     $pokemons_por_pagina = max(5, $pokemons_por_pagina);
+
+    // Verificar que el orden sea válido
+    $orden = ($orden === 'desc') ? 'DESC' : 'ASC';
 
     // Obtenir el nombre total de pokemons que pertanyen a usuaris existents
     $consultaTotal = $conn->query("SELECT COUNT(*) AS total 
@@ -29,6 +32,7 @@ function mostrarPokemons($pokemons_por_pagina = 5) {
         $consultaPokemons = $conn->prepare("SELECT p.*, u.nom as usuario_nom 
                                              FROM pokemons p 
                                              JOIN usuarios u ON p.usuario_id = u.id 
+                                             ORDER BY p.nom $orden
                                              LIMIT ?, ?");
         $consultaPokemons->bind_param("ii", $inicio, $pokemons_por_pagina);
         $consultaPokemons->execute();
@@ -69,17 +73,17 @@ function mostrarPokemons($pokemons_por_pagina = 5) {
         // Generar els enllaços de paginació
         $html .= '<div class="pagination">';
         if ($pagina_actual > 1) {
-            $html .= '<a href="?pagina=' . ($pagina_actual - 1) . '&pokemons_por_pagina=' . $pokemons_por_pagina . '">« Anterior</a>';
+            $html .= '<a href="?pagina=' . ($pagina_actual - 1) . '&pokemons_por_pagina=' . $pokemons_por_pagina . '&orden=' . $orden . '">« Anterior</a>';
         }
         for ($i = 1; $i <= $total_paginas; $i++) {
             if ($i == $pagina_actual) {
                 $html .= '<span>' . $i . '</span>';
             } else {
-                $html .= '<a href="?pagina=' . $i . '&pokemons_por_pagina=' . $pokemons_por_pagina . '">' . $i . '</a>';
+                $html .= '<a href="?pagina=' . $i . '&pokemons_por_pagina=' . $pokemons_por_pagina . '&orden=' . $orden . '">' . $i . '</a>';
             }
         }
         if ($pagina_actual < $total_paginas) {
-            $html .= '<a href="?pagina=' . ($pagina_actual + 1) . '&pokemons_por_pagina=' . $pokemons_por_pagina . '">Següent »</a>';
+            $html .= '<a href="?pagina=' . ($pagina_actual + 1) . '&pokemons_por_pagina=' . $pokemons_por_pagina . '&orden=' . $orden . '">Següent »</a>';
         }
         $html .= '</div>';
 
@@ -91,8 +95,14 @@ function mostrarPokemons($pokemons_por_pagina = 5) {
     }
 }
 
-function mostrarMisPokemons($usuario_id, $pokemons_por_pagina = 5) {
+function mostrarMisPokemons($usuario_id, $pokemons_por_pagina = 5, $orden = 'asc') {
     global $conn;
+
+    // Verificar que el número de pokemons por página no sea inferior a 5
+    $pokemons_por_pagina = max(5, $pokemons_por_pagina);
+
+    // Verificar que el orden sea válido
+    $orden = ($orden === 'desc') ? 'DESC' : 'ASC';
 
     // Obtenir el nombre total de pokemons del usuario
     $consultaTotal = $conn->prepare("SELECT COUNT(*) AS total FROM pokemons WHERE usuario_id = ?");
@@ -112,7 +122,7 @@ function mostrarMisPokemons($usuario_id, $pokemons_por_pagina = 5) {
 
     try {
         // Preparar la consulta per obtenir els pokemons del usuario de la pàgina actual
-        $consultaPokemons = $conn->prepare("SELECT * FROM pokemons WHERE usuario_id = ? LIMIT ?, ?");
+        $consultaPokemons = $conn->prepare("SELECT * FROM pokemons WHERE usuario_id = ? ORDER BY nom $orden LIMIT ?, ?");
         $consultaPokemons->bind_param("iii", $usuario_id, $inicio, $pokemons_por_pagina);
         $consultaPokemons->execute();
         $resultados = $consultaPokemons->get_result();
@@ -151,17 +161,17 @@ function mostrarMisPokemons($usuario_id, $pokemons_por_pagina = 5) {
         // Generar els enllaços de paginació
         $html .= '<div class="pagination">';
         if ($pagina_actual > 1) {
-            $html .= '<a href="?pagina=' . ($pagina_actual - 1) . '&pokemons_por_pagina=' . $pokemons_por_pagina . '">« Anterior</a>';
+            $html .= '<a href="?pagina=' . ($pagina_actual - 1) . '&pokemons_por_pagina=' . $pokemons_por_pagina . '&orden=' . $orden . '">« Anterior</a>';
         }
         for ($i = 1; $i <= $total_paginas; $i++) {
             if ($i == $pagina_actual) {
                 $html .= '<span>' . $i . '</span>';
             } else {
-                $html .= '<a href="?pagina=' . $i . '&pokemons_por_pagina=' . $pokemons_por_pagina . '">' . $i . '</a>';
+                $html .= '<a href="?pagina=' . $i . '&pokemons_por_pagina=' . $pokemons_por_pagina . '&orden=' . $orden . '">' . $i . '</a>';
             }
         }
         if ($pagina_actual < $total_paginas) {
-            $html .= '<a href="?pagina=' . ($pagina_actual + 1) . '&pokemons_por_pagina=' . $pokemons_por_pagina . '">Següent »</a>';
+            $html .= '<a href="?pagina=' . ($pagina_actual + 1) . '&pokemons_por_pagina=' . $pokemons_por_pagina . '&orden=' . $orden . '">Següent »</a>';
         }
         $html .= '</div>';
 

@@ -53,6 +53,9 @@ unset($_SESSION['error_message']);
 // Obtenir el nombre de pokemons per pàgina des del desplegable o establir un valor per defecte
 $pokemons_per_pagina = isset($_GET['pokemons_por_pagina']) ? (int)$_GET['pokemons_por_pagina'] : 5;
 
+// Obtenir l'ordre dels pokemons des del desplegable o establir un valor per defecte
+$orden = isset($_GET['orden']) ? $_GET['orden'] : 'asc';
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -99,7 +102,7 @@ $pokemons_per_pagina = isset($_GET['pokemons_por_pagina']) ? (int)$_GET['pokemon
                 <div class="error" style="color: red;"><?php echo $error_message; ?></div>
             <?php endif; ?>
         </div>
-        <!-- Formulario para seleccionar el número de pokemons por página -->
+        <!-- Formulario para seleccionar el número de pokemons por página y el orden -->
         <form id="pokemons-form" method="GET" action="index.php">
             <label for="pokemons_por_pagina">Pokemons per pàgina:</label>
             <select name="pokemons_por_pagina" id="pokemons_por_pagina" onchange="document.getElementById('pokemons-form').submit();">
@@ -108,9 +111,14 @@ $pokemons_per_pagina = isset($_GET['pokemons_por_pagina']) ? (int)$_GET['pokemon
                 <option value="15" <?php echo $pokemons_per_pagina == 15 ? 'selected' : ''; ?>>15</option>
                 <option value="20" <?php echo $pokemons_per_pagina == 20 ? 'selected' : ''; ?>>20</option>
             </select>
+            <label for="orden">Orden:</label>
+            <select name="orden" id="orden" onchange="document.getElementById('pokemons-form').submit();">
+                <option value="asc" <?php echo $orden == 'asc' ? 'selected' : ''; ?>>Ascendent</option>
+                <option value="desc" <?php echo $orden == 'desc' ? 'selected' : ''; ?>>Descendent</option>
+            </select>
         </form>
         <!-- Contenido principal -->
-        <?php mostrarPokemons($pokemons_per_pagina); ?>
+        <?php mostrarPokemons($pokemons_per_pagina, $orden); ?>
     </main>
     <script>
         document.getElementById('profile-icon').addEventListener('click', () => {

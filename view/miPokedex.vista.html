@@ -15,6 +15,11 @@
             <option value="15">15</option>
             <option value="20">20</option>
         </select>
+        <label for="orden">Orden:</label>
+        <select name="orden" id="orden">
+            <option value="asc">Ascendent</option>
+            <option value="desc">Descendent</option>
+        </select>
     </form>
     <div id="mi-pokedex-container">
         <!-- El contenido se cargará aquí desde misPokemons.php -->
@@ -22,7 +27,8 @@
     <script>
         function loadMisPokemons(pagina = 1) {
             const pokemonsPorPagina = document.getElementById('pokemons_por_pagina').value;
-            fetch(`../controllers/miPokedex.controller.php?pagina=${pagina}&pokemons_por_pagina=${pokemonsPorPagina}`)
+            const orden = document.getElementById('orden').value;
+            fetch(`../controllers/miPokedex.controller.php?pagina=${pagina}&pokemons_por_pagina=${pokemonsPorPagina}&orden=${orden}`)
                 .then(response => response.text())
                 .then(data => {
                     document.getElementById('mi-pokedex-container').innerHTML = data;
@@ -36,6 +42,10 @@
 
         // Manejar el cambio en el desplegable
         document.getElementById('pokemons_por_pagina').addEventListener('change', () => {
+            loadMisPokemons();
+        });
+
+        document.getElementById('orden').addEventListener('change', () => {
             loadMisPokemons();
         });
 

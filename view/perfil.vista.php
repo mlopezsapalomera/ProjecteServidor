@@ -31,5 +31,6 @@ session_start();
         <input type="file" id="imagen" name="imagen" accept="image/*">
         <button type="submit">Guardar Cambios</button>
     </form>
+    <a href="cambiarContrasena.vista.php" class="btn btn-secondary">Cambiar Contraseña</a>
 </body>
 </html>
