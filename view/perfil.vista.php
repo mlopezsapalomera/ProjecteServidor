@@ -1,6 +1,3 @@
-<?php
-session_start();
-?>
 <!DOCTYPE html>
 <html lang="ca">
 <head>
@@ -14,10 +11,10 @@ session_start();
         <h2>Mi Perfil</h2>
         <div class="messages">
             <?php if (isset($_SESSION['success_message'])): ?>
-                <div class="success" style="color: green;"><?php echo $_SESSION['success_message']; unset($_SESSION['success_message']); ?></div>
+                <div class="success"><?php echo $_SESSION['success_message']; unset($_SESSION['success_message']); ?></div>
             <?php endif; ?>
             <?php if (isset($_SESSION['error_message'])): ?>
-                <div class="error" style="color: red;"><?php echo $_SESSION['error_message']; unset($_SESSION['error_message']); ?></div>
+                <div class="error"><?php echo $_SESSION['error_message']; unset($_SESSION['error_message']); ?></div>
             <?php endif; ?>
         </div>
         <div class="profile-preview">
@@ -31,6 +28,8 @@ session_start();
         <input type="file" id="imagen" name="imagen" accept="image/*">
         <button type="submit">Guardar Cambios</button>
     </form>
-    <a href="cambiarContrasena.vista.php" class="btn btn-secondary">Cambiar Contraseña</a>
+    <div class="profile-preview">
+        <a href="cambiarContrasena.vista.php" class="btn btn-secondary">Cambiar Contraseña</a>
+    </div>
 </body>
 </html>

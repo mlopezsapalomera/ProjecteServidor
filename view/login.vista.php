@@ -13,7 +13,7 @@
             <?php
             session_start();
             if (isset($_SESSION['error_message'])): ?>
-                <div class="error" style="color: red;"><?php echo $_SESSION['error_message']; unset($_SESSION['error_message']); ?></div>
+                <div class="error"><?php echo $_SESSION['error_message']; unset($_SESSION['error_message']); ?></div>
             <?php endif; ?>
         </div>
         <label for="email">Email:</label>

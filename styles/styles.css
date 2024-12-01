@@ -98,79 +98,104 @@ nav a:hover {
   color: #bbb;
 }
 
+/* Profile icon and dropdown */
+.user-actions {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  gap: 10px;
+}
+
+.profile-icon {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.profile-icon:hover {
+  transform: scale(1.1);
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 105px;
+  right: 0;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  min-width: 200px;
+  display: none;
+}
+
+.dropdown-menu.show {
+  display: block;
+  animation: slideDown 0.2s ease;
+}
+
+.dropdown-menu a {
+  padding: 0.75rem 1.5rem;
+  display: block;
+  color: #374151;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.dropdown-menu a:hover {
+  background: #f3f4f6;
+}
+
 /* Button styles */
 .btn {
   display: inline-block;
-  text-transform: uppercase;
-  text-align: center;
-  padding: 0.5rem 1.5rem;
-  margin: 1rem auto;
-  color: #f4f4f4;
-  background-color: #6a0572;
+  padding: 0.5rem 1rem;
   border: none;
-  border-radius: 50px;
-  font-weight: bold;
+  border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.3s, transform 0.2s;
+  text-decoration: none;
+  transition: background-color 0.3s;
 }
 
-.btn:hover {
-  background-color: #32064a;
-  transform: translateY(-3px);
+.btn-primary {
+  background-color: #6a0572; /* Púrpura oscuro */
+  color: white;
 }
 
-.btn-danger {
-  background: #d7263d;
+.btn-primary:hover {
+  background-color: #32064a; /* Púrpura más oscuro */
 }
 
-.btn-danger:hover {
-  background: #92041b;
+.btn-secondary {
+  background-color: #ff00d0; /* Rosa */
+  color: white;
 }
 
-/* Form styling */
-form {
-  background: #333;
-  padding: 2rem;
-  border: 2px solid #1e1e1e;
-  border-radius: 10px;
+.btn-secondary:hover {
+  background-color: #c700a1; /* Rosa más oscuro */
 }
 
-.form-group label {
-  color: #f9f871;
-  margin-bottom: 0.5rem;
-  display: block;
+/* Estilo para los botones de acción en el formulario */
+.form-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
 }
 
-.form-control {
-  background: #222;
-  color: #f4f4f4;
-  padding: 0.8rem;
-  border: 2px solid #444;
-  border-radius: 5px;
-  transition: border-color 0.3s;
-}
-
-.form-control:focus {
-  border-color: #6a0572;
-  outline: none;
-}
-
-/* Alert messages */
-.alert {
-  padding: 1rem;
-  color: #000;
-  text-align: center;
-  font-weight: bold;
-  border-radius: 5px;
-  margin-bottom: 1rem;
-}
-
-.alert-success {
-  background: #4caf50;
-}
-
-.alert-danger {
-  background: #f44336;
+/* Animations */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Responsive design */
@@ -186,4 +211,276 @@ form {
   nav a {
     font-size: 1rem;
   }
+
+  .pokemons-container {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .profile-icon {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+/* Estilo para el formulario de selección */
+#pokemons-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin: 1rem auto; /* Centrar horizontalmente */
+  text-align: center;
+  max-width: 900px; /* Ancho máximo del formulario */
+}
+
+.label-pokemons,
+.label-orden {
+  font-weight: bold;
+  margin-right: 0.5rem;
+  color: #f4f4f4;
+}
+
+.select-pokemons,
+.select-orden {
+  padding: 0.5rem 1rem;
+  border: 2px solid #ddd;
+  border-radius: 4px;
+  background-color: #fff;
+  color: #000; /* Color del texto */
+  font-size: 1rem;
+  transition: border-color 0.3s;
+  cursor: pointer;
+  width: 220px; /* Ancho del recuadro */
+}
+
+.select-pokemons:focus,
+.select-orden:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.select-pokemons:hover,
+.select-orden:hover {
+  border-color: #0056b3;
+}
+
+.select-pokemons option,
+.select-orden option {
+  background-color: #fff; /* Color de fondo de las opciones */
+  color: #000; /* Color del texto de las opciones */
+}
+
+/* Estilo para la paginación */
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: 2rem 0;
+}
+
+.pagination a, .pagination span {
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  color: #f4f4f4;
+  background-color: #32064a;
+  text-decoration: none;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.pagination a:hover, .pagination span:hover {
+  background-color: #6a0572;
+  transform: translateY(-3px);
+}
+
+/* Estilo para los enlaces de navegación */
+a.btn {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  margin: 1rem 0;
+  border: none;
+  border-radius: 4px;
+  background-color: #6a0572;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+a.btn:hover {
+  background-color: #32064a;
+}
+
+/* Estilo para los mensajes */
+.messages {
+  margin-bottom: 1rem;
+}
+
+.messages .success {
+  background-color: #4caf50; /* Verde */
+  color: white; /* Texto blanco para mejor contraste */
+  padding: 1rem;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.messages .error {
+  background-color: #f44336; /* Rojo */
+  color: white; /* Texto blanco para mejor contraste */
+  padding: 1rem;
+  border-radius: 4px;
+  text-align: center;
+}
+
+/* Estilo para la vista de perfil */
+.profile-preview {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.profile-preview img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  object-fit: cover;
+  transition: transform 0.3s, border-color 0.3s;
+}
+
+.profile-preview img:hover {
+  transform: scale(1.1);
+  border-color: #ff00d0;
+}
+
+/* Estilo para los formularios */
+form {
+  background: #333;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  margin: 2rem auto;
+  color: #f4f4f4;
+}
+
+form label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+form input[type="text"],
+form input[type="password"],
+form input[type="file"],
+form select,
+form textarea {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border: 2px solid #444;
+  border-radius: 4px;
+  background-color: #222;
+  color: #f4f4f4;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+form input[type="text"]:focus,
+form input[type="password"]:focus,
+form input[type="file"]:focus,
+form select:focus,
+form textarea:focus {
+  border-color: #6a0572;
+  outline: none;
+}
+
+form button {
+  background-color: #6a0572;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+form button:hover {
+  background-color: #32064a;
+}
+
+/* Estilo para la tabla de usuarios */
+.table-container {
+  max-width: 80%;
+  margin: 2rem auto;
+  padding: 1rem;
+  border: 2px dashed #444;
+  background-color: #333;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.table-container h2 {
+  color: #f9f871;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.table-container table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1rem;
+}
+
+.table-container th,
+.table-container td {
+  padding: 0.75rem 1rem;
+  border: 1px solid #444;
+  text-align: left;
+  color: #f4f4f4;
+}
+
+.table-container th {
+  background-color: #6a0572;
+  color: #fff;
+  text-transform: uppercase;
+}
+
+.table-container tr:nth-child(even) {
+  background-color: #444;
+}
+
+.table-container tr:hover {
+  background-color: #555;
+}
+
+.table-actions {
+  text-align: center;
+}
+
+.table-actions .btn {
+  margin: 0 0.25rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.table-actions .btn-danger {
+  background-color: #f44336;
+  color: white;
+}
+
+.table-actions .btn-danger:hover {
+  background-color: #d32f2f;
+}
+
+.table-actions .btn-secondary {
+  background-color: #6c757d;
+  color: white;
+}
+
+.table-actions .btn-secondary:hover {
+  background-color: #5a6268;
 }

@@ -78,12 +78,12 @@ $orden = isset($_GET['orden']) ? $_GET['orden'] : 'asc';
                 <div class="user-profile">
                     <img src="userProfile/img/<?php echo $_SESSION['imagen'] ?? 'default.jpg'; ?>" alt="User Profile" class="profile-icon" id="profile-icon">
                     <div class="dropdown-menu" id="dropdown-menu">
-                        <a href="view/perfil.vista.php">Mi Perfil</a>
-                        <a href="view/miPokedex.vista.html">Mis Pokemons</a>
+                        <a href="view/perfil.vista.php" class="btn">Mi Perfil</a>
+                        <a href="view/miPokedex.vista.html" class="btn">Mis Pokemons</a>
                         <?php if ($is_admin): ?>
-                            <a href="view/vistaUsuaris.vista.html">Vista Usuaris</a>
+                            <a href="view/vistaUsuaris.vista.html" class="btn">Vista Usuaris</a>
                         <?php endif; ?>
-                        <a href="controllers/logout.controller.php">Tancar Sessió</a>
+                        <a href="controllers/logout.controller.php" class="btn">Tancar Sessió</a>
                     </div>
                 </div>
             <?php else: ?>
@@ -96,23 +96,23 @@ $orden = isset($_GET['orden']) ? $_GET['orden'] : 'asc';
     <main>
         <div class="messages">
             <?php if ($success_message): ?>
-                <div class="success" style="color: green;"><?php echo $success_message; ?></div>
+                <div class="success"><?php echo $success_message; ?></div>
             <?php endif; ?>
             <?php if ($error_message): ?>
-                <div class="error" style="color: red;"><?php echo $error_message; ?></div>
+                <div class="error"><?php echo $error_message; ?></div>
             <?php endif; ?>
         </div>
         <!-- Formulario para seleccionar el número de pokemons por página y el orden -->
         <form id="pokemons-form" method="GET" action="index.php">
-            <label for="pokemons_por_pagina">Pokemons per pàgina:</label>
-            <select name="pokemons_por_pagina" id="pokemons_por_pagina" onchange="document.getElementById('pokemons-form').submit();">
+            <label for="pokemons_por_pagina" class="label-pokemons">Pokemons per pàgina:</label>
+            <select name="pokemons_por_pagina" id="pokemons_por_pagina" class="select-pokemons" onchange="document.getElementById('pokemons-form').submit();">
                 <option value="5" <?php echo $pokemons_per_pagina == 5 ? 'selected' : ''; ?>>5</option>
                 <option value="10" <?php echo $pokemons_per_pagina == 10 ? 'selected' : ''; ?>>10</option>
                 <option value="15" <?php echo $pokemons_per_pagina == 15 ? 'selected' : ''; ?>>15</option>
                 <option value="20" <?php echo $pokemons_per_pagina == 20 ? 'selected' : ''; ?>>20</option>
             </select>
-            <label for="orden">Orden:</label>
-            <select name="orden" id="orden" onchange="document.getElementById('pokemons-form').submit();">
+            <label for="orden" class="label-orden">Orden:</label>
+            <select name="orden" id="orden" class="select-orden" onchange="document.getElementById('pokemons-form').submit();">
                 <option value="asc" <?php echo $orden == 'asc' ? 'selected' : ''; ?>>Ascendent</option>
                 <option value="desc" <?php echo $orden == 'desc' ? 'selected' : ''; ?>>Descendent</option>
             </select>

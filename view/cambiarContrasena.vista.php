@@ -13,10 +13,10 @@
             <?php
             session_start();
             if (isset($_SESSION['error_message'])): ?>
-                <div class="error" style="color: red;"><?php echo $_SESSION['error_message']; unset($_SESSION['error_message']); ?></div>
+                <div class="error"><?php echo $_SESSION['error_message']; unset($_SESSION['error_message']); ?></div>
             <?php endif; ?>
             <?php if (isset($_SESSION['success_message'])): ?>
-                <div class="success" style="color: green;"><?php echo $_SESSION['success_message']; unset($_SESSION['success_message']); ?></div>
+                <div class="success"><?php echo $_SESSION['success_message']; unset($_SESSION['success_message']); ?></div>
             <?php endif; ?>
         </div>
         <label for="current_password">Contraseña Actual:</label>

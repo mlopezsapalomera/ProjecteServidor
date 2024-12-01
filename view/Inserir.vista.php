@@ -9,9 +9,12 @@
     <a href="../index.php" class="btn back-to-index">Tornar a l'índex</a>
     <?php
     session_start();
-    if (isset($_SESSION['error_message'])): ?>
-        <div class="error" style="color: red;"><?php echo $_SESSION['error_message']; unset($_SESSION['error_message']); ?></div>
-    <?php endif; ?>
+    ?>
+    <div class="messages">
+        <?php if (isset($_SESSION['error_message'])): ?>
+            <div class="error"><?php echo $_SESSION['error_message']; unset($_SESSION['error_message']); ?></div>
+        <?php endif; ?>
+    </div>
     <form action="../controllers/insertar.controller.php" method="POST" enctype="multipart/form-data">
         <h2>Inserir Pokemon</h2>
         <label for="nombre">Nom del Pokemon:</label>
