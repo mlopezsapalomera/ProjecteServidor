@@ -22,7 +22,7 @@
         <label for="contraseña">Contrasenya:</label>
         <input type="password" id="contraseña" name="contraseña" required>
         <label for="remember_me">Remember me</label>
-        <input type="checkbox" id="remember_me" name="remember_me" <?php echo isset($_COOKIE['remember_me_email']) ? 'checked' : ''; ?>>
+        <input type="checkbox" id="remember_me" name="remember_me" <?php echo isset($_COOKIE['remember_me']) ? 'checked' : ''; ?>>
         <?php
         if (isset($_SESSION["login_attempts"]) && $_SESSION["login_attempts"] >= 3) {
             echo '<div class="g-recaptcha" data-sitekey="6LeeSJAqAAAAABKbnLFeISetFv_QeaPbcS-72n7q"></div>';

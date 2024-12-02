@@ -40,6 +40,7 @@ if (!isset($_SESSION['usuario_id']) && isset($_COOKIE['remember_me'])) {
             $stmt->bind_param("s", $token);
             $stmt->execute();
             setcookie('remember_me', '', time() - 3600, '/'); // Eliminar la cookie
+            setcookie('remember_me_email', '', time() - 3600, '/'); // Eliminar la cookie
         }
     }
 
@@ -77,11 +78,6 @@ $search_term = isset($_GET['search']) ? $_GET['search'] : '';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pokedex Global</title>
     <link rel="stylesheet" href="styles/styles.css">
-    <script>
-        window.addEventListener('beforeunload', function () {
-            navigator.sendBeacon('controllers/eliminarToken.controller.php');
-        });
-    </script>
 </head>
 <body>
     <header>

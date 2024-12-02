@@ -46,10 +46,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['login_attempts'] = 0; // Reiniciar intents fallits
 
             if ($remember_me) {
-                // Guardar solo el email en cookies
-                setcookie('remember_me_email', $email, time() + (86400 * 30), "/"); // 30 días
+                // Generar un token
+                $token = bin2hex(random_bytes(32));
+                $expiry = date('Y-m-d H:i:s', time() + 60); // 1 minuto
+
+                // Emmagatzemar el token a la base de dades
+                $stmt = $conn->prepare("INSERT INTO user_tokens (user_id, token, expiry) VALUES (?, ?, ?)");
+                $stmt->bind_param("iss", $id, $token, $expiry);
+                $stmt->execute();
+
+                // Emmagatzemar el token i el email a una cookie
+                setcookie('remember_me', $token, time() + 60, "/");
+                setcookie('remember_me_email', $email, time() + 60, "/");
             } else {
                 // Eliminar las cookies si no se selecciona "Remember Me"
+                setcookie('remember_me', '', time() - 3600, "/");
                 setcookie('remember_me_email', '', time() - 3600, "/");
             }
 
