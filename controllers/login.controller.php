@@ -49,10 +49,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // Guardar el email y la contraseña en cookies
                 setcookie('remember_me_email', $email, time() + (86400 * 30), "/"); // 30 días
                 setcookie('remember_me_password', $contraseña, time() + (86400 * 30), "/"); // 30 días
-            } else {
-                // Eliminar las cookies si no se selecciona "Remember Me"
-                setcookie('remember_me_email', '', time() - 3600, "/");
-                setcookie('remember_me_password', '', time() - 3600, "/");
             }
 
             header("Location: ../index.php");
