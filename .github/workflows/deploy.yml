@@ -27,3 +27,4 @@ jobs:
             .git/**
             .github/**
             .gitignore
+            env.*
