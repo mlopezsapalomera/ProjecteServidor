@@ -17,9 +17,9 @@
             <?php endif; ?>
         </div>
         <label for="nombre">Nom:</label>
-        <input type="text" id="nombre" name="nombre" value="<?php echo isset($_SESSION['nombre']) ? $_SESSION['nombre'] : ''; ?>" required>
+        <input type="text" id="nombre" name="nombre" value="" required>
         <label for="email">Email:</label>
-        <input type="text" id="email" name="email" value="<?php echo isset($_SESSION['email']) ? $_SESSION['email'] : ''; ?>" required>
+        <input type="text" id="email" name="email" value="" required>
         <label for="contraseña">Contrasenya:</label>
         <input type="password" id="contraseña" name="contraseña" required>
         <label for="confirmar_contraseña">Confirmar Contrasenya:</label>

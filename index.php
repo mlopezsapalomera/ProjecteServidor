@@ -56,6 +56,9 @@ $pokemons_per_pagina = isset($_GET['pokemons_por_pagina']) ? (int)$_GET['pokemon
 // Obtenir l'ordre dels pokemons des del desplegable o establir un valor per defecte
 $orden = isset($_GET['orden']) ? $_GET['orden'] : 'asc';
 
+// Obtenir el terme de cerca
+$search_term = isset($_GET['search']) ? $_GET['search'] : '';
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -102,7 +105,7 @@ $orden = isset($_GET['orden']) ? $_GET['orden'] : 'asc';
                 <div class="error"><?php echo $error_message; ?></div>
             <?php endif; ?>
         </div>
-        <!-- Formulario para seleccionar el número de pokemons por página y el orden -->
+        <!-- Formulario para seleccionar el número de pokemons por página, el orden y buscar por nombre -->
         <form id="pokemons-form" method="GET" action="index.php">
             <label for="pokemons_por_pagina" class="label-pokemons">Pokemons per pàgina:</label>
             <select name="pokemons_por_pagina" id="pokemons_por_pagina" class="select-pokemons" onchange="document.getElementById('pokemons-form').submit();">
@@ -116,9 +119,12 @@ $orden = isset($_GET['orden']) ? $_GET['orden'] : 'asc';
                 <option value="asc" <?php echo $orden == 'asc' ? 'selected' : ''; ?>>Ascendent</option>
                 <option value="desc" <?php echo $orden == 'desc' ? 'selected' : ''; ?>>Descendent</option>
             </select>
+            <label for="search" class="label-search">Buscar:</label>
+            <input type="text" name="search" id="search" value="<?php echo htmlspecialchars($search_term); ?>" placeholder="Buscar por nombre">
+            <button type="submit">Buscar</button>
         </form>
         <!-- Contenido principal -->
-        <?php mostrarPokemons($pokemons_per_pagina, $orden); ?>
+        <?php mostrarPokemons($pokemons_per_pagina, $orden, $search_term); ?>
     </main>
     <script>
         document.getElementById('profile-icon').addEventListener('click', () => {
