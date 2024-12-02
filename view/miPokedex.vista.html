@@ -36,27 +36,24 @@
                 });
         }
 
-        // Cargar el contenido de miPokedex.controller.php al cargar la página
         document.addEventListener('DOMContentLoaded', () => {
             loadMisPokemons();
-        });
 
-        // Manejar el cambio en el desplegable
-        document.getElementById('pokemons_por_pagina').addEventListener('change', () => {
-            loadMisPokemons();
-        });
+            document.getElementById('pokemons_por_pagina').addEventListener('change', () => {
+                loadMisPokemons();
+            });
 
-        document.getElementById('orden').addEventListener('change', () => {
-            loadMisPokemons();
-        });
+            document.getElementById('orden').addEventListener('change', () => {
+                loadMisPokemons();
+            });
 
-        // Manejar la paginación
-        document.getElementById('mi-pokedex-container').addEventListener('click', (event) => {
-            if (event.target.tagName === 'A' && event.target.classList.contains('pagination-link')) {
-                event.preventDefault();
-                const pagina = event.target.getAttribute('data-page');
-                loadMisPokemons(pagina);
-            }
+            document.getElementById('mi-pokedex-container').addEventListener('click', (event) => {
+                if (event.target.tagName === 'A' && event.target.classList.contains('pagination-link')) {
+                    event.preventDefault();
+                    const pagina = event.target.getAttribute('data-page');
+                    loadMisPokemons(pagina);
+                }
+            });
         });
     </script>
 </body>

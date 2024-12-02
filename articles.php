@@ -169,17 +169,17 @@ function mostrarMisPokemons($usuario_id, $pokemons_por_pagina = 5, $orden = 'asc
         // Generar els enllaços de paginació
         $html .= '<div class="pagination">';
         if ($pagina_actual > 1) {
-            $html .= '<a href="?pagina=' . ($pagina_actual - 1) . '&pokemons_por_pagina=' . $pokemons_por_pagina . '&orden=' . $orden . '">« Anterior</a>';
+            $html .= '<a href="#" class="pagination-link" data-page="' . ($pagina_actual - 1) . '">« Anterior</a>';
         }
         for ($i = 1; $i <= $total_paginas; $i++) {
             if ($i == $pagina_actual) {
-                $html .= '<span>' . $i . '</span>';
+                $html .= '<span class="pagination-link current-page">' . $i . '</span>';
             } else {
-                $html .= '<a href="?pagina=' . $i . '&pokemons_por_pagina=' . $pokemons_por_pagina . '&orden=' . $orden . '">' . $i . '</a>';
+                $html .= '<a href="#" class="pagination-link" data-page="' . $i . '">' . $i . '</a>';
             }
         }
         if ($pagina_actual < $total_paginas) {
-            $html .= '<a href="?pagina=' . ($pagina_actual + 1) . '&pokemons_por_pagina=' . $pokemons_por_pagina . '&orden=' . $orden . '">Següent »</a>';
+            $html .= '<a href="#" class="pagination-link" data-page="' . ($pagina_actual + 1) . '">Següent »</a>';
         }
         $html .= '</div>';
 
