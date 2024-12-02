@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <title>Iniciar Sessió</title>
     <link rel="stylesheet" href="../styles/styles.css">
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
     <a href="../index.php" class="btn back-to-index">Tornar a l'índex</a>
-    <form action="../controllers/login.controller.php" method="POST">
+    <form id="login-form" action="../controllers/login.controller.php" method="POST">
         <h2>Iniciar Sessió</h2>
         <div class="messages">
             <?php
@@ -22,6 +23,15 @@
         <input type="password" id="contraseña" name="contraseña" required>
         <label for="remember_me">Remember me</label>
         <input type="checkbox" id="remember_me" name="remember_me">
+        <?php
+        if (isset($_SESSION["login_attempts"]) && $_SESSION["login_attempts"] >= 3) {
+            echo '<div class="g-recaptcha" data-sitekey="6LeeSJAqAAAAABKbnLFeISetFv_QeaPbcS-72n7q"></div>';
+        }
+        if (isset($errors['captcha'])) {
+            $error = $errors['captcha'];
+            echo "<div class='invalid-feedback d-block'>$error</div>";
+        }
+        ?>
         <button type="submit">Iniciar Sessió</button>
     </form>
 </body>
