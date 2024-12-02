@@ -2,8 +2,9 @@
 <html lang="ca">
 <head>
     <meta charset="UTF-8">
-    <title>Cambiar Contraseña</title>
+    <title>Pokedex Global-Cambiar Contraseña</title>
     <link rel="stylesheet" href="../styles/styles.css">
+    <link rel="icon" href="../img/favicon.png" type="image/png">
 </head>
 <body>
     <a href="perfil.vista.php" class="btn back-to-index">Tornar al Perfil</a>

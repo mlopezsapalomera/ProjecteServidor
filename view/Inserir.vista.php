@@ -2,8 +2,9 @@
 <html lang="ca">
 <head>
     <meta charset="UTF-8">
-    <title>Inserir Pokemon</title>
+    <title>Pokedex Global-Inserir Pokemon</title>
     <link rel="stylesheet" href="../styles/styles.css">
+    <link rel="icon" href="../img/favicon.png" type="image/png">
 </head>
 <body>
     <a href="../index.php" class="btn back-to-index">Tornar a l'índex</a>

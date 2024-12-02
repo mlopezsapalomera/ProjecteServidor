@@ -2,8 +2,9 @@
 <html lang="ca">
 <head>
     <meta charset="UTF-8">
-    <title>Iniciar Sessió</title>
+    <title>Pokedex Global-Iniciar Sessió</title>
     <link rel="stylesheet" href="../styles/styles.css">
+    <link rel="icon" href="../img/favicon.png" type="image/png">
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>

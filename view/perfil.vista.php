@@ -2,7 +2,8 @@
 <html lang="ca">
 <head>
     <meta charset="UTF-8">
-    <title>Mi Perfil</title>
+    <title>Pokedex Global-Mi Perfil</title>
+    <link rel="icon" href="../img/favicon.png" type="image/png">
     <link rel="stylesheet" href="../styles/styles.css">
 </head>
 <body>
