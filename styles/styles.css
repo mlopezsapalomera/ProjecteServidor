@@ -17,31 +17,31 @@ body {
   max-width: 80%;
   margin: 2rem auto;
   padding: 1rem;
-  border: 2px dashed #444;
+  border: 2px dashed #3B4CCA; /* Azul Squirtle */
 }
 
 /* Header styling */
 header {
-  background: radial-gradient(circle, #6a0572, #32064a);
+  background: radial-gradient(circle, #FF0000, #3B4CCA); /* Rojo Pokémon y Azul Squirtle */
   text-align: center;
   padding: 2rem;
   border-bottom: 5px solid #1e1e1e;
 }
 
 header h1 {
-  color: #f9f871;
+  color: #FFDE00; /* Amarillo Pikachu */
   font-size: 3rem;
   font-weight: bold;
   text-transform: uppercase;
   letter-spacing: 5px;
-  text-shadow: 0px 0px 5px #ff00d0;
+  text-shadow: 0px 0px 5px #FF0000; /* Rojo Pokémon */
 }
 
 /* Navigation */
 nav {
   display: flex;
   justify-content: space-around;
-  background: #444;
+  background: #3B4CCA; /* Azul Squirtle */
   padding: 1rem 0;
 }
 
@@ -54,7 +54,7 @@ nav a {
 }
 
 nav a:hover {
-  color: #f9f871;
+  color: #FFDE00; /* Amarillo Pikachu */
 }
 
 /* Card grid */
@@ -68,7 +68,7 @@ nav a:hover {
 
 .pokemon-card {
   background: linear-gradient(145deg, #333, #555);
-  border: 2px solid #444;
+  border: 2px solid #3B4CCA; /* Azul Squirtle */
   border-radius: 8px;
   width: 260px;
   transition: transform 0.3s, box-shadow 0.3s;
@@ -76,7 +76,7 @@ nav a:hover {
 
 .pokemon-card:hover {
   transform: scale(1.05);
-  box-shadow: 0 0 20px #ff00d0;
+  box-shadow: 0 0 20px #FF0000; /* Rojo Pokémon */
 }
 
 .pokemon-card img {
@@ -85,7 +85,7 @@ nav a:hover {
 }
 
 .pokemon-card h3 {
-  color: #f9f871;
+  color: #FFDE00; /* Amarillo Pikachu */
   padding: 1rem;
   font-size: 1.5rem;
   text-align: center;
@@ -161,21 +161,21 @@ nav a:hover {
 }
 
 .btn-primary {
-  background-color: #6a0572; /* Púrpura oscuro */
+  background-color: #FF0000; /* Rojo Pokémon */
   color: white;
 }
 
 .btn-primary:hover {
-  background-color: #32064a; /* Púrpura más oscuro */
+  background-color: #CC0000; /* Rojo más oscuro */
 }
 
 .btn-secondary {
-  background-color: #ff00d0; /* Rosa */
+  background-color: #FFDE00; /* Amarillo Pikachu */
   color: white;
 }
 
 .btn-secondary:hover {
-  background-color: #c700a1; /* Rosa más oscuro */
+  background-color: #CCAC00; /* Amarillo más oscuro */
 }
 
 /* Estilo para los botones de acción en el formulario */
@@ -283,13 +283,13 @@ nav a:hover {
   padding: 0.5rem 1rem;
   border-radius: 5px;
   color: #f4f4f4;
-  background-color: #32064a;
+  background-color: #3B4CCA; /* Azul Squirtle */
   text-decoration: none;
   transition: background-color 0.3s, transform 0.3s;
 }
 
 .pagination a:hover, .pagination span:hover {
-  background-color: #6a0572;
+  background-color: #FF0000; /* Rojo Pokémon */
   transform: translateY(-3px);
 }
 
@@ -317,7 +317,7 @@ a.btn:hover {
 }
 
 .messages .success {
-  background-color: #4caf50; /* Verde */
+  background-color: #78C850; /* Verde Bulbasaur */
   color: white; /* Texto blanco para mejor contraste */
   padding: 1rem;
   border-radius: 4px;
@@ -349,7 +349,7 @@ a.btn:hover {
 
 .profile-preview img:hover {
   transform: scale(1.1);
-  border-color: #ff00d0;
+  border-color: #FF0000; /* Rojo Pokémon */
 }
 
 /* Estilo para los formularios */
@@ -377,7 +377,7 @@ form textarea {
   width: 100%;
   padding: 0.5rem;
   margin-bottom: 1rem;
-  border: 2px solid #444;
+  border: 2px solid #3B4CCA; /* Azul Squirtle */
   border-radius: 4px;
   background-color: #222;
   color: #f4f4f4;
@@ -390,12 +390,12 @@ form input[type="password"]:focus,
 form input[type="file"]:focus,
 form select:focus,
 form textarea:focus {
-  border-color: #6a0572;
+  border-color: #FF0000; /* Rojo Pokémon */
   outline: none;
 }
 
 form button {
-  background-color: #6a0572;
+  background-color: #FF0000; /* Rojo Pokémon */
   color: white;
   padding: 0.5rem 1rem;
   border: none;
@@ -405,7 +405,7 @@ form button {
 }
 
 form button:hover {
-  background-color: #32064a;
+  background-color: #CC0000; /* Rojo más oscuro */
 }
 
 /* Estilo para la tabla de usuarios */
@@ -413,14 +413,14 @@ form button:hover {
   max-width: 80%;
   margin: 2rem auto;
   padding: 1rem;
-  border: 2px dashed #444;
+  border: 2px dashed #3B4CCA; /* Azul Squirtle */
   background-color: #333;
   border-radius: 8px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .table-container h2 {
-  color: #f9f871;
+  color: #FFDE00; /* Amarillo Pikachu */
   text-align: center;
   margin-bottom: 1rem;
 }
@@ -434,13 +434,13 @@ form button:hover {
 .table-container th,
 .table-container td {
   padding: 0.75rem 1rem;
-  border: 1px solid #444;
+  border: 1px solid #3B4CCA; /* Azul Squirtle */
   text-align: left;
   color: #f4f4f4;
 }
 
 .table-container th {
-  background-color: #6a0572;
+  background-color: #FF0000; /* Rojo Pokémon */
   color: #fff;
   text-transform: uppercase;
 }

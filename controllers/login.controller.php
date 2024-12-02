@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($remember_me) {
                 // Generar un token
                 $token = bin2hex(random_bytes(16));
-                $expiry = time() + (86400 * 30); // 2 minuts
+                $expiry = time() + (86400 * 30); // 30 días
 
                 // Emmagatzemar el token a la base de dades
                 $stmt = $conn->prepare("INSERT INTO user_tokens (user_id, token, expiry) VALUES (?, ?, ?)");

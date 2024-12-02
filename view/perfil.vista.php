@@ -10,7 +10,9 @@
     <form action="../controllers/perfil.controller.php" method="POST" enctype="multipart/form-data">
         <h2>Mi Perfil</h2>
         <div class="messages">
-            <?php if (isset($_SESSION['success_message'])): ?>
+            <?php
+            session_start();
+            if (isset($_SESSION['success_message'])): ?>
                 <div class="success"><?php echo $_SESSION['success_message']; unset($_SESSION['success_message']); ?></div>
             <?php endif; ?>
             <?php if (isset($_SESSION['error_message'])): ?>
