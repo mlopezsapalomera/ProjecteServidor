@@ -46,17 +46,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['login_attempts'] = 0; // Reiniciar intents fallits
 
             if ($remember_me) {
-                // Generar un token
-                $token = bin2hex(random_bytes(16));
-                $expiry = time() + (86400 * 30); // 30 días
-
-                // Emmagatzemar el token a la base de dades
-                $stmt = $conn->prepare("INSERT INTO user_tokens (user_id, token, expiry) VALUES (?, ?, ?)");
-                $stmt->bind_param("iss", $id, $token, date('Y-m-d H:i:s', $expiry));
-                $stmt->execute();
-
-                // Emmagatzemar el token a una cookie
-                setcookie('remember_me', $token, $expiry, "/");
+                // Guardar el email y la contraseña en cookies
+                setcookie('remember_me_email', $email, time() + (86400 * 30), "/"); // 30 días
+                setcookie('remember_me_password', $contraseña, time() + (86400 * 30), "/"); // 30 días
+            } else {
+                // Eliminar las cookies si no se selecciona "Remember Me"
+                setcookie('remember_me_email', '', time() - 3600, "/");
+                setcookie('remember_me_password', '', time() - 3600, "/");
             }
 
             header("Location: ../index.php");

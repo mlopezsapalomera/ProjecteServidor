@@ -8,29 +8,39 @@ if (!isset($_SESSION['usuario_id']) && isset($_COOKIE['remember_me'])) {
     $token = $_COOKIE['remember_me'];
 
     // Preparar la consulta per obtenir l'usuari
-    $stmt = $conn->prepare("SELECT user_id FROM user_tokens WHERE token = ? AND expiry > NOW()");
+    $stmt = $conn->prepare("SELECT user_id, expiry FROM user_tokens WHERE token = ?");
     $stmt->bind_param("s", $token);
     $stmt->execute();
     $stmt->store_result();
 
     if ($stmt->num_rows > 0) {
-        $stmt->bind_result($user_id);
+        $stmt->bind_result($user_id, $expiry);
         $stmt->fetch();
 
-        // Obtenir les dades de l'usuari
-        $stmt = $conn->prepare("SELECT id, nom, email, rol, imagen FROM usuarios WHERE id = ?");
-        $stmt->bind_param("i", $user_id);
-        $stmt->execute();
-        $stmt->bind_result($id, $nombre, $email, $rol, $imagen);
-        $stmt->fetch();
+        // Verificar si el token ha expirado
+        if (strtotime($expiry) > time()) {
+            // Obtenir les dades de l'usuari
+            $stmt = $conn->prepare("SELECT id, nom, email, rol, imagen FROM usuarios WHERE id = ?");
+            $stmt->bind_param("i", $user_id);
+            $stmt->execute();
+            $stmt->store_result();
+            $stmt->bind_result($id, $nombre, $email, $rol, $imagen);
+            $stmt->fetch();
 
-        // Iniciar sessió
-        $_SESSION['usuario_id'] = $id;
-        $_SESSION['nombre'] = $nombre;
-        $_SESSION['email'] = $email;
-        $_SESSION['rol'] = $rol;
-        $_SESSION['usuario'] = $email;
-        $_SESSION['imagen'] = $imagen;
+            // Iniciar sessió
+            $_SESSION['usuario_id'] = $id;
+            $_SESSION['nombre'] = $nombre;
+            $_SESSION['email'] = $email;
+            $_SESSION['rol'] = $rol;
+            $_SESSION['usuario'] = $email;
+            $_SESSION['imagen'] = $imagen;
+        } else {
+            // Eliminar el token si ha expirado
+            $stmt = $conn->prepare("DELETE FROM user_tokens WHERE token = ?");
+            $stmt->bind_param("s", $token);
+            $stmt->execute();
+            setcookie('remember_me', '', time() - 3600, '/'); // Eliminar la cookie
+        }
     }
 
     if ($stmt) {
@@ -67,6 +77,11 @@ $search_term = isset($_GET['search']) ? $_GET['search'] : '';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pokedex Global</title>
     <link rel="stylesheet" href="styles/styles.css">
+    <script>
+        window.addEventListener('beforeunload', function () {
+            navigator.sendBeacon('controllers/eliminarToken.controller.php');
+        });
+    </script>
 </head>
 <body>
     <header>

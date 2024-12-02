@@ -18,11 +18,11 @@
             <?php endif; ?>
         </div>
         <label for="email">Email:</label>
-        <input type="text" id="email" name="email" value="<?php echo isset($_SESSION['login_email']) ? $_SESSION['login_email'] : ''; unset($_SESSION['login_email']); ?>" required>
+        <input type="text" id="email" name="email" value="<?php echo isset($_COOKIE['remember_me_email']) ? $_COOKIE['remember_me_email'] : ''; ?>" required>
         <label for="contraseña">Contrasenya:</label>
-        <input type="password" id="contraseña" name="contraseña" required>
+        <input type="password" id="contraseña" name="contraseña" value="<?php echo isset($_COOKIE['remember_me_password']) ? $_COOKIE['remember_me_password'] : ''; ?>" required>
         <label for="remember_me">Remember me</label>
-        <input type="checkbox" id="remember_me" name="remember_me">
+        <input type="checkbox" id="remember_me" name="remember_me" <?php echo isset($_COOKIE['remember_me_email']) ? 'checked' : ''; ?>>
         <?php
         if (isset($_SESSION["login_attempts"]) && $_SESSION["login_attempts"] >= 3) {
             echo '<div class="g-recaptcha" data-sitekey="6LeeSJAqAAAAABKbnLFeISetFv_QeaPbcS-72n7q"></div>';
