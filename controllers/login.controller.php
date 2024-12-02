@@ -46,9 +46,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['login_attempts'] = 0; // Reiniciar intents fallits
 
             if ($remember_me) {
-                // Guardar el email y la contraseña en cookies
+                // Guardar solo el email en cookies
                 setcookie('remember_me_email', $email, time() + (86400 * 30), "/"); // 30 días
-                setcookie('remember_me_password', $contraseña, time() + (86400 * 30), "/"); // 30 días
+            } else {
+                // Eliminar las cookies si no se selecciona "Remember Me"
+                setcookie('remember_me_email', '', time() - 3600, "/");
             }
 
             header("Location: ../index.php");

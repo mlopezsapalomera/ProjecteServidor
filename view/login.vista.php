@@ -20,7 +20,7 @@
         <label for="email">Email:</label>
         <input type="text" id="email" name="email" value="<?php echo isset($_COOKIE['remember_me_email']) ? $_COOKIE['remember_me_email'] : ''; ?>" required>
         <label for="contraseña">Contrasenya:</label>
-        <input type="password" id="contraseña" name="contraseña" value="<?php echo isset($_COOKIE['remember_me_password']) ? $_COOKIE['remember_me_password'] : ''; ?>" required>
+        <input type="password" id="contraseña" name="contraseña" required>
         <label for="remember_me">Remember me</label>
         <input type="checkbox" id="remember_me" name="remember_me" <?php echo isset($_COOKIE['remember_me_email']) ? 'checked' : ''; ?>>
         <?php
