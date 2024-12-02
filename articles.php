@@ -84,7 +84,11 @@ function mostrarPokemons($pokemons_por_pagina = 5, $orden = 'asc', $search_term 
             $html .= '<a href="?pagina=' . ($pagina_actual - 1) . '&pokemons_por_pagina=' . $pokemons_por_pagina . '&orden=' . $orden . '&search=' . urlencode($search_term) . '" class="pagination-link">Anterior</a>';
         }
         for ($i = 1; $i <= $total_paginas; $i++) {
-            $html .= '<a href="?pagina=' . $i . '&pokemons_por_pagina=' . $pokemons_por_pagina . '&orden=' . $orden . '&search=' . urlencode($search_term) . '" class="pagination-link">' . $i . '</a>';
+            if ($i == $pagina_actual) {
+                $html .= '<span class="pagination-link current-page">' . $i . '</span>';
+            } else {
+                $html .= '<a href="?pagina=' . $i . '&pokemons_por_pagina=' . $pokemons_por_pagina . '&orden=' . $orden . '&search=' . urlencode($search_term) . '" class="pagination-link">' . $i . '</a>';
+            }
         }
         if ($pagina_actual < $total_paginas) {
             $html .= '<a href="?pagina=' . ($pagina_actual + 1) . '&pokemons_por_pagina=' . $pokemons_por_pagina . '&orden=' . $orden . '&search=' . urlencode($search_term) . '" class="pagination-link">Siguiente</a>';

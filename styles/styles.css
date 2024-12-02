@@ -293,6 +293,12 @@ nav a:hover {
   transform: translateY(-3px);
 }
 
+.pagination .current-page {
+  background-color: #FFDE00; /* Amarillo Pikachu */
+  color: #000; /* Texto negro para mejor contraste */
+  font-weight: bold;
+}
+
 /* Estilo para los enlaces de navegación */
 a.btn {
   display: inline-block;
