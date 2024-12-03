@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $mail->isHTML(true);
             $mail->Subject = 'Recuperar Contraseña';
-            $mail->Body    = "Feu clic al següent enllaç per restablir la contrasenya: <a href='http://localhost/ProjecteServidor/view/restablecerContrasena.vista.php?token=$token'>Restablecer Contraseña</a>";
+            $mail->Body    = "Feu clic al següent enllaç per restablir la contrasenya: <a href='http://marcoslopez.cat/view/restablecerContrasena.vista.php?token=$token'>Restablecer Contraseña</a>";
 
             $mail->send();
             $_SESSION['success_message'] = "S'ha enviat un correu electrònic amb les instruccions per restablir la contrasenya.";
