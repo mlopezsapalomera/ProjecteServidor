@@ -22,7 +22,7 @@
         <input type="text" id="email" name="email" value="<?php echo isset($_COOKIE['remember_me_email']) ? $_COOKIE['remember_me_email'] : ''; ?>" required>
         <label for="contraseña">Contrasenya:</label>
         <input type="password" id="contraseña" name="contraseña" required>
-        <label for="remember_me">Remember me</label>
+        <label for="remember_me">Recorda les meves credencials</label>
         <input type="checkbox" id="remember_me" name="remember_me" <?php echo isset($_COOKIE['remember_me']) ? 'checked' : ''; ?>>
         <?php
         if (isset($_SESSION["login_attempts"]) && $_SESSION["login_attempts"] >= 3) {
@@ -34,6 +34,7 @@
         }
         ?>
         <button type="submit">Iniciar Sessió</button>
+        <a href="recuperarContrasena.vista.php" class="btn">No recordes la teva contrasenya?</a>
     </form>
 </body>
 </html>
