@@ -1,39 +1,50 @@
 # ProjecteServidor
+## Funcionament del Programa
 
-Este proyecto es una aplicación web que permite a los usuarios gestionar una Pokedex personal. A continuación, se detalla el funcionamiento del programa, las funciones principales y la estructura de la base de datos.
+El programa permet als usuaris registrar-se, iniciar sessió, gestionar el seu perfil, i afegir, modificar o eliminar Pokemons de la seva Pokedex personal. A més, els administradors tenen permisos addicionals per gestionar usuaris.
 
-## Funcionamiento del Programa
+### Funcions Principals
 
-El programa permite a los usuarios registrarse, iniciar sesión, gestionar su perfil, y añadir, modificar o eliminar Pokemons de su Pokedex personal. Además, los administradores tienen permisos adicionales para gestionar usuarios.
+1. **Registre d'Usuaris**: Permet als nous usuaris registrar-se proporcionant un nom, correu electrònic i contrasenya. La contrasenya es valida per assegurar que conté almenys una majúscula i un número.
 
-### Funciones Principales
+2. **Inici de Sessió**: Els usuaris poden iniciar sessió proporcionant el seu correu electrònic i contrasenya. Si l'usuari selecciona "Remember me", es genera un token que s'emmagatzema en una cookie i a la base de dades per mantenir la sessió iniciada.
 
-1. **Registro de Usuarios**: Permite a los nuevos usuarios registrarse proporcionando un nombre, correo electrónico y contraseña. La contraseña se valida para asegurar que contiene al menos una mayúscula y un número.
+3. **Gestió de Perfil**: Els usuaris poden actualitzar el seu perfil, incloent el seu nom i foto de perfil. També poden canviar la seva contrasenya.
 
-2. **Inicio de Sesión**: Los usuarios pueden iniciar sesión proporcionando su correo electrónico y contraseña. Si el usuario selecciona "Remember me", se genera un token que se almacena en una cookie y en la base de datos para mantener la sesión iniciada.
+4. **Gestió de Pokemons**: Els usuaris poden afegir nous Pokemons a la seva Pokedex, modificar els detalls dels Pokemons existents o eliminar-los. Cada Pokemon té un nom, descripció i imatge.
 
-3. **Gestión de Perfil**: Los usuarios pueden actualizar su perfil, incluyendo su nombre y foto de perfil. También pueden cambiar su contraseña.
+5. **Gestió d'Usuaris (Admin)**: Els administradors poden veure la llista d'usuaris i eliminar usuaris si és necessari.
 
-4. **Gestión de Pokemons**: Los usuarios pueden añadir nuevos Pokemons a su Pokedex, modificar los detalles de los Pokemons existentes o eliminarlos. Cada Pokemon tiene un nombre, descripción e imagen.
+### Estructura de la Base de Dades
 
-5. **Gestión de Usuarios (Admin)**: Los administradores pueden ver la lista de usuarios y eliminar usuarios si es necesario.
+La base de dades conté diverses taules, entre elles `usuarios`, `pokemons` i `user_tokens`.
 
-### Estructura de la Base de Datos
+- **usuarios**: Emmagatzema la informació dels usuaris, incloent el seu nom, correu electrònic, contrasenya, rol i imatge de perfil.
+- **pokemons**: Emmagatzema la informació dels Pokemons, incloent el seu nom, descripció, imatge i l'ID de l'usuari propietari.
+- **user_tokens**: Emmagatzema els tokens de sessió generats quan un usuari selecciona "Remember me" al iniciar sessió.
 
-La base de datos contiene varias tablas, entre ellas `usuarios`, `pokemons` y `user_tokens`.
+### Tractament de Tokens en una Taula Diferent
 
-- **usuarios**: Almacena la información de los usuarios, incluyendo su nombre, correo electrónico, contraseña, rol e imagen de perfil.
-- **pokemons**: Almacena la información de los Pokemons, incluyendo su nombre, descripción, imagen y el ID del usuario propietario.
-- **user_tokens**: Almacena los tokens de sesión generados cuando un usuario selecciona "Remember me" al iniciar sesión.
+Els tokens de sessió s'emmagatzemen en una taula diferent (`user_tokens`) per diverses raons:
 
-### Tratamiento de Tokens en una Tabla Distinta
+1. **Seguretat**: Emmagatzemar els tokens en una taula separada permet gestionar millor la seguretat i el cicle de vida dels tokens. Els tokens poden ser eliminats o invalidats sense afectar la informació principal de l'usuari.
 
-Los tokens de sesión se almacenan en una tabla distinta (`user_tokens`) por varias razones:
+2. **Escalabilitat**: Mantenir els tokens en una taula separada facilita l'escalabilitat del sistema. Es poden realitzar operacions específiques sobre els tokens sense sobrecarregar la taula principal d'usuaris.
 
-1. **Seguridad**: Almacenar los tokens en una tabla separada permite gestionar mejor la seguridad y el ciclo de vida de los tokens. Los tokens pueden ser eliminados o invalidados sin afectar la información principal del usuario.
+3. **Manteniment**: Facilita el manteniment i la neteja de tokens caducats. Es poden executar tasques programades per eliminar tokens antics sense afectar altres taules.
 
-2. **Escalabilidad**: Mantener los tokens en una tabla separada facilita la escalabilidad del sistema. Se pueden realizar operaciones específicas sobre los tokens sin sobrecargar la tabla principal de usuarios.
+### Justificació de Creació d'Administradors
 
-3. **Mantenimiento**: Facilita el mantenimiento y la limpieza de tokens expirados. Se pueden ejecutar tareas programadas para eliminar tokens antiguos sin afectar otras tablas.
+Un usuari administrador es crea quan a un usuari registrat se li assigna manualment el rol d'`admin` des de la base de dades. Això es pot fer actualitzant el camp `rol` a la taula `usuarios` per a l'usuari corresponent. Aquesta funcionalitat permet un control més segur i restringit sobre qui té privilegis administratius a l'aplicació.
 
-En resumen, este proyecto proporciona una plataforma completa para gestionar una Pokedex personal, con funcionalidades de registro, inicio de sesión, gestión de perfil y administración de Pokemons y usuarios. La separación de los tokens en una tabla distinta mejora la seguridad, escalabilidad y mantenimiento del sistema.
+
+
+## Usuaris de proba
+| Nom | Email | Password | Rol |
+| --- |  ---  | --- | --- |
+| User1 | user1@gmail.com | User1 | admin |
+| User2 | user2@gmail.com | User2 |       |
+| User3 | user3@gmail.com | User3 |       |
+
+Els usuaris admins no apareixen a la llista de Vista Usuaris
+D'aquesta manera evitem que es puguin esborrar entre ells
