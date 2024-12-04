@@ -37,14 +37,14 @@ Els tokens de sessió s'emmagatzemen en una taula diferent (`user_tokens`) per d
 
 Un usuari administrador es crea quan a un usuari registrat se li assigna manualment el rol d'`admin` des de la base de dades. Això es pot fer actualitzant el camp `rol` a la taula `usuarios` per a l'usuari corresponent. Aquesta funcionalitat permet un control més segur i restringit sobre qui té privilegis administratius a l'aplicació.
 
+## Configuracions de Seguretat
 
+Hem configurat una pàgina d'error 404 personalitzada per millorar l'experiència de l'usuari quan es troba amb una pàgina no existent.
 
-## Usuaris de proba
-| Nom | Email | Password | Rol |
-| --- |  ---  | --- | --- |
-| User1 | user1@gmail.com | User1 | admin |
-| User2 | user2@gmail.com | User2 |       |
-| User3 | user3@gmail.com | User3 |       |
+Per redirigir tot el tràfic HTTP a HTTPS i assegurar la comunicació
 
-Els usuaris admins no apareixen a la llista de Vista Usuaris
-D'aquesta manera evitem que es puguin esborrar entre ells
+Per protegir contra la injecció de codi deshabilitant l'execució de scripts en directoris específics
+
+Per ajudar a prevenir atacs de Cross-Site Scripting (XSS) i altres atacs relacionats amb la injecció de contingut:
+
+ Aquesta configuració es troba al fitxer `.htaccess`:
