@@ -1,8 +1,5 @@
 Options -Indexes
 ErrorDocument 404 /segurity/404.html
-RewriteEngine On
-RewriteCond %{HTTPS} off
-RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 Header set Content-Security-Policy "default-src 'self'; script-src 'self' https://www.google.com/recaptcha/; style-src 'self'; img-src 'self';"
 <Directory "/path/to/uploads">
     php_flag engine off
