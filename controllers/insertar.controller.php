@@ -1,7 +1,11 @@
 <?php
 //Marcos Lopez Medina
 
-session_start(); // Inicia la sessió
+session_start();
+if (!isset($_SESSION['usuario']) || $_SESSION['rol'] !== 'admin') {
+    header("HTTP/1.1 403 Forbidden");
+    exit();
+} // Inicia la sessió
 require_once '../model/db.php'; // Connexió a la base de dades
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

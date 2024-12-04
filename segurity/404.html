@@ -3,11 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <title>Pàgina no trobada</title>
-    <link rel="stylesheet" href="styles/styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 0.5em;
+        }
+        p {
+            font-size: 1.2em;
+            margin-bottom: 1em;
+        }
+        .btn {
+            display: inline-block;
+            padding: 0.5em 1em;
+            font-size: 1em;
+            color: #fff;
+            background-color: #007bff;
+            text-decoration: none;
+            border-radius: 0.25em;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
     <h1>Error 404 - Pàgina no trobada</h1>
     <p>La pàgina que estàs buscant no existeix.</p>
-    <a href="index.php" class="btn">Tornar a l'inici</a>
+    <a href="../index.php" class="btn">Tornar a l'inici</a>
 </body>
 </html>
