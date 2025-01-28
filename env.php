@@ -9,6 +9,6 @@ if (!defined('DB_USER')) {
     define('DB_USER', 'ddb239154');
 }
 if (!defined('DB_PASS')) {
-    define('DB_PASS', 'pJ[pk(gLcy6$cm');
+    define('DB_PASS', '-u8Mcuthdbtl[(');
 }
 ?>
