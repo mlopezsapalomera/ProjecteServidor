@@ -12,7 +12,7 @@ function populatePokemonDropdown(pokemons) {
     const dropdown = document.getElementById('pokemon-dropdown');
     pokemons.forEach(pokemon => {
         const option = document.createElement('option');
-        option.value = pokemon.name; // Cambiar a pokemon.name
+        option.value = pokemon.name;
         option.textContent = pokemon.name;
         dropdown.appendChild(option);
     });
