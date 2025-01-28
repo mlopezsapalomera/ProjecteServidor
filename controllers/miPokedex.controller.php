@@ -2,7 +2,7 @@
 //Marcos Lopez Medina
 
 session_start();
-if (!isset($_SESSION['usuario']) || $_SESSION['rol'] !== 'admin') {
+if (!isset($_SESSION['usuario'])) {
     header("HTTP/1.1 403 Forbidden");
     exit();
 }
@@ -20,8 +20,12 @@ if (!isset($_SESSION['usuario_id'])) {
 require_once '../model/db.php';
 require_once '../articles.php';
 
-$usuario_id = $_SESSION['usuario_id']; // Asegúrate de que el ID del usuario esté almacenado en la sesión
-$pokemons_por_pagina = isset($_GET['pokemons_por_pagina']) ? (int)$_GET['pokemons_por_pagina'] : 5;
-$orden = isset($_GET['orden']) ? $_GET['orden'] : 'asc';
-echo mostrarMisPokemons($usuario_id, $pokemons_por_pagina, $orden);
+try {
+    $usuario_id = $_SESSION['usuario_id']; // Asegúrate de que el ID del usuario esté almacenado en la sesión
+    $pokemons_por_pagina = isset($_GET['pokemons_por_pagina']) ? (int)$_GET['pokemons_por_pagina'] : 5;
+    $orden = isset($_GET['orden']) ? $_GET['orden'] : 'asc';
+    echo mostrarMisPokemons($usuario_id, $pokemons_por_pagina, $orden);
+} catch (Exception $e) {
+    echo "Error: " . $e->getMessage();
+}
 ?>

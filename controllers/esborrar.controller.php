@@ -46,12 +46,12 @@ if (isset($_POST['id']) && isset($_POST['imagen'])) {
 
     $consultaVerificar->close();
     
-    // Redirigir a l'índex
-    header("Location: ../index.php");
+    // Redirigir a miPerfil.vista.php
+    header("Location: ../view/miPerfil.vista.php");
     exit();
 } else {
     $_SESSION['error_message'] = "No s'ha especificat l'ID de l'article.";
-    header("Location: ../index.php");
+    header("Location: ../view/miPerfil.vista.php");
     exit();
 }
 ?>

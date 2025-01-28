@@ -1,5 +1,4 @@
 <?php
-//Marcos Lopez Medina
 require_once 'model/db.php'; 
 
 function mostrarPokemons($pokemons_por_pagina = 5, $orden = 'asc', $search_term = '') {
@@ -12,10 +11,10 @@ function mostrarPokemons($pokemons_por_pagina = 5, $orden = 'asc', $search_term 
     $orden = ($orden === 'desc') ? 'DESC' : 'ASC';
 
     // Preparar la consulta base
-    $query = "SELECT p.*, u.nom as usuario_nom 
+    $query = "SELECT p.*, u.nom as usuario_nom, u.id as usuario_id 
               FROM pokemons p 
               JOIN usuarios u ON p.usuario_id = u.id 
-              WHERE p.nom LIKE ? 
+              WHERE p.nom LIKE ? OR u.nom LIKE ? 
               ORDER BY p.nom $orden 
               LIMIT ?, ?";
 
@@ -23,9 +22,9 @@ function mostrarPokemons($pokemons_por_pagina = 5, $orden = 'asc', $search_term 
     $consultaTotal = $conn->prepare("SELECT COUNT(*) AS total 
                                      FROM pokemons p 
                                      JOIN usuarios u ON p.usuario_id = u.id 
-                                     WHERE p.nom LIKE ?");
+                                     WHERE p.nom LIKE ? OR u.nom LIKE ?");
     $search_term_like = '%' . $search_term . '%';
-    $consultaTotal->bind_param("s", $search_term_like);
+    $consultaTotal->bind_param("ss", $search_term_like, $search_term_like);
     $consultaTotal->execute();
     $total_pokemons = $consultaTotal->get_result()->fetch_assoc()['total'];
 
@@ -42,64 +41,48 @@ function mostrarPokemons($pokemons_por_pagina = 5, $orden = 'asc', $search_term 
     try {
         // Preparar la consulta para obtener los pokemons de la página actual que coinciden con el término de búsqueda
         $consultaPokemons = $conn->prepare($query);
-        $consultaPokemons->bind_param("sii", $search_term_like, $inicio, $pokemons_por_pagina);
+        $consultaPokemons->bind_param("ssii", $search_term_like, $search_term_like, $inicio, $pokemons_por_pagina);
         $consultaPokemons->execute();
-        $resultados = $consultaPokemons->get_result();
+        $result = $consultaPokemons->get_result();
 
-        // Generar la lista de pokemons
-        $html = '<div class="pokemons-container">';
-        while ($pokemon = $resultados->fetch_assoc()) {
-            $html .= "<div class='pokemon-card'>";
-
-            // Imagen con comprobación
-            $imagen = !empty($pokemon['imatge']) ? $pokemon['imatge'] : 'default.jpg';
-            $html .= "<img src='img/" . htmlspecialchars($imagen) . "' alt='" . htmlspecialchars($pokemon['nom']) . "'>";
-
-            // Información del pokemon
-            $html .= "<h3>" . htmlspecialchars($pokemon['nom']) . "</h3>";
-            $html .= "<p>" . htmlspecialchars($pokemon['descripció']) . "</p>";
-            $html .= "<p>Propietario: " . htmlspecialchars($pokemon['usuario_nom']) . "</p>";
-
-            // Botones de acción con verificación de sesión
-            if (isset($_SESSION['usuario_id']) && ($_SESSION['usuario_id'] == $pokemon['usuario_id'] || $_SESSION['rol'] === 'admin')) {
-                $html .= "<div class='actions'>";
-                $html .= "<a href='view/modificar.vista.php?id=" . $pokemon['id'] . "&nombre=" . urlencode($pokemon['nom']) . "&cuerpo=" . urlencode($pokemon['descripció']) . "&imagen=" . urlencode($pokemon['imatge']) . "' class='btn'>Modificar</a>";
-                $html .= "<a href='view/Esborrar.vista.html?id=" . $pokemon['id'] . "&imagen=" . $pokemon['imatge'] . "' class='btn btn-danger'>Eliminar</a>";
-                $html .= "</div>";
-            }
-
-            $html .= "</div>";
+        echo '<div class="pokemons-container">';
+        while ($pokemon = $result->fetch_assoc()) {
+            $imagen = isset($pokemon['imatge']) ? $pokemon['imatge'] : 'default.jpg';
+            $descripcion = isset($pokemon['descripció']) ? $pokemon['descripció'] : 'No description available.';
+            echo '<div class="pokemon-card">';
+            echo '<img src="img/' . htmlspecialchars($imagen) . '" alt="Pokemon Image" onclick="openImageModal(this.src)">';
+            echo '<div class="pokemon-info">';
+            echo '<h3>' . htmlspecialchars($pokemon['nom']) . '</h3>';
+            echo '<p>' . htmlspecialchars($descripcion) . '</p>';
+            echo '<p>Força: ' . htmlspecialchars($pokemon['força']) . '</p>';
+            echo '<p>Vida: ' . htmlspecialchars($pokemon['vida']) . '</p>';
+            echo '<p>Daño: ' . htmlspecialchars($pokemon['dany']) . '</p>';
+            echo '<p>Tipus: ' . htmlspecialchars($pokemon['tipus']) . '</p>';
+            echo '<a href="view/perfilUsuario.vista.php?id=' . htmlspecialchars($pokemon['usuario_id']) . '" class="btn">Ver Perfil de ' . htmlspecialchars($pokemon['usuario_nom']) . '</a>';
+            echo '</div>';
+            echo '</div>';
         }
+        echo '</div>';
 
-        // Si no hay pokemons
-        if ($resultados->num_rows == 0) {
-            $html .= "<p>No hi ha pokemons disponibles.</p>";
-        }
-
-        $html .= '</div>';
-
-        // Generar los enlaces de paginación
-        $html .= '<div class="pagination">';
+        // Paginación
+        echo '<div class="pagination">';
         if ($pagina_actual > 1) {
-            $html .= '<a href="?pagina=' . ($pagina_actual - 1) . '&pokemons_por_pagina=' . $pokemons_por_pagina . '&orden=' . $orden . '&search=' . urlencode($search_term) . '" class="pagination-link">Anterior</a>';
+            echo '<a href="?pagina=' . ($pagina_actual - 1) . '&pokemons_por_pagina=' . $pokemons_por_pagina . '&orden=' . $orden . '&search=' . $search_term . '">&laquo; Anterior</a>';
         }
         for ($i = 1; $i <= $total_paginas; $i++) {
             if ($i == $pagina_actual) {
-                $html .= '<span class="pagination-link current-page">' . $i . '</span>';
+                echo '<span class="current-page">' . $i . '</span>';
             } else {
-                $html .= '<a href="?pagina=' . $i . '&pokemons_por_pagina=' . $pokemons_por_pagina . '&orden=' . $orden . '&search=' . urlencode($search_term) . '" class="pagination-link">' . $i . '</a>';
+                echo '<a href="?pagina=' . $i . '&pokemons_por_pagina=' . $pokemons_por_pagina . '&orden=' . $orden . '&search=' . $search_term . '">' . $i . '</a>';
             }
         }
         if ($pagina_actual < $total_paginas) {
-            $html .= '<a href="?pagina=' . ($pagina_actual + 1) . '&pokemons_por_pagina=' . $pokemons_por_pagina . '&orden=' . $orden . '&search=' . urlencode($search_term) . '" class="pagination-link">Siguiente</a>';
+            echo '<a href="?pagina=' . ($pagina_actual + 1) . '&pokemons_por_pagina=' . $pokemons_por_pagina . '&orden=' . $orden . '&search=' . $search_term . '">Siguiente &raquo;</a>';
         }
-        $html .= '</div>';
-
-        echo $html;
+        echo '</div>';
 
     } catch (Exception $e) {
-        error_log("Error en mostrarPokemons: " . $e->getMessage());
-        echo "<p class='error'>Hi ha hagut un error al carregar els pokemons.</p>";
+        echo 'Error: ' . $e->getMessage();
     }
 }
 

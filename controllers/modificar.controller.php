@@ -2,7 +2,7 @@
 //Marcos Lopez Medina
 
 session_start();
-if (!isset($_SESSION['usuario']) || $_SESSION['rol'] !== 'admin') {
+if (!isset($_SESSION['usuario'])) {
     header("HTTP/1.1 403 Forbidden");
     exit();
 } // Inicia la sessió
@@ -53,8 +53,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $stmt->close();
     
-    // Redirigir a l'índex
-    header("Location: ../index.php");
+    // Redirigir a miPerfil.vista.php
+    header("Location: ../view/miPerfil.vista.php");
     exit();
 }
 

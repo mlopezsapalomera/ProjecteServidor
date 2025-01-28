@@ -1,22 +1,9 @@
 <?php
-require 'vendor/autoload.php';
-use Endroid\QrCode\QrCode;
-use Endroid\QrCode\Writer\PngWriter;
-
 session_start();
 if (!isset($_SESSION['usuario'])) {
     header("HTTP/1.1 403 Forbidden");
     exit();
 }
-
-$usuario_id = $_SESSION['usuario_id'];
-$perfil_url = "http://example.com/view/perfil.vista.php?id=$usuario_id";
-
-$qrCode = new QrCode($perfil_url);
-$writer = new PngWriter();
-$qrCodePath = __DIR__ . "/../img/qr_$usuario_id.png";
-$writer->write($qrCode)->saveToFile($qrCodePath);
-
 require_once '../model/db.php';
 require_once '../articles.php';
 
@@ -72,5 +59,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     header("Location: ../view/miPerfil.vista.php");
     exit();
+} else {
+    try {
+        $usuario_id = $_SESSION['usuario_id'];
+        $pokemons_por_pagina = isset($_GET['pokemons_por_pagina']) ? (int)$_GET['pokemons_por_pagina'] : 5;
+        $orden = isset($_GET['orden']) ? $_GET['orden'] : 'asc';
+        echo mostrarMisPokemons($usuario_id, $pokemons_por_pagina, $orden);
+    } catch (Exception $e) {
+        echo "Error: " . $e->getMessage();
+    }
 }
 ?>

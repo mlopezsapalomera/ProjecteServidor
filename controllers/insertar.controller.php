@@ -2,23 +2,19 @@
 //Marcos Lopez Medina
 
 session_start();
-if (!isset($_SESSION['usuario']) || $_SESSION['rol'] !== 'admin') {
+if (!isset($_SESSION['usuario'])) {
     header("HTTP/1.1 403 Forbidden");
     exit();
 } // Inicia la sessió
 require_once '../model/db.php'; // Connexió a la base de dades
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $nombre = trim($_POST['nombre']);
-    $cuerpo = trim($_POST['cuerpo']);
+    $nom = trim($_POST['pokemon-dropdown']);
+    $força = (int)$_POST['força'];
+    $dany = (int)$_POST['dany'];
+    $vida = (int)$_POST['vida'];
+    $tipus = trim($_POST['tipus']);
     $usuario_id = $_SESSION['usuario_id']; // Asegúrate de que el ID del usuario esté almacenado en la sesión
-
-    // Validar que los campos no estén vacíos después de eliminar los espacios en blanco
-    if (empty($nombre) || empty($cuerpo)) {
-        $_SESSION['error_message'] = "El nombre y la descripción no pueden estar vacíos.";
-        header("Location: ../view/Inserir.vista.php");
-        exit();
-    }
 
     // Manejar la subida de la imagen
     $imagen = $_FILES['imagen'];
@@ -27,10 +23,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Mover la imagen subida a la carpeta de destino
     if (move_uploaded_file($imagen['tmp_name'], $imagen_ruta)) {
-        // Preparar i executar la consulta d'inserció
-        $query = "INSERT INTO pokemons (nom, descripció, imatge, usuario_id) VALUES (?, ?, ?, ?)";
+        // Preparar y ejecutar la consulta de inserción
+        $query = "INSERT INTO pokemons (nom, força, dany, vida, tipus, imatge, usuario_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
         $stmt = $conn->prepare($query);
-        $stmt->bind_param("sssi", $nombre, $cuerpo, $imagen_nombre, $usuario_id);
+        $stmt->bind_param("siiissi", $nom, $força, $dany, $vida, $tipus, $imagen_nombre, $usuario_id);
         
         if ($stmt->execute()) {
             $_SESSION['success_message'] = "Pokemon insertat correctament.";

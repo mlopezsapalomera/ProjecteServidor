@@ -22,19 +22,22 @@ body {
 
 /* Header styling */
 header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   background: radial-gradient(circle, #FF0000, #3B4CCA); /* Rojo Pokémon y Azul Squirtle */
-  text-align: center;
-  padding: 2rem;
+  padding: 3rem 2rem; /* Aumentar el padding para hacer el header más grande */
   border-bottom: 5px solid #1e1e1e;
 }
 
 header h1 {
   color: #FFDE00; /* Amarillo Pikachu */
-  font-size: 3rem;
+  font-size: 2rem;
   font-weight: bold;
   text-transform: uppercase;
   letter-spacing: 5px;
   text-shadow: 0px 0px 5px #FF0000; /* Rojo Pokémon */
+  margin: 0;
 }
 
 /* Navigation */
@@ -57,53 +60,103 @@ nav a:hover {
   color: #FFDE00; /* Amarillo Pikachu */
 }
 
-/* Card grid */
+/* Modificar el contenedor de pokemons */
 .pokemons-container {
   display: flex;
-  flex-wrap: wrap;
-  gap: 2rem;
-  justify-content: center;
-  padding: 2rem 0;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 2rem;
+  width: 100%;
 }
 
+/* Modificar la tarjeta de pokemon */
 .pokemon-card {
-  background: linear-gradient(145deg, #333, #555);
-  border: 2px solid #3B4CCA; /* Azul Squirtle */
-  border-radius: 8px;
-  width: 260px;
-  transition: transform 0.3s, box-shadow 0.3s;
+  display: flex;
+  align-items: center;
+  background: linear-gradient(145deg, #2a2a2a, #333);
+  border: 2px solid #3B4CCA;
+  border-radius: 10px;
+  width: 100%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  padding: 1.5rem;
+  position: relative;
+  overflow: hidden;
 }
 
 .pokemon-card:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 20px #FF0000; /* Rojo Pokémon */
+  transform: translateY(-10px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-.pokemon-card img {
+/* Efecto de fondo rojo al hover */
+.pokemon-card:hover::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  border-bottom: 3px solid #1e1e1e;
+  height: 100%;
+  background: linear-gradient(145deg, rgba(255, 0, 0, 0.1), rgba(255, 0, 0, 0.2));
+  z-index: 0;
+}
+.pokemon-card img {
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
+  cursor: pointer;
+  margin-right: 2rem;
+  border-radius: 10px;
+  transition: transform 0.3s;
+  position: relative;
+  z-index: 1;
+}
+
+.pokemon-card img:hover {
+  transform: scale(1.1);
+}
+
+.pokemon-info {
+  flex: 1;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding-top: 0;
 }
 
 .pokemon-card h3 {
   color: #FFDE00; /* Amarillo Pikachu */
-  padding: 1rem;
-  font-size: 1.5rem;
-  text-align: center;
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
   text-transform: capitalize;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  margin-top: -10px; /* Subir el título */
 }
 
 .pokemon-card p {
-  padding: 0.5rem 1rem;
-  font-size: 1rem;
-  color: #bbb;
+  font-size: 1.1rem;
+  color: #f4f4f4;
+  line-height: 1.6;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.pokemon-card .actions {
+  margin-top: 1rem;
+  display: flex;
+  gap: 1rem;
+  position: relative;
+  z-index: 1;
 }
 
 /* Profile icon and dropdown */
 .user-actions {
+  display: flex;
+  align-items: center;
   position: absolute;
   top: 20px;
   right: 20px;
-  display: flex;
   gap: 10px;
 }
 
@@ -158,6 +211,7 @@ nav a:hover {
   cursor: pointer;
   text-decoration: none;
   transition: background-color 0.3s;
+  margin-left: 1rem;
 }
 
 .btn-primary {
@@ -358,7 +412,7 @@ a.btn:hover {
   border-color: #FF0000; /* Rojo Pokémon */
 }
 
-/* Estilo para los formularios */
+/* Estilos generales para los formularios */
 form {
   background: #333;
   padding: 2rem;
@@ -377,6 +431,7 @@ form label {
 
 form input[type="text"],
 form input[type="password"],
+form input[type="email"],
 form input[type="file"],
 form select,
 form textarea {
@@ -393,6 +448,7 @@ form textarea {
 
 form input[type="text"]:focus,
 form input[type="password"]:focus,
+form input[type="email"]:focus,
 form input[type="file"]:focus,
 form select:focus,
 form textarea:focus {
@@ -403,7 +459,7 @@ form textarea:focus {
 form button {
   background-color: #FF0000; /* Rojo Pokémon */
   color: white;
-  padding: 0.5rem 1rem;
+  padding: 0.75rem 1.5rem;
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -411,6 +467,77 @@ form button {
 }
 
 form button:hover {
+  background-color: #CC0000; /* Rojo más oscuro */
+}
+
+input[type="number"],
+input[type="text"] {
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border: 2px solid #3B4CCA; /* Azul Squirtle */
+    border-radius: 4px;
+    background-color: #222;
+    color: #f4f4f4;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+input[type="number"]:focus,
+input[type="text"]:focus {
+    border-color: #FF0000; /* Rojo Pokémon */
+    outline: none;
+}
+
+/* Estilos específicos para el formulario de perfil */
+.profile-form {
+  background: #444;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  max-width: 700px;
+  margin: 2rem auto;
+  color: #f4f4f4;
+}
+
+.profile-form label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+.profile-form input[type="text"],
+.profile-form input[type="email"],
+.profile-form input[type="file"] {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border: 2px solid #3B4CCA; /* Azul Squirtle */
+  border-radius: 4px;
+  background-color: #222;
+  color: #f4f4f4;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+.profile-form input[type="text"]:focus,
+.profile-form input[type="email"]:focus,
+.profile-form input[type="file"]:focus {
+  border-color: #FF0000; /* Rojo Pokémon */
+  outline: none;
+}
+
+.profile-form button {
+  background-color: #FF0000; /* Rojo Pokémon */
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.profile-form button:hover {
   background-color: #CC0000; /* Rojo más oscuro */
 }
 
@@ -489,4 +616,123 @@ form button:hover {
 
 .table-actions .btn-secondary:hover {
   background-color: #5a6268;
+}
+
+/* Estilo para el cuadro de búsqueda */
+.search {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 1rem;
+}
+
+.search-box {
+  padding: 0.5rem 1rem;
+  border: 2px solid #3B4CCA; /* Azul Squirtle */
+  border-radius: 4px;
+  font-size: 1rem;
+  width: 100%;
+  max-width: 300px; /* Ancho máximo del cuadro de búsqueda */
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.search-box:focus {
+  border-color: #FF0000; /* Rojo Pokémon */
+  box-shadow: 0 0 5px rgba(255, 0, 0, 0.5); /* Sombra roja */
+  outline: none;
+}
+
+.search-box::placeholder {
+  color: #ccc; /* Color del texto del placeholder */
+}
+
+.insert-animal {
+  margin-top: 0; /* Eliminar margen superior */
+}
+
+.search-insert-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1rem;
+  justify-content: center; /* Centrar el contenedor horizontalmente */
+  margin: 0 auto; /* Centrar el contenedor */
+  text-align: center;
+  margin-top: -10px; /* Ajustar el margen superior para acercar al título */
+}
+
+main {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+}
+
+.main-left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.main-center {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.main-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.main-left form {
+  display: flex;
+  flex-direction: column; /* Cambiar la dirección del flex a columna */
+  gap: 1rem; /* Espacio entre los elementos del formulario */
+}
+
+/* Modal for displaying the image in large size */
+#imageModal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.9);
+}
+
+#imageModal img {
+  margin: auto;
+  display: block;
+  max-width: 80%;
+  max-height: 80%;
+}
+
+#imageModal span {
+  position: absolute;
+  top: 20px;
+  right: 35px;
+  color: #fff;
+  font-size: 40px;
+  font-weight: bold;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+#imageModal span:hover {
+  color: #bbb;
+}
+
+/* Ajustar el modal para imágenes más grandes */
+#modalImage {
+  max-width: 90%;
+  max-height: 90vh;
+  object-fit: contain;
 }

@@ -5,6 +5,8 @@
     <title>Pokedex Global-Inserir Pokemon</title>
     <link rel="stylesheet" href="../styles/styles.css">
     <link rel="icon" href="../img/favicon.png" type="image/png">
+    <script src="../scripts/fetchPokemons.js" defer></script>
+    <script src="../scripts/autocompletePokemon.js" defer></script>
 </head>
 <body>
     <a href="../index.php" class="btn back-to-index">Tornar a l'índex</a>
@@ -18,10 +20,16 @@
     </div>
     <form action="../controllers/insertar.controller.php" method="POST" enctype="multipart/form-data">
         <h2>Inserir Pokemon</h2>
-        <label for="nombre">Nom del Pokemon:</label>
-        <input type="text" id="nombre" name="nombre" required>
-        <label for="cuerpo">Descripció del Pokemon:</label>
-        <textarea id="cuerpo" name="cuerpo" required></textarea>
+        <label for="pokemon-dropdown">Selecciona un Pokemon:</label>
+        <select id="pokemon-dropdown" name="pokemon-dropdown" required></select>
+        <label for="força">Força:</label>
+        <input type="number" id="força" name="força" required readonly>
+        <label for="dany">Dany:</label>
+        <input type="number" id="dany" name="dany" required readonly>
+        <label for="vida">Vida:</label>
+        <input type="number" id="vida" name="vida" required readonly>
+        <label for="tipus">Tipus:</label>
+        <input type="text" id="tipus" name="tipus" required readonly>
         <label for="imagen">Imatge del Pokemon:</label>
         <input type="file" id="imagen" name="imagen" accept="image/*" required>
         <button type="submit">Inserir</button>

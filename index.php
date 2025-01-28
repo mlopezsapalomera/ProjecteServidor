@@ -2,6 +2,14 @@
 session_start(); // Inicia la sessió
 require 'model/db.php'; // Connexió a la base de dades
 require 'articles.php'; // Inclou la lògica per mostrar pokemons
+require 'env.php';
+
+// Conexión a la base de datos
+$mysqli = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+
+if ($mysqli->connect_error) {
+    die("Error de conexión: " . $mysqli->connect_error);
+}
 
 // Verificar si existeix la cookie de "Remember me"
 if (!isset($_SESSION['usuario_id']) && isset($_COOKIE['remember_me'])) {
@@ -40,7 +48,6 @@ if (!isset($_SESSION['usuario_id']) && isset($_COOKIE['remember_me'])) {
             $stmt->bind_param("s", $token);
             $stmt->execute();
             setcookie('remember_me', '', time() - 3600, '/'); // Eliminar la cookie
-            setcookie('remember_me_email', '', time() - 3600, '/'); // Eliminar la cookie
         }
     }
 
@@ -75,26 +82,18 @@ $search_term = isset($_GET['search']) ? $_GET['search'] : '';
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pokedex Global</title>
-    <link rel="icon" href="img/favicon.png" type="image/png">
+    <title>Inicio</title>
     <link rel="stylesheet" href="styles/styles.css">
 </head>
 <body>
     <header>
         <h1>Pokedex Global</h1>
-        <div class="insert-animal">
-            <?php if ($is_logged_in): ?>
-                <a href="view/Inserir.vista.php" class="btn btn-primary">Inserir Pokemon</a>
-            <?php endif; ?>
-        </div>
         <div class="user-actions">
             <?php if ($is_logged_in): ?>
                 <div class="user-profile">
                     <img src="userProfile/img/<?php echo $_SESSION['imagen'] ?? 'default.jpg'; ?>" alt="User Profile" class="profile-icon" id="profile-icon">
                     <div class="dropdown-menu" id="dropdown-menu">
-                        <a href="view/perfil.vista.php" class="btn">Mi Perfil</a>
-                        <a href="view/miPokedex.vista.html" class="btn">Mis Pokemons</a>
+                        <a href="view/miPerfil.vista.php" class="btn">Mi Perfil</a>
                         <?php if ($is_admin): ?>
                             <a href="view/vistaUsuaris.vista.html" class="btn">Vista Usuaris</a>
                         <?php endif; ?>
@@ -107,41 +106,67 @@ $search_term = isset($_GET['search']) ? $_GET['search'] : '';
             <?php endif; ?>
         </div>
     </header>
-
     <main>
-        <div class="messages">
-            <?php if ($success_message): ?>
-                <div class="success"><?php echo $success_message; ?></div>
-            <?php endif; ?>
-            <?php if ($error_message): ?>
-                <div class="error"><?php echo $error_message; ?></div>
-            <?php endif; ?>
+        <div class="main-left">
+            <!-- Formulario para seleccionar el número de pokemons por página, el orden y buscar por nombre -->
+            <form id="pokemons-form" method="GET" action="index.php">
+                <label for="pokemons_por_pagina" class="label-pokemons">Pokemons per pàgina:</label>
+                <select name="pokemons_por_pagina" id="pokemons_por_pagina" class="select-pokemons" onchange="document.getElementById('pokemons-form').submit();">
+                    <option value="5" <?php echo $pokemons_per_pagina == 5 ? 'selected' : ''; ?>>5</option>
+                    <option value="10" <?php echo $pokemons_per_pagina == 10 ? 'selected' : ''; ?>>10</option>
+                    <option value="15" <?php echo $pokemons_per_pagina == 15 ? 'selected' : ''; ?>>15</option>
+                    <option value="20" <?php echo $pokemons_per_pagina == 20 ? 'selected' : ''; ?>>20</option>
+                </select>
+                <label for="orden" class="label-orden">Orden:</label>
+                <select name="orden" id="orden" class="select-orden" onchange="document.getElementById('pokemons-form').submit();">
+                    <option value="asc" <?php echo $orden == 'asc' ? 'selected' : ''; ?>>Ascendent</option>
+                    <option value="desc" <?php echo $orden == 'desc' ? 'selected' : ''; ?>>Descendent</option>
+                </select>
+            </form>
         </div>
-        <!-- Formulario para seleccionar el número de pokemons por página, el orden y buscar por nombre -->
-        <form id="pokemons-form" method="GET" action="index.php">
-            <label for="pokemons_por_pagina" class="label-pokemons">Pokemons per pàgina:</label>
-            <select name="pokemons_por_pagina" id="pokemons_por_pagina" class="select-pokemons" onchange="document.getElementById('pokemons-form').submit();">
-                <option value="5" <?php echo $pokemons_per_pagina == 5 ? 'selected' : ''; ?>>5</option>
-                <option value="10" <?php echo $pokemons_per_pagina == 10 ? 'selected' : ''; ?>>10</option>
-                <option value="15" <?php echo $pokemons_per_pagina == 15 ? 'selected' : ''; ?>>15</option>
-                <option value="20" <?php echo $pokemons_per_pagina == 20 ? 'selected' : ''; ?>>20</option>
-            </select>
-            <label for="orden" class="label-orden">Orden:</label>
-            <select name="orden" id="orden" class="select-orden" onchange="document.getElementById('pokemons-form').submit();">
-                <option value="asc" <?php echo $orden == 'asc' ? 'selected' : ''; ?>>Ascendent</option>
-                <option value="desc" <?php echo $orden == 'desc' ? 'selected' : ''; ?>>Descendent</option>
-            </select>
-            <label for="search" class="label-search">Buscar:</label>
-            <input type="text" name="search" id="search" value="<?php echo htmlspecialchars($search_term); ?>" placeholder="Buscar por nombre">
-            <button type="submit">Buscar</button>
-        </form>
-        <!-- Contenido principal -->
-        <?php mostrarPokemons($pokemons_per_pagina, $orden, $search_term); ?>
+        <div class="main-center">
+            <!-- Contenido principal -->
+            <?php
+            // Mostrar los pokemons utilizando la función mostrarPokemons
+            echo mostrarPokemons($pokemons_per_pagina, $orden, $search_term);
+            ?>
+        </div>
+        <div class="main-right">
+            <div class="search-insert-container">
+                <div class="search-insert-box">
+                    <div class="search">
+                        <form action="index.php" method="GET">
+                            <input type="text" name="search" id="search" class="search-box" placeholder="Buscar Pokemon" value="<?php echo $search_term; ?>">
+                        </form>
+                    </div>
+                    <?php if ($is_logged_in): ?>
+                        <div class="insert-animal">
+                            <a href="view/Inserir.vista.php" class="btn btn-primary">Inserir Pokemon</a>
+                        </div>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div>
     </main>
     <script>
         document.getElementById('profile-icon').addEventListener('click', () => {
             document.getElementById('dropdown-menu').classList.toggle('show');
         });
+
+        function openImageModal(src) {
+            document.getElementById('modalImage').src = src;
+            document.getElementById('imageModal').style.display = 'block';
+        }
+
+        function closeImageModal() {
+            document.getElementById('imageModal').style.display = 'none';
+        }
     </script>
+
+    <!-- Modal for displaying the image in large size -->
+    <div id="imageModal">
+        <span onclick="closeImageModal()">&times;</span>
+        <img id="modalImage" src="">
+    </div>
 </body>
 </html>
