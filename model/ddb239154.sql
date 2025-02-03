@@ -1,9 +1,6 @@
--- phpMyAdmin SQL Dump
--- version 5.2.1
--- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 28-01-2025 a las 18:43:10
+-- Tiempo de generación: 03-02-2025 a las 09:40:10
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -11,6 +8,8 @@ SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
 
+CREATE DATABASE IF NOT EXISTS `ddb239154`;
+USE "ddb239154";
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -46,6 +45,13 @@ CREATE TABLE `password_resets` (
   `expiry` datetime NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
+--
+-- Volcado de datos para la tabla `password_resets`
+--
+
+INSERT INTO `password_resets` (`id`, `email`, `token`, `expiry`) VALUES
+(3, 'mxrcol18@gmail.com', '10c8de177f99d2526a94b0d186e6b86576f97b64080e5cafee60d391e1028621', '2025-02-01 11:55:44');
+
 -- --------------------------------------------------------
 
 --
@@ -76,7 +82,8 @@ INSERT INTO `pokemons` (`id`, `nom`, `imatge`, `descripció`, `força`, `dany`, 
 (6, 'venomoth', 'lobo-solitario.png', NULL, 65, 90, 70, 'bug, poison', 24),
 (7, 'metapod', 'lobo-solitario.png', NULL, 20, 25, 50, 'bug', 24),
 (8, 'bulbasaur', 'st,small,507x507-pad,600x600,f8f8f8.jpg', NULL, 49, 65, 45, 'grass, poison', 24),
-(9, 'venusaur', 'lobo-solitario.png', NULL, 82, 100, 80, 'grass, poison', 24);
+(9, 'venusaur', 'lobo-solitario.png', NULL, 82, 100, 80, 'grass, poison', 24),
+(10, 'fearow', 'tqn3ctv4ium71.webp', NULL, 90, 61, 65, 'normal, flying', 24);
 
 -- --------------------------------------------------------
 
@@ -91,6 +98,13 @@ CREATE TABLE `user_tokens` (
   `expiry` datetime NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
+--
+-- Volcado de datos para la tabla `user_tokens`
+--
+
+INSERT INTO `user_tokens` (`id`, `user_id`, `token`, `expiry`) VALUES
+(11, 25, '4967bafae5730effae6d594c114e839c', '2025-01-28 20:31:41');
+
 -- --------------------------------------------------------
 
 --
@@ -103,16 +117,17 @@ CREATE TABLE `usuarios` (
   `email` varchar(100) NOT NULL,
   `password` varchar(255) NOT NULL,
   `rol` varchar(20) NOT NULL,
-  `imagen` varchar(255) DEFAULT 'default.jpg'
+  `imagen` varchar(255) DEFAULT 'default.jpg',
+  `qr_code_url` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`id`, `nom`, `email`, `password`, `rol`, `imagen`) VALUES
-(24, 'Marrkitus', 'mxrcol18@gmail.com', '$2y$10$4vL50zQZrKJCXQIyKP9f7.IYTII2abjXGbPjkQmiFw4lxKlQJLlw.', '', 'default.jpg'),
-(25, 'User Pruebas', 'user1@gmail.com', '$2y$10$Nf/lZF4Wlhz.FDpGdPfjxeZZELcrcnjVgHGXZVPUIvaSd/Uy2AVjG', '', 'default.jpg');
+INSERT INTO `usuarios` (`id`, `nom`, `email`, `password`, `rol`, `imagen`, `qr_code_url`) VALUES
+(24, 'Marrkitus', 'mxrcol18@gmail.com', '$2y$10$4vL50zQZrKJCXQIyKP9f7.IYTII2abjXGbPjkQmiFw4lxKlQJLlw.', '', 'tqn3ctv4ium71.webp', '../img/qr_24.png'),
+(25, 'User Pruebas', 'user1@gmail.com', '$2y$10$Nf/lZF4Wlhz.FDpGdPfjxeZZELcrcnjVgHGXZVPUIvaSd/Uy2AVjG', '', 'default.jpg', NULL);
 
 --
 -- Índices para tablas volcadas
@@ -166,19 +181,19 @@ ALTER TABLE `friends`
 -- AUTO_INCREMENT de la tabla `password_resets`
 --
 ALTER TABLE `password_resets`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `pokemons`
 --
 ALTER TABLE `pokemons`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `user_tokens`
 --
 ALTER TABLE `user_tokens`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
@@ -201,3 +216,4 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
