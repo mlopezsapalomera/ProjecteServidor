@@ -44,6 +44,7 @@
     <div class="friends-list">
         <div id="friends-container">
             <!-- Lista de amigos se cargará aquí -->
+            <!--Aun no esta implementado (Idea de projecto) -->  
         </div>
     </div>
     <form id="pokemons-form">
