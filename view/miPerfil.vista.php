@@ -22,7 +22,6 @@
         </div>
         <div class="profile-preview">
             <img src="../userProfile/img/<?php echo isset($_SESSION['imagen']) ? $_SESSION['imagen'] : 'default.jpg'; ?>" alt="Foto de Perfil" class="profile-icon">
-            <img src="../img/qr_<?php echo $_SESSION['usuario_id']; ?>.png" alt="Código QR">
         </div>
         <label for="nombre">Nom:</label>
         <input type="text" id="nombre" name="nombre" value="<?php echo isset($_SESSION['nombre']) ? $_SESSION['nombre'] : ''; ?>" required>
@@ -34,6 +33,17 @@
     </form>
     <div class="profile-preview">
         <a href="cambiarContrasena.vista.php" class="btn btn-secondary">Cambiar Contraseña</a>
+    </div>
+
+    <div class="profile-preview">
+        <button id="generate-qr" class="btn btn-primary">Generar Código QR</button>
+        <div id="qr-code-image-container"></div>
+    </div>
+    <div class="qr-code-reader">
+        <form id="qr-reader-form" enctype="multipart/form-data">
+            <input type="file" id="qr_image" name="qr_image" accept="image/*">
+            <button type="submit" class="btn btn-primary">Leer Código QR</button>
+        </form>
     </div>
     <div class="friends-list">
         <div id="friends-container">
@@ -58,15 +68,63 @@
         <!-- El contenido se cargará aquí desde miPerfil.controller.php -->
     </div>
     <script>
-        function loadMisPokemons(pagina = 1) {
-            const pokemonsPorPagina = document.getElementById('pokemons_por_pagina').value;
-            const orden = document.getElementById('orden').value;
-            fetch(`../controllers/miPerfil.controller.php?pagina=${pagina}&pokemons_por_pagina=${pokemonsPorPagina}&orden=${orden}`)
-                .then(response => response.text())
+        document.getElementById('generate-qr').addEventListener('click', function() {
+            fetch('../controllers/generateQrCode.controller.php')
+                .then(response => response.json())
                 .then(data => {
-                    document.getElementById('mi-pokedex-container').innerHTML = data;
+                    if (data.success) {
+                        document.getElementById('qr-code-image-container').innerHTML = `<img src="${data.qrCodeUrl}" alt="Código QR" class="qr-code">`;
+                    } else {
+                        alert('Error al generar el código QR: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    alert('Error al generar el código QR: ' + error.message);
                 });
-        }
+        });
+
+        document.querySelector('form.profile-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+            fetch(this.action, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.querySelector('.profile-preview img').src = data.newImageUrl;
+                    alert('Perfil actualizado correctamente.');
+                } else {
+                    alert('Error al actualizar el perfil: ' + data.message);
+                }
+            })
+            .catch(error => {
+                alert('Error al actualizar el perfil: ' + error.message);
+            });
+        });
+
+        document.getElementById('qr-reader-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+            fetch('../controllers/readQrCode.controller.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text()) // Cambia a .text() para ver la respuesta sin procesar
+            .then(text => {
+                console.log(text); // Muestra la respuesta en la consola
+                const data = JSON.parse(text); // Analiza la respuesta como JSON
+                if (data.success) {
+                    window.location.href = data.url;
+                } else {
+                    alert('Error al leer el código QR: ' + data.message);
+                }
+            })
+            .catch(error => {
+                alert('Error al leer el código QR: ' + error.message);
+            });
+        });
 
         document.addEventListener('DOMContentLoaded', () => {
             loadMisPokemons();
@@ -79,6 +137,16 @@
                 loadMisPokemons();
             });
         });
+
+        function loadMisPokemons(pagina = 1) {
+            const pokemonsPorPagina = document.getElementById('pokemons_por_pagina').value;
+            const orden = document.getElementById('orden').value;
+            fetch(`../controllers/miPerfil.controller.php?pagina=${pagina}&pokemons_por_pagina=${pokemonsPorPagina}&orden=${orden}`)
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('mi-pokedex-container').innerHTML = data;
+                });
+        }
 
         function loadFriends() {
             fetch('../controllers/friends.controller.php')

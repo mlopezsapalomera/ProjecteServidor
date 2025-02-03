@@ -1,11 +1,14 @@
 <?php
+require '../vendor/autoload.php';
+require_once '../model/db.php';
+require_once '../articles.php';
+
 session_start();
+
 if (!isset($_SESSION['usuario'])) {
     header("HTTP/1.1 403 Forbidden");
     exit();
 }
-require_once '../model/db.php';
-require_once '../articles.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nombre = trim($_POST['nombre']);

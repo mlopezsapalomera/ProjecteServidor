@@ -163,14 +163,15 @@ nav a:hover {
 .profile-icon {
   width: 100px;
   height: 100px;
-  border-radius: 50%;
+  border-radius: 50%; /* Mantener la imagen de perfil como un círculo */
   border: 2px solid #fff;
-  cursor: pointer;
-  transition: transform 0.2s;
+  object-fit: cover;
+  transition: transform 0.3s, border-color 0.3s;
 }
 
 .profile-icon:hover {
   transform: scale(1.1);
+  border-color: #FF0000; /* Rojo Pokémon */
 }
 
 .dropdown-menu {
@@ -401,15 +402,20 @@ a.btn:hover {
 .profile-preview img {
   width: 100px;
   height: 100px;
-  border-radius: 50%;
   border: 2px solid #fff;
   object-fit: cover;
   transition: transform 0.3s, border-color 0.3s;
 }
 
-.profile-preview img:hover {
-  transform: scale(1.1);
-  border-color: #FF0000; /* Rojo Pokémon */
+
+
+/* Estilo para el código QR */
+.qr-code {
+  width: 150px;
+  height: 150px;
+  border-radius: 0; /* Asegurarse de que no sea un círculo */
+  border: 2px solid #000; /* Añadir borde */
+  object-fit: contain;
 }
 
 /* Estilos generales para los formularios */

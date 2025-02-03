@@ -1,24 +1,15 @@
 <?php
-require 'vendor/autoload.php';
+require '../vendor/autoload.php';
 use Endroid\QrCode\QrCode;
 use Endroid\QrCode\Writer\PngWriter;
+require_once '../model/db.php';
 
 session_start();
+
 if (!isset($_SESSION['usuario'])) {
     header("HTTP/1.1 403 Forbidden");
     exit();
 }
-
-$usuario_id = $_SESSION['usuario_id'];
-$perfil_url = "http://example.com/view/perfil.vista.php?id=$usuario_id";
-
-$qrCode = new QrCode($perfil_url);
-$writer = new PngWriter();
-$qrCodePath = __DIR__ . "/../img/qr_$usuario_id.png";
-$writer->write($qrCode)->saveToFile($qrCodePath);
-
-require_once '../model/db.php';
-require_once '../articles.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nombre = trim($_POST['nombre']);
@@ -59,18 +50,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         if ($stmt->execute()) {
-            $_SESSION['success_message'] = "Perfil actualizado correctamente.";
             $_SESSION['nombre'] = $nombre;
+
+            // Generar nuevo código QR
+            $perfil_url = "http://example.com/view/perfil.vista.php?id=$usuario_id";
+            $qrCode = new QrCode($perfil_url);
+            $writer = new PngWriter();
+            $qrCodePath = __DIR__ . "/../img/qr_$usuario_id.png";
+            $result = $writer->write($qrCode);
+            $result->saveToFile($qrCodePath);
+
+            echo json_encode(['success' => true, 'newImageUrl' => "../userProfile/img/$imagen_nombre"]);
         } else {
             throw new Exception("Error en actualizar el perfil: " . $conn->error);
         }
 
         $stmt->close();
     } catch (Exception $e) {
-        $_SESSION['error_message'] = $e->getMessage();
+        echo json_encode(['success' => false, 'message' => $e->getMessage()]);
     }
-
-    header("Location: ../view/miPerfil.vista.php");
-    exit();
 }
 ?>
