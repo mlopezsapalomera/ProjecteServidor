@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['nombre'] = $nombre;
 
             // Generar nuevo código QR
-            $perfil_url = "http://example.com/view/perfil.vista.php?id=$usuario_id";
+            $perfil_url = "http://marcoslopez.cat/view/perfilUsuario.vista.php?id=$usuario_id";
             $qrCode = new QrCode($perfil_url);
             $writer = new PngWriter();
             $qrCodePath = __DIR__ . "/../img/qr_$usuario_id.png";

@@ -128,8 +128,11 @@ function mostrarMisPokemons($usuario_id, $pokemons_por_pagina = 5, $orden = 'asc
             $html .= "<img src='../img/" . htmlspecialchars($imagen) . "' alt='" . htmlspecialchars($pokemon['nom']) . "'>";
 
             // Información del pokemon
-            $html .= "<h3>" . htmlspecialchars($pokemon['nom']) . "</h3>";
-            $html .= "<p>" . htmlspecialchars($pokemon['descripció']) . "</p>";
+            $html .= '<h3>' . htmlspecialchars($pokemon['nom']) . '</h3>';
+            $html .= '<p>Força: ' . htmlspecialchars($pokemon['força']) . '</p>';
+            $html .= '<p>Vida: ' . htmlspecialchars($pokemon['vida']) . '</p>';
+            $html .= '<p>Daño: ' . htmlspecialchars($pokemon['dany']) . '</p>';
+            $html .= '<p>Tipus: ' . htmlspecialchars($pokemon['tipus']) . '</p>';
 
             // Botones de acción
             if (isset($_SESSION['usuario_id']) && ($_SESSION['usuario_id'] == $pokemon['usuario_id'] || $_SESSION['rol'] === 'admin')) {

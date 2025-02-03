@@ -26,8 +26,10 @@ while ($pokemon = $result->fetch_assoc()) {
     $html .= '<div class="pokemon-card">';
     $html .= '<img src="../img/' . htmlspecialchars($imagen) . '" alt="' . htmlspecialchars($pokemon['nom']) . '">';
     $html .= '<div class="pokemon-info">';
-    $html .= '<h3>' . htmlspecialchars($pokemon['nom']) . '</h3>';
-    $html .= '<p>' . htmlspecialchars($descripcion) . '</p>';
+    $html .= '<p>Força: ' . htmlspecialchars($pokemon['força']) . '</p>';
+    $html .= '<p>Vida: ' . htmlspecialchars($pokemon['vida']) . '</p>';
+    $html .= '<p>Daño: ' . htmlspecialchars($pokemon['dany']) . '</p>';
+    $html .= '<p>Tipus: ' . htmlspecialchars($pokemon['tipus']) . '</p>';
     $html .= '</div>';
     $html .= '</div>';
 }
