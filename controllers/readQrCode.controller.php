@@ -8,6 +8,13 @@ header('Content-Type: application/json');
 try {
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['qr_image'])) {
         $qrImagePath = $_FILES['qr_image']['tmp_name'];
+        
+        // Verificar si el archivo se ha cargado correctamente
+        if (!file_exists($qrImagePath)) {
+            echo json_encode(['success' => false, 'message' => 'El archivo no se ha cargado correctamente']);
+            exit();
+        }
+
         $qrReader = new QrReader($qrImagePath);
         $text = $qrReader->text();
 
