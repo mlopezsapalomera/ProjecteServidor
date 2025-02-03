@@ -34,6 +34,22 @@
     <div class="profile-preview">
         <a href="cambiarContrasena.vista.php" class="btn btn-secondary">Cambiar Contraseña</a>
     </div>
+
+    <div class="profile-preview">
+        <button id="generate-qr" class="btn btn-primary">Generar Código QR</button>
+        <div id="qr-code-image-container"></div>
+    </div>
+    <div class="qr-code-reader">
+        <form id="qr-reader-form" enctype="multipart/form-data">
+            <input type="file" id="qr_image" name="qr_image" accept="image/*">
+            <button type="submit" class="btn btn-primary">Leer Código QR</button>
+        </form>
+    </div>
+    <div class="friends-list">
+        <div id="friends-container">
+            <!-- Lista de amigos se cargará aquí -->
+        </div>
+    </div>
     <form id="pokemons-form">
         <label for="pokemons_por_pagina" class="label-pokemons">Pokemons per pàgina:</label>
         <select name="pokemons_por_pagina" id="pokemons_por_pagina" class="select-pokemons">
@@ -52,6 +68,64 @@
         <!-- El contenido se cargará aquí desde miPerfil.controller.php -->
     </div>
     <script>
+        document.getElementById('generate-qr').addEventListener('click', function() {
+            fetch('../controllers/generateQrCode.controller.php')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        document.getElementById('qr-code-image-container').innerHTML = `<img src="${data.qrCodeUrl}" alt="Código QR" class="qr-code">`;
+                    } else {
+                        alert('Error al generar el código QR: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    alert('Error al generar el código QR: ' + error.message);
+                });
+        });
+
+        document.querySelector('form.profile-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+            fetch(this.action, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.querySelector('.profile-preview img').src = data.newImageUrl;
+                    alert('Perfil actualizado correctamente.');
+                } else {
+                    alert('Error al actualizar el perfil: ' + data.message);
+                }
+            })
+            .catch(error => {
+                alert('Error al actualizar el perfil: ' + error.message);
+            });
+        });
+
+        document.getElementById('qr-reader-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+            fetch('../controllers/readQrCode.controller.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text()) // Cambia a .text() para ver la respuesta sin procesar
+            .then(text => {
+                console.log(text); // Muestra la respuesta en la consola
+                const data = JSON.parse(text); // Analiza la respuesta como JSON
+                if (data.success) {
+                    window.location.href = data.url;
+                } else {
+                    alert('Error al leer el código QR: ' + data.message);
+                }
+            })
+            .catch(error => {
+                alert('Error al leer el código QR: ' + error.message);
+            });
+        });
+
         document.addEventListener('DOMContentLoaded', () => {
             loadMisPokemons();
 
@@ -61,14 +135,6 @@
 
             document.getElementById('orden').addEventListener('change', () => {
                 loadMisPokemons();
-            });
-
-            document.getElementById('mi-pokedex-container').addEventListener('click', (event) => {
-                if (event.target.classList.contains('pagination-link')) {
-                    event.preventDefault();
-                    const page = event.target.getAttribute('data-page');
-                    loadMisPokemons(page);
-                }
             });
         });
 
@@ -81,6 +147,16 @@
                     document.getElementById('mi-pokedex-container').innerHTML = data;
                 });
         }
+
+        function loadFriends() {
+            fetch('../controllers/friends.controller.php')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('friends-container').innerHTML = data;
+                });
+        }
+
+        document.addEventListener('DOMContentLoaded', loadFriends);
     </script>
 </body>
 </html>
