@@ -7,7 +7,7 @@
     <link rel="icon" href="../img/favicon.png" type="image/png">
 </head>
 <body>
-    <a href="perfil.vista.php" class="btn back-to-index">Tornar al Perfil</a>
+    <a href="miPerfil.vista.php" class="btn back-to-index">Tornar al Perfil</a>
     <form action="../controllers/cambiarContrasena.controller.php" method="POST">
         <h2>Cambiar Contraseña</h2>
         <div class="messages">

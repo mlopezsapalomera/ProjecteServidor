@@ -17,18 +17,12 @@ require_once '../model/db.php';
 
 $id = $_GET['id'];
 
-// Obtener las rutas de las imágenes de los pokemons asociados
-$query = "SELECT imatge FROM pokemons WHERE usuario_id = ?";
-$stmt = $conn->prepare($query);
-$stmt->bind_param("i", $id);
-$stmt->execute();
-$result = $stmt->get_result();
+$result = getPokemonsImagesByUserId($id);
 
 $imagenes = [];
 while ($row = $result->fetch_assoc()) {
     $imagenes[] = $row['imatge'];
 }
-$stmt->close();
 
 // Eliminar las imágenes del servidor
 foreach ($imagenes as $imagen) {
@@ -39,20 +33,12 @@ foreach ($imagenes as $imagen) {
 }
 
 // Eliminar los pokemons asociados al usuario
-$query = "DELETE FROM pokemons WHERE usuario_id = ?";
-$stmt = $conn->prepare($query);
-$stmt->bind_param("i", $id);
-$stmt->execute();
-$stmt->close();
+deletePokemonsByUserId($id);
 
 // Eliminar el usuario
-$query = "DELETE FROM usuarios WHERE id = ?";
-$stmt = $conn->prepare($query);
-$stmt->bind_param("i", $id);
-if ($stmt->execute()) {
+if (deleteUserById($id)) {
     echo "Usuari eliminat correctament.";
 } else {
     echo "Error en eliminar l'usuari: " . $conn->error;
 }
-$stmt->close();
 ?>

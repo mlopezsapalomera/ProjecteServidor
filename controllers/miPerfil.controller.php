@@ -67,7 +67,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $usuario_id = $_SESSION['usuario_id'];
         $pokemons_por_pagina = isset($_GET['pokemons_por_pagina']) ? (int)$_GET['pokemons_por_pagina'] : 5;
         $orden = isset($_GET['orden']) ? $_GET['orden'] : 'asc';
-        echo mostrarMisPokemons($usuario_id, $pokemons_por_pagina, $orden);
+        $pagina = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
+        echo mostrarMisPokemons($usuario_id, $pokemons_por_pagina, $orden, $pagina);
     } catch (Exception $e) {
         echo "Error: " . $e->getMessage();
     }

@@ -9,9 +9,7 @@ if (!isset($_SESSION['usuario']) || $_SESSION['rol'] !== 'admin') {
 
 require_once '../model/db.php';
 
-// Modificar la consulta para excluir a los usuarios con el rol de admin
-$query = "SELECT id, nom, email, rol FROM usuarios WHERE rol != 'admin'";
-$result = $conn->query($query);
+$result = getUsersExcludingAdmin();
 
 $html = '<table>';
 $html .= '<tr><th>ID</th><th>NickName</th><th>Email</th><th>Accions</th></tr>';

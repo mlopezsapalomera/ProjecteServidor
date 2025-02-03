@@ -1,9 +1,7 @@
 <?php
 session_start();
+require '../vendor/autoload.php';
 require_once '../model/db.php';
-require_once '../PHPMailer-master/src/PHPMailer.php';
-require_once '../PHPMailer-master/src/SMTP.php';
-require_once '../PHPMailer-master/src/Exception.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -11,32 +9,21 @@ use PHPMailer\PHPMailer\Exception;
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = trim($_POST['email']);
 
-    // Verificar si el correo electrónico está registrado
-    $query = "SELECT id FROM usuarios WHERE email = ?";
-    $stmt = $conn->prepare($query);
-    $stmt->bind_param("s", $email);
-    $stmt->execute();
-    $result = $stmt->get_result();
+    $result = getUserByEmail($email);
 
     if ($result->num_rows > 0) {
-        // Generar un token único
         $token = bin2hex(random_bytes(32));
-        $expiry = date('Y-m-d H:i:s', time() + 3600); // 1 hora de validez
+        $expiry = date('Y-m-d H:i:s', time() + 3600);
 
-        // Guardar el token en la base de datos
-        $query = "INSERT INTO password_resets (email, token, expiry) VALUES (?, ?, ?)";
-        $stmt = $conn->prepare($query);
-        $stmt->bind_param("sss", $email, $token, $expiry);
-        $stmt->execute();
+        insertPasswordReset($email, $token, $expiry);
 
-        // Enviar el correo electrónico
         $mail = new PHPMailer(true);
         try {
             $mail->isSMTP();
-            $mail->Host = 'smtp.gmail.com'; // Configura tu servidor SMTP
+            $mail->Host = 'smtp.gmail.com';
             $mail->SMTPAuth = true;
-            $mail->Username = 'm.lopez5@sapalomera.cat'; // Configura tu correo electrónico
-            $mail->Password = 'xwos uafv ixrl ismx'; // Configura tu contraseña
+            $mail->Username = 'm.lopez5@sapalomera.cat';
+            $mail->Password = 'xwos uafv ixrl ismx';
             $mail->SMTPSecure = 'tls';
             $mail->Port = 587;
 

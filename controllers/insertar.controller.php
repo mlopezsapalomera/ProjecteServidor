@@ -24,17 +24,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Mover la imagen subida a la carpeta de destino
     if (move_uploaded_file($imagen['tmp_name'], $imagen_ruta)) {
         // Preparar y ejecutar la consulta de inserción
-        $query = "INSERT INTO pokemons (nom, força, dany, vida, tipus, imatge, usuario_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
-        $stmt = $conn->prepare($query);
-        $stmt->bind_param("siiissi", $nom, $força, $dany, $vida, $tipus, $imagen_nombre, $usuario_id);
-        
-        if ($stmt->execute()) {
+        if (insertPokemon($nom, $força, $dany, $vida, $tipus, $imagen_nombre, $usuario_id)) {
             $_SESSION['success_message'] = "Pokemon insertat correctament.";
         } else {
             $_SESSION['error_message'] = "Error en insertar el Pokemon: " . $conn->error;
         }
-        
-        $stmt->close();
     } else {
         $_SESSION['error_message'] = "Error en subir la imagen.";
     }
