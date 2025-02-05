@@ -94,6 +94,7 @@ $search_term = isset($_GET['search']) ? $_GET['search'] : '';
                     <img src="userProfile/img/<?php echo $_SESSION['imagen'] ?? 'default.jpg'; ?>" alt="User Profile" class="profile-icon" id="profile-icon">
                     <div class="dropdown-menu" id="dropdown-menu">
                         <a href="view/miPerfil.vista.php" class="btn">Mi Perfil</a>
+                        <a href="view/vistaAjax.php" class="btn" id="view-articles">Ver Artículos</a>
                         <?php if ($is_admin): ?>
                             <a href="view/vistaUsuaris.vista.html" class="btn">Vista Usuaris</a>
                         <?php endif; ?>

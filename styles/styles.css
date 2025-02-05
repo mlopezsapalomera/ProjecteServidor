@@ -67,6 +67,8 @@ nav a:hover {
   gap: 1rem;
   padding: 2rem;
   width: 100%;
+  position: relative;
+  z-index: 1;
 }
 
 /* Modificar la tarjeta de pokemon */
@@ -74,14 +76,17 @@ nav a:hover {
   display: flex;
   align-items: center;
   background: linear-gradient(145deg, #2a2a2a, #333);
-  border: 2px solid #3B4CCA;
-  border-radius: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
   width: 100%;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
-  padding: 1.5rem;
+  padding: 1rem;
+  margin: 1rem;
   position: relative;
+  z-index: 2;
   overflow: hidden;
+  text-align: center;
 }
 
 .pokemon-card:hover {
@@ -101,12 +106,12 @@ nav a:hover {
   z-index: 0;
 }
 .pokemon-card img {
-  width: 200px;
-  height: 200px;
+  max-width: 100%;
+  height: auto;
   object-fit: contain;
   cursor: pointer;
   margin-right: 2rem;
-  border-radius: 10px;
+  border-radius: 8px;
   transition: transform 0.3s;
   position: relative;
   z-index: 1;
@@ -133,6 +138,7 @@ nav a:hover {
   text-transform: capitalize;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
   margin-top: -10px; /* Subir el título */
+  margin: 0.5rem 0;
 }
 
 .pokemon-card p {
@@ -140,6 +146,7 @@ nav a:hover {
   color: #f4f4f4;
   line-height: 1.6;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+  margin: 0.5rem 0;
 }
 
 .pokemon-card .actions {
@@ -148,6 +155,28 @@ nav a:hover {
   gap: 1rem;
   position: relative;
   z-index: 1;
+}
+
+.pokemon-card button {
+  margin-top: 0.5rem;
+  position: relative;
+  z-index: 3;
+  pointer-events: auto;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: #007bff;
+  color: white;
+  transition: background-color 0.3s;
+}
+
+.pokemon-card button:hover {
+  background-color: #0056b3;
+}
+
+.pokemon-card::before {
+  pointer-events: none; /* Para no bloquear clics debajo */
 }
 
 /* Profile icon and dropdown */

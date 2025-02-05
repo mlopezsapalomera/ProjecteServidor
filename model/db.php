@@ -211,4 +211,12 @@ function updatePokemon($nombre, $cuerpo, $imagen_nombre, $id) {
     }
     return $stmt->execute();
 }
+
+function togglePokemonVisibility($id, $visible) {
+    global $conn;
+    $query = "UPDATE pokemons SET visible = ? WHERE id = ?";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("ii", $visible, $id);
+    return $stmt->execute();
+}
 ?>

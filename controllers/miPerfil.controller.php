@@ -1,12 +1,16 @@
 <?php
-require '../vendor/autoload.php';
+session_start();
 require_once '../model/db.php';
 require_once '../articles.php';
 
-session_start();
-
 if (!isset($_SESSION['usuario'])) {
     header("HTTP/1.1 403 Forbidden");
+    exit();
+}
+
+if (!isset($_SESSION['usuario_id'])) {
+    $_SESSION['error_message'] = "ID de usuario no definido.";
+    header("Location: ../index.php");
     exit();
 }
 
@@ -68,7 +72,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $pokemons_por_pagina = isset($_GET['pokemons_por_pagina']) ? (int)$_GET['pokemons_por_pagina'] : 5;
         $orden = isset($_GET['orden']) ? $_GET['orden'] : 'asc';
         $pagina = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
-        echo mostrarMisPokemons($usuario_id, $pokemons_por_pagina, $orden, $pagina);
+        $offset = ($pagina - 1) * $pokemons_por_pagina;
+
+        $query = "SELECT * FROM pokemons WHERE usuario_id = ? AND visible = TRUE ORDER BY nom $orden LIMIT ? OFFSET ?";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param("iii", $usuario_id, $pokemons_por_pagina, $offset);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        $html = '<div class="pokemons-container">';
+        while ($pokemon = $result->fetch_assoc()) {
+            $html .= '<div class="pokemon-card">';
+            $html .= '<img src="../img/' . htmlspecialchars($pokemon['imatge']) . '" alt="' . htmlspecialchars($pokemon['nom']) . '">';
+            $html .= '<div class="pokemon-info">';
+            $html .= '<h3>' . htmlspecialchars($pokemon['nom']) . '</h3>';
+            $html .= '<p>Força: ' . htmlspecialchars($pokemon['força']) . '</p>';
+            $html .= '<p>Vida: ' . htmlspecialchars($pokemon['vida']) . '</p>';
+            $html .= '<p>Daño: ' . htmlspecialchars($pokemon['dany']) . '</p>';
+            $html .= '<p>Tipus: ' . htmlspecialchars($pokemon['tipus']) . '</p>';
+            $html .= '</div>';
+            $html .= '</div>';
+        }
+        $html .= '</div>';
+
+        echo $html;
     } catch (Exception $e) {
         echo "Error: " . $e->getMessage();
     }
