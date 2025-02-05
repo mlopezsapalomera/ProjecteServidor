@@ -32,6 +32,7 @@ document.getElementById('fetch-articles').addEventListener('click', function() {
                 button.addEventListener('click', function() {
                     const pokemonId = this.getAttribute('data-id');
                     const visible = this.getAttribute('data-visible') === '1' ? '0' : '1';
+                    console.log(`Updating visibility for Pokemon ID: ${pokemonId}, New Visibility: ${visible}`);
                     fetch(`../controllers/toggleVisibility.controller.php?id=${pokemonId}&visible=${visible}`)
                         .then(response => response.json())
                         .then(data => {

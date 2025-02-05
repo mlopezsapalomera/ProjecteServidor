@@ -11,6 +11,9 @@ if (!isset($_SESSION['usuario_id'])) {
 $pokemon_id = $_GET['id'];
 $visible = $_GET['visible'];
 
+// Agregar registros de depuración
+error_log("Pokemon ID: $pokemon_id, Visible: $visible, Usuario ID: " . $_SESSION['usuario_id']);
+
 $query = "UPDATE pokemons SET visible = ? WHERE id = ? AND usuario_id = ?";
 $stmt = $conn->prepare($query);
 $stmt->bind_param("iii", $visible, $pokemon_id, $_SESSION['usuario_id']);
