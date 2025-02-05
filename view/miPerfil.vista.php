@@ -111,12 +111,11 @@
                 method: 'POST',
                 body: formData
             })
-            .then(response => response.text()) // Cambia a .text() para ver la respuesta sin procesar
-            .then(text => {
-                console.log(text); // Muestra la respuesta en la consola
-                const data = JSON.parse(text); // Analiza la respuesta como JSON
+            .then(response => response.json())
+            .then(data => {
                 if (data.success) {
-                    window.location.href = data.url;
+                    const qrCodeContainer = document.getElementById('qr-code-image-container');
+                    qrCodeContainer.innerHTML = `<a href="${data.url}" target="_blank">${data.url}</a>`;
                 } else {
                     alert('Error al leer el código QR: ' + data.message);
                 }

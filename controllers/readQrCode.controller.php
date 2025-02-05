@@ -1,7 +1,11 @@
 <?php
 require '../vendor/autoload.php';
-use Zxing\QrReader;
-require_once '../model/db.php';
+use chillerlan\QRCode\{QRCode, QROptions};
+use chillerlan\QRCode\Decoder\QRCodeDecoderException;
+
+session_start();
+
+header('Content-Type: application/json');
 
 try {
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['qr_image'])) {
@@ -9,30 +13,38 @@ try {
         
         // Verificar si el archivo se ha cargado correctamente
         if (!file_exists($qrImagePath)) {
-            die('Error: El archivo no se ha cargado correctamente.');
+            echo json_encode(['success' => false, 'message' => 'Error: El archivo no se ha cargado correctamente.']);
+            exit();
         }
 
         // Verificar el tipo de archivo
         $fileType = mime_content_type($qrImagePath);
         if (!in_array($fileType, ['image/png', 'image/jpeg', 'image/jpg'])) {
-            die('Error: Tipo de archivo no soportado.');
+            echo json_encode(['success' => false, 'message' => 'Error: Tipo de archivo no soportado.']);
+            exit();
         }
 
         // Leer el código QR
-        $qrReader = new QrReader($qrImagePath);
-        $text = $qrReader->text();
+        $options = new QROptions([
+            'readerUseImagickIfAvailable' => true,
+            'readerGrayscale'             => true,
+            'readerIncreaseContrast'      => true,
+        ]);
 
-        if ($text) {
-            // Si el QR tiene una URL válida, redirigir al usuario
-            header("Location: " . $text);
-            exit();
-        } else {
-            die('Error: No se pudo leer el código QR.');
+        $qrcode = new QRCode($options);
+
+        try {
+            $result = $qrcode->readFromBlob(file_get_contents($qrImagePath));
+            $text = $result->data;
+
+            echo json_encode(['success' => true, 'url' => $text]);
+        } catch (QRCodeDecoderException $e) {
+            echo json_encode(['success' => false, 'message' => 'Error al leer el código QR: ' . $e->getMessage()]);
         }
     } else {
-        die('Error: No se recibió ninguna imagen.');
+        echo json_encode(['success' => false, 'message' => 'Error: No se recibió ninguna imagen.']);
     }
 } catch (Exception $e) {
-    die('Error del servidor: ' . $e->getMessage());
+    echo json_encode(['success' => false, 'message' => 'Error del servidor: ' . $e->getMessage()]);
 }
 ?>

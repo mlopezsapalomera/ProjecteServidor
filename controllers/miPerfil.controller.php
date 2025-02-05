@@ -91,6 +91,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $html .= '<p>Daño: ' . htmlspecialchars($pokemon['dany']) . '</p>';
             $html .= '<p>Tipus: ' . htmlspecialchars($pokemon['tipus']) . '</p>';
             $html .= '</div>';
+            $html .= '<div class="actions">';
+            $html .= "<a href='../view/modificar.vista.php?id=" . $pokemon['id'] . "&nombre=" . urlencode($pokemon['nom']) . "&cuerpo=" . urlencode($pokemon['descripció']) . "&imagen=" . urlencode($pokemon['imatge']) . "' class='btn'>Modificar</a>";
+            $html .= "<a href='../view/Esborrar.vista.html?id=" . $pokemon['id'] . "&imagen=" . $pokemon['imatge'] . "' class='btn btn-danger'>Eliminar</a>";
+            $html .= '</div>';
             $html .= '</div>';
         }
         $html .= '</div>';

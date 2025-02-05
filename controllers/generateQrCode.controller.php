@@ -1,7 +1,6 @@
 <?php
 require '../vendor/autoload.php';
-use Endroid\QrCode\QrCode;
-use Endroid\QrCode\Writer\PngWriter;
+use chillerlan\QRCode\{QRCode, QROptions};
 require_once '../model/db.php';
 
 session_start();
@@ -16,13 +15,18 @@ if (!isset($_SESSION['usuario'])) {
 $usuario_id = $_SESSION['usuario_id'];
 $perfil_url = "http://marcoslopez.cat/view/perfilUsuario.vista.php?id=$usuario_id";
 
-$qrCode = new QrCode($perfil_url);
-$writer = new PngWriter();
+$options = new QROptions([
+    'version'    => 5,
+    'eccLevel'   => QRCode::ECC_L,
+    'outputType' => QRCode::OUTPUT_IMAGE_PNG,
+    'scale'      => 5,
+]);
+
+$qrcode = new QRCode($options);
 $qrCodePath = __DIR__ . "/../img/qr_$usuario_id.png";
 
 try {
-    $result = $writer->write($qrCode);
-    $result->saveToFile($qrCodePath);
+    $qrcode->render($perfil_url, $qrCodePath);
 
     // Guardar la URL del código QR en la base de datos
     $qrCodeUrl = "../img/qr_$usuario_id.png";
