@@ -9,8 +9,9 @@
 </head>
 <body>
     <a href="../index.php" class="btn back-to-index">Tornar a l'índex</a>
+    <button id="fetch-articles" class="btn">Carregar Articles</button>
     <div id="articles-container">
-        <!-- Los artículos se cargarán aquí mediante Ajax -->
+        <!-- Los artículos se cargarán aquí mediante Fetch -->
     </div>
 </body>
 </html>

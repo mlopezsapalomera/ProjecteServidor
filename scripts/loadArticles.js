@@ -1,34 +1,50 @@
-document.addEventListener('DOMContentLoaded', function() {
-    fetch('../controllers/loadArticles.controller.php')
-        .then(response => response.text())
+document.getElementById('fetch-articles').addEventListener('click', function() {
+    fetch('../controllers/fetchData.controller.php')
+        .then(response => response.json())
         .then(data => {
-            document.getElementById('articles-container').innerHTML = data;
+            if (!data.success) {
+                console.error(data.message);
+                return;
+            }
+            const container = document.getElementById('articles-container');
+            let html = '<div class="pokemons-container">';
+            data.data.forEach(pokemon => {
+                html += `<div class="pokemon-card">
+                            <img src="../img/${pokemon.imatge}" alt="${pokemon.title}">
+                            <div class="pokemon-info">
+                                <h3>${pokemon.title}</h3>
+                                <p>${pokemon.content}</p>
+                                <p>Força: ${pokemon.força}</p>
+                                <p>Vida: ${pokemon.vida}</p>
+                                <p>Daño: ${pokemon.dany}</p>
+                                <p>Tipus: ${pokemon.tipus}</p>
+                                <button class="toggle-visibility" data-id="${pokemon.id}" data-visible="${pokemon.visible ? '1' : '0'}">
+                                    ${pokemon.visible ? 'Marcar como invisible' : 'Marcar como visible'}
+                                </button>
+                            </div>
+                         </div>`;
+            });
+            html += '</div>';
+            container.innerHTML = html;
 
-            // Usar event delegation para manejar clics en los botones
-            document.getElementById('articles-container').addEventListener('click', function(event) {
-                if (event.target && event.target.classList.contains('toggle-visibility')) {
-                    const button = event.target;
-                    const articleId = button.getAttribute('data-id');
-                    const currentVisibility = button.getAttribute('data-visible') === '1';
-                    fetch('../controllers/toggleVisibility.controller.php', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({ id: articleId, visible: !currentVisibility })
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            button.textContent = data.visible ? 'Marcar como invisible' : 'Marcar como visible';
-                            button.setAttribute('data-visible', data.visible ? '1' : '0');
-                        } else {
-                            alert('Error al actualizar la visibilidad del artículo.');
-                        }
-                    })
-                    .catch(error => console.error('Error:', error));
-                }
+            // Añadir event listeners para los botones de visibilidad
+            document.querySelectorAll('.toggle-visibility').forEach(button => {
+                button.addEventListener('click', function() {
+                    const pokemonId = this.getAttribute('data-id');
+                    const visible = this.getAttribute('data-visible') === '1' ? '0' : '1';
+                    fetch(`../controllers/toggleVisibility.controller.php?id=${pokemonId}&visible=${visible}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                this.textContent = visible === '1' ? 'Marcar como invisible' : 'Marcar como visible';
+                                this.setAttribute('data-visible', visible);
+                            } else {
+                                console.error(data.message);
+                            }
+                        })
+                        .catch(error => console.error('Error updating visibility:', error));
+                });
             });
         })
-        .catch(error => console.error('Error loading articles:', error));
+        .catch(error => console.error('Error fetching data:', error));
 });
