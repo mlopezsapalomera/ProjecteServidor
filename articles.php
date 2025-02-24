@@ -50,7 +50,7 @@ function mostrarPokemons($pokemons_por_pagina = 5, $orden = 'asc', $search_term 
             $imagen = isset($pokemon['imatge']) ? $pokemon['imatge'] : 'default.jpg';
             $descripcion = isset($pokemon['descripció']) ? $pokemon['descripció'] : 'No description available.';
             echo '<div class="pokemon-card">';
-            echo '<img src="img/' . htmlspecialchars($imagen) . '" alt="Pokemon Image" onclick="openImageModal(this.src)">';
+            echo '<img src="img/' . htmlspecialchars($imagen) . '" alt="Imagen de ' . htmlspecialchars($pokemon['nom']) . '" onclick="openImageModal(this.src)">';
             echo '<div class="pokemon-info">';
             echo '<h3>' . htmlspecialchars($pokemon['nom']) . '</h3>';
             echo '<p>' . htmlspecialchars($descripcion) . '</p>';

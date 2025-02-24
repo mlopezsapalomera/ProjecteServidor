@@ -86,12 +86,13 @@ $search_term = isset($_GET['search']) ? $_GET['search'] : '';
     <link rel="stylesheet" href="styles/styles.css">
 </head>
 <body>
+    <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
     <header>
         <h1>Pokedex Global</h1>
         <div class="user-actions">
             <?php if ($is_logged_in): ?>
                 <div class="user-profile">
-                    <img src="userProfile/img/<?php echo $_SESSION['imagen'] ?? 'default.jpg'; ?>" alt="User Profile" class="profile-icon" id="profile-icon">
+                    <img src="userProfile/img/<?php echo $_SESSION['imagen'] ?? 'default.jpg'; ?>" alt="Foto de perfil de <?php echo $_SESSION['nombre']; ?>" class="profile-icon" id="profile-icon">
                     <div class="dropdown-menu" id="dropdown-menu">
                         <a href="view/miPerfil.vista.php" class="btn">Mi Perfil</a>
                         <a href="view/vistaAjax.php" class="btn" id="view-articles">Ver Artículos</a>
@@ -107,7 +108,7 @@ $search_term = isset($_GET['search']) ? $_GET['search'] : '';
             <?php endif; ?>
         </div>
     </header>
-    <main>
+    <main id="main-content">
         <div class="main-left">
             <!-- Formulario para seleccionar el número de pokemons por página, el orden y buscar por nombre -->
             <form id="pokemons-form" method="GET" action="index.php">
@@ -137,6 +138,7 @@ $search_term = isset($_GET['search']) ? $_GET['search'] : '';
                 <div class="search-insert-box">
                     <div class="search">
                         <form action="index.php" method="GET">
+                            <label for="search" class="label-search">Buscar Pokemon:</label>
                             <input type="text" name="search" id="search" class="search-box" placeholder="Buscar Pokemon" value="<?php echo $search_term; ?>">
                         </form>
                     </div>

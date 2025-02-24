@@ -1,12 +1,16 @@
 <!DOCTYPE html>
-<html lang="ca">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Pokedex Global-Mi Perfil</title>
+    <title>Mi Perfil</title>
     <link rel="icon" href="../img/favicon.png" type="image/png">
     <link rel="stylesheet" href="../styles/styles.css">
 </head>
 <body>
+    <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+    <header>
+        <h1>Mi Perfil</h1>
+    </header>
     <a href="../index.php" class="btn back-to-index">Tornar a l'índex</a>
     <form class="profile-form" action="../controllers/perfil.controller.php" method="POST" enctype="multipart/form-data">
         <h2>Mi Perfil</h2>
@@ -41,6 +45,7 @@
     </div>
     <div class="qr-code-reader">
         <form id="qr-reader-form" enctype="multipart/form-data">
+            <label for="qr_image">Subir Código QR:</label>
             <input type="file" id="qr_image" name="qr_image" accept="image/*">
             <button type="submit" class="btn btn-primary">Leer Código QR</button>
         </form>
@@ -72,14 +77,8 @@
             fetch('../controllers/generateQrCode.controller.php')
                 .then(response => response.json())
                 .then(data => {
-                    if (data.success) {
-                        document.getElementById('qr-code-image-container').innerHTML = `<img src="${data.qrCodeUrl}" alt="Código QR" class="qr-code">`;
-                    } else {
-                        alert('Error al generar el código QR: ' + data.message);
-                    }
-                })
-                .catch(error => {
-                    alert('Error al generar el código QR: ' + error.message);
+                    const qrCodeContainer = document.getElementById('qr-code-image-container');
+                    qrCodeContainer.innerHTML = `<img src="${data.qrCodeUrl}" alt="Código QR">`;
                 });
         });
 

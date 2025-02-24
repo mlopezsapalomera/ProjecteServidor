@@ -1,12 +1,16 @@
 <!DOCTYPE html>
-<html lang="ca">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Pokedex Global-Restablecer Contraseña</title>
+    <title>Restablecer Contrasenya</title>
     <link rel="stylesheet" href="../styles/styles.css">
     <link rel="icon" href="../img/favicon.png" type="image/png">
 </head>
 <body>
+    <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+    <header>
+        <h1>Restablecer Contrasenya</h1>
+    </header>
     <a href="login.vista.php" class="btn back-to-index">Tornar a l'inici de sessió</a>
     <form action="../controllers/restablecerContrasena.controller.php" method="POST">
         <h2>Restablecer Contraseña</h2>
