@@ -1,6 +1,9 @@
+-- phpMyAdmin SQL Dump
+-- version 5.2.1
+-- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 03-02-2025 a las 09:40:10
+-- Tiempo de generación: 05-02-2025 a las 19:20:19
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -8,8 +11,10 @@ SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
 
+DROP DATABASE IF EXISTS `ddb239154`;
 CREATE DATABASE IF NOT EXISTS `ddb239154`;
 USE "ddb239154";
+
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -67,23 +72,23 @@ CREATE TABLE `pokemons` (
   `dany` int(11) DEFAULT NULL,
   `vida` int(11) DEFAULT NULL,
   `tipus` varchar(100) DEFAULT NULL,
-  `usuario_id` int(11) DEFAULT NULL
+  `usuario_id` int(11) DEFAULT NULL,
+  `visible` tinyint(1) DEFAULT 0
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Volcado de datos para la tabla `pokemons`
 --
 
-INSERT INTO `pokemons` (`id`, `nom`, `imatge`, `descripció`, `força`, `dany`, `vida`, `tipus`, `usuario_id`) VALUES
-(3, 'squirtle', 'lobo-solitario.png', NULL, 48, 50, 44, 'water', 24),
-(2, 'ivysaur', 'images.jpeg', NULL, 62, 80, 60, 'grass, poison', 25),
-(4, 'bulbasaur', 'st,small,507x507-pad,600x600,f8f8f8.jpg', NULL, 49, 65, 45, 'grass, poison', 24),
-(5, 'weedle', 'Fm6zfFAWIAE6vCG.jpg', NULL, 35, 20, 40, 'bug, poison', 24),
-(6, 'venomoth', 'lobo-solitario.png', NULL, 65, 90, 70, 'bug, poison', 24),
-(7, 'metapod', 'lobo-solitario.png', NULL, 20, 25, 50, 'bug', 24),
-(8, 'bulbasaur', 'st,small,507x507-pad,600x600,f8f8f8.jpg', NULL, 49, 65, 45, 'grass, poison', 24),
-(9, 'venusaur', 'lobo-solitario.png', NULL, 82, 100, 80, 'grass, poison', 24),
-(10, 'fearow', 'tqn3ctv4ium71.webp', NULL, 90, 61, 65, 'normal, flying', 24);
+INSERT INTO `pokemons` (`id`, `nom`, `imatge`, `descripció`, `força`, `dany`, `vida`, `tipus`, `usuario_id`, `visible`) VALUES
+(2, 'ivysaur', 'images.jpeg', NULL, 62, 80, 60, 'grass, poison', 25, 0),
+(17, 'squirtle', 'SV08_ES_232.png', NULL, 48, 50, 44, 'water', 24, 1),
+(16, 'ivysaur', 'SV08_ES_59.png', NULL, 62, 80, 60, 'grass, poison', 24, 1),
+(11, 'ivysaur', 'SV08_ES_59.png', 'fewfwe', 62, 80, 60, 'grass, poison', 24, 1),
+(12, 'venusaur', 'SV08_ES_4.png', NULL, 82, 100, 80, 'grass, poison', 24, 1),
+(13, 'sandy-shocks', 'SVP_ES_192.png', NULL, 81, 121, 85, 'electric, ground', 24, 1),
+(14, 'ivysaur', 'SV08_ES_232.png', NULL, 62, 80, 60, 'grass, poison', 26, 1),
+(15, 'charmeleon', 'SVP_ES.png', NULL, 64, 80, 58, 'fire', 26, 1);
 
 -- --------------------------------------------------------
 
@@ -126,8 +131,9 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `nom`, `email`, `password`, `rol`, `imagen`, `qr_code_url`) VALUES
-(24, 'Marrkitus', 'mxrcol18@gmail.com', '$2y$10$4vL50zQZrKJCXQIyKP9f7.IYTII2abjXGbPjkQmiFw4lxKlQJLlw.', '', 'tqn3ctv4ium71.webp', '../img/qr_24.png'),
-(25, 'User Pruebas', 'user1@gmail.com', '$2y$10$Nf/lZF4Wlhz.FDpGdPfjxeZZELcrcnjVgHGXZVPUIvaSd/Uy2AVjG', '', 'default.jpg', NULL);
+(24, 'Marrkitus', 'mxrcol18@gmail.com', '$2y$10$izlFB8wgHVWGZqZUS0.4IeZ0oVWTl.GrtFhZKYX/p3S7lvX0ffc/6', '', 'favicon.png', '../img/qr_24.png'),
+(25, 'User Pruebas', 'user1@gmail.com', '$2y$10$Nf/lZF4Wlhz.FDpGdPfjxeZZELcrcnjVgHGXZVPUIvaSd/Uy2AVjG', '', 'default.jpg', NULL),
+(26, 'Pruebas', 'pruebas@gmail.com', '$2y$10$YNuEqoF/p/BW1LeQLu5/KOC5SOAu9tHqnYyeI6jcNvzNge5mbmxBC', '', 'default.jpg', '../img/qr_26.png');
 
 --
 -- Índices para tablas volcadas
@@ -187,7 +193,7 @@ ALTER TABLE `password_resets`
 -- AUTO_INCREMENT de la tabla `pokemons`
 --
 ALTER TABLE `pokemons`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT de la tabla `user_tokens`
@@ -199,7 +205,7 @@ ALTER TABLE `user_tokens`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- Restricciones para tablas volcadas
@@ -216,4 +222,3 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
