@@ -8,8 +8,8 @@
 
 /* Base styles */
 body {
-  background: #222;
-  color: #f4f4f4;
+  background: #ffffff; /* Fondo blanco */
+  color: #000000; /* Texto negro */
   line-height: 1.6;
 }
 
@@ -49,7 +49,7 @@ nav {
 }
 
 nav a {
-  color: #f4f4f4;
+  color: #1a0dab; /* Azul con buen contraste */
   text-decoration: none;
   font-weight: bold;
   font-size: 1.2rem;
@@ -57,7 +57,7 @@ nav a {
 }
 
 nav a:hover {
-  color: #FFDE00; /* Amarillo Pikachu */
+  color: #d61a3c; /* Rojo con buen contraste */
 }
 
 /* Modificar el contenedor de pokemons */
@@ -245,21 +245,21 @@ nav a:hover {
 }
 
 .btn-primary {
-  background-color: #FF0000; /* Rojo Pokémon */
-  color: white;
+  background-color: #0056b3; /* Azul oscuro */
+  color: #ffffff; /* Texto blanco */
 }
 
 .btn-primary:hover {
-  background-color: #CC0000; /* Rojo más oscuro */
+  background-color: #003d80; /* Azul más oscuro */
 }
 
 .btn-secondary {
-  background-color: #FFDE00; /* Amarillo Pikachu */
-  color: white;
+  background-color: #ffcc00; /* Amarillo oscuro */
+  color: #000000; /* Texto negro */
 }
 
 .btn-secondary:hover {
-  background-color: #CCAC00; /* Amarillo más oscuro */
+  background-color: #cc9900; /* Amarillo más oscuro */
 }
 
 /* Estilo para los botones de acción en el formulario */
